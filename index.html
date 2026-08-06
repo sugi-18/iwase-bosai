@@ -2,10 +2,12 @@
 <html lang="ja">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>岩瀬自治会 防災アプリ</title>
+
 
 <style>
 
@@ -18,25 +20,25 @@ body {
 
 
 h1 {
-    color: #1f4e79;
+    color:#1f4e79;
 }
 
 
-/* タイトル部分 */
+/* タイトル */
 
 .title-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:5px;
 }
 
 
 .title-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
 }
 
 
@@ -55,13 +57,12 @@ h1 {
 }
 
 
-
-/* パソコン表示 */
+/* PC表示 */
 
 @media screen and (min-width:600px){
 
     .title-main {
-        flex-direction: row;
+        flex-direction:row;
         justify-content:center;
         align-items:center;
         gap:20px;
@@ -74,7 +75,6 @@ h1 {
 }
 
 
-
 /* メニュー */
 
 .menu {
@@ -83,83 +83,121 @@ h1 {
 
 
 
-/* カード */
+/* 通常カード */
 
 .card {
+
     background:white;
+
     width:90%;
+
     max-width:400px;
+
     margin:15px auto;
+
     padding:20px;
+
     border-radius:10px;
+
 }
 
 
 
 /* ボタン */
 
-a {
+.card a {
+
     display:block;
+
     text-decoration:none;
+
     color:white;
+
     background:#1f77b4;
+
     padding:15px;
+
     border-radius:8px;
+
     font-size:18px;
+
     font-weight:bold;
+
     transition:0.3s;
+
 }
 
 
-/* ホバー効果 */
+.card a:hover {
 
-a:hover {
     background:#155a8a;
+
     transform:scale(1.03);
+
 }
 
 
 
-/* ロゴ */
-
-.logo {
-    width:80%;
-    max-width:400px;
-    margin-top:20px;
-}
+/* 訓練部分 */
 
 .training-section {
-    margin: 40px 15px;
-    text-align: center;
+
+    margin:40px 15px;
+
+    text-align:center;
+
 }
 
+
+/* 赤枠→赤アンダーラインへ変更 */
 
 .training-section h2 {
-    background-color: #d62828;
-    color:white;
-    padding:15px;
-    border-radius:10px;
+
+    display:inline-block;
+
+    color:#d62828;
+
+    padding-bottom:8px;
+
+    border-bottom:4px solid #d62828;
+
 }
 
+
+
+/* 訓練ボタン */
 
 .training-menu {
+
     display:flex;
+
     flex-direction:column;
+
     gap:15px;
+
+    width:90%;
+
+    max-width:400px;
+
+    margin:0 auto;
+
 }
+
 
 
 .training-card {
 
     display:block;
+
     text-decoration:none;
+
     color:#333;
 
     background:white;
 
     padding:20px;
 
-    border-radius:15px;
+    border-radius:10px;
 
     box-shadow:0 4px 8px rgba(0,0,0,0.15);
 
@@ -168,13 +206,15 @@ a:hover {
 }
 
 
+
 .training-card:hover {
 
-    transform:translateY(-5px);
+    transform:scale(1.03);
 
     background:#fff3f3;
 
 }
+
 
 
 .training-card h3 {
@@ -193,12 +233,29 @@ a:hover {
 }
 
 
+
+/* ロゴ */
+
+.logo {
+
+    width:80%;
+
+    max-width:400px;
+
+    margin-top:20px;
+
+}
+
+
 </style>
+
 
 </head>
 
 
+
 <body>
+
 
 
 <div class="title-area">
@@ -206,8 +263,9 @@ a:hover {
 
 <div class="title-main">
 
+
 <img src="./images/bosai-iwapon.png"
-     class="character">
+class="character">
 
 
 <h1>
@@ -225,6 +283,8 @@ a:hover {
 
 
 </div>
+
+
 
 
 
@@ -267,6 +327,7 @@ a:hover {
 
 
 
+
 <div class="card">
 
 <h2>✅ 防災チェックリスト</h2>
@@ -276,14 +337,18 @@ a:hover {
 防災力を診断します
 </p>
 
+
 <a href="./checklist/">
 診断する
 </a>
 
+
 </div>
 
 
-    
+
+
+
 <div class="card">
 
 <h2>🗺 岩瀬防災マップ</h2>
@@ -292,57 +357,105 @@ a:hover {
 地域の避難場所や危険箇所、防災関連設備を確認
 </p>
 
+
 <a href="https://www.google.com/maps/d/u/0/edit?hl=ja&mid=1LzzFPXh2YT1kgTya6REbD_YAigNAh4A&ll=35.78450755194393%2C139.90686938816555&z=16"
 target="_blank">
+
 地図を見る
+
 </a>
 
+
 </div>
+
 
 
 
 
 <section class="training-section">
 
-<h2>🚒 岩瀬防災訓練</h2>
+
+<h2>
+🚒 岩瀬防災訓練
+</h2>
+
+
 
 <div class="training-menu">
 
-<a href="next-training.html" class="training-card">
 
-<h3>📅 次回訓練</h3>
+<a href="./next-training/next-training.html"
+class="training-card">
+
+
+<h3>
+📅 次回訓練
+</h3>
+
 
 <p>
 次回防災訓練のお知らせ
 </p>
 
+
 </a>
 
 
-<a href="schedule.html" class="training-card">
-<h3>🗓 年間計画</h3>
+
+
+<a href="./annual_schedule/annual_schedule.html"
+class="training-card">
+
+
+<h3>
+🗓 年間計画
+</h3>
+
+
 <p>
 年間の防災活動予定を確認できます。
 </p>
+
+
 </a>
 
 
-<a href="record.html" class="training-card">
-<h3>📷 活動実績</h3>
+
+
+<a href="./record/record.html"
+class="training-card">
+
+
+<h3>
+📷 活動実績
+</h3>
+
+
 <p>
 過去の訓練内容や写真を見ることができます。
 </p>
+
+
 </a>
 
+
+
 </div>
+
 
 </section>
 
+
+
+
+
 <img src="./images/iwase-logo.png"
-     class="logo">
+class="logo">
+
 
 
 </div>
+
 
 
 </body>
