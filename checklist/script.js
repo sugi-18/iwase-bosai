@@ -204,10 +204,9 @@ function diagnose(){
 function createRadarChart(data){
 
 
-    const ctx =
-    document.getElementById(
-        "radarChart"
-    );
+const ctx = document
+    .getElementById("radarChart")
+    .getContext("2d");   
 
 
     if(radarChart){
@@ -218,89 +217,61 @@ function createRadarChart(data){
 
 
 
-    radarChart =
-    new Chart(ctx, {
+ radarChart = new Chart(ctx, {
 
+    type:"radar",
 
-        type:"radar",
+    data:{
 
+        labels:[
+            "家の安全",
+            "備蓄",
+            "避難",
+            "地域"
+        ],
 
-        data:{
+        datasets:[{
 
+            label:"防災力",
 
-            labels:[
-
-                "家の安全",
-
-                "備蓄",
-
-                "避難",
-
-                "地域"
-
+            data:[
+                data.home,
+                data.stock,
+                data.evac,
+                data.community
             ],
 
+            borderWidth:2,
 
-            datasets:[{
+            fill:true
 
+        }]
 
-                label:"防災力",
+    },
 
-                data:[
+    options:{
 
-                    data.home,
+        responsive:true,
 
-                    data.stock,
+        scales:{
 
-                    data.evac,
+            r:{
 
-                    data.community
+                min:0,
 
-                ],
+                max:100,
 
-                borderWidth:2
-
-            }]
-
-
-        },
-
-
-        options:{
-
-
-            responsive:true,
-
-
-            scales:{
-
-
-                r:{
-
-
-                    min:0,
-
-                    max:100,
-
-
-                    ticks:{
-
-
-                        stepSize:20
-
-                    }
-
-
+                ticks:{
+                    stepSize:20
                 }
-
 
             }
 
-
         }
 
+    }
 
-    });
+});
 
 
 }
@@ -309,88 +280,58 @@ function createRadarChart(data){
 
 // PDF保存
 
-async function savePDF(){
+radarChart = new Chart(ctx, {
 
+    type:"radar",
 
+    data:{
 
-    const target =
-    document.getElementById(
-        "result"
-    );
+        labels:[
+            "家の安全",
+            "備蓄",
+            "避難",
+            "地域"
+        ],
 
+        datasets:[{
 
-    const canvas =
-    await html2canvas(target);
+            label:"防災力",
 
+            data:[
+                data.home,
+                data.stock,
+                data.evac,
+                data.community
+            ],
 
+            borderWidth:2,
 
-    const imgData =
-    canvas.toDataURL(
-        "image/png"
-    );
+            fill:true
 
+        }]
 
+    },
 
-    const {
-        jsPDF
-    } =
-    window.jspdf;
+    options:{
 
+        responsive:true,
 
+        scales:{
 
-    const pdf =
-    new jsPDF(
-        "p",
-        "mm",
-        "a4"
-    );
+            r:{
 
+                min:0,
 
+                max:100,
 
-    const imgWidth = 190;
+                ticks:{
+                    stepSize:20
+                }
 
+            }
 
-    const imgHeight =
-    canvas.height *
-    imgWidth /
-    canvas.width;
+        }
 
+    }
 
-
-    pdf.text(
-
-        "岩瀬自治会 防災チェック診断結果",
-
-        10,
-        15
-
-    );
-
-
-
-    pdf.addImage(
-
-        imgData,
-
-        "PNG",
-
-        10,
-
-        25,
-
-        imgWidth,
-
-        imgHeight
-
-    );
-
-
-
-    pdf.save(
-
-        "防災チェック診断結果.pdf"
-
-    );
-
-
-}
+});
