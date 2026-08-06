@@ -128,6 +128,70 @@ a:hover {
     margin-top:20px;
 }
 
+.training-section {
+    margin: 40px 15px;
+    text-align: center;
+}
+
+
+.training-section h2 {
+    background-color: #d62828;
+    color:white;
+    padding:15px;
+    border-radius:10px;
+}
+
+
+.training-menu {
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+
+.training-card {
+
+    display:block;
+    text-decoration:none;
+    color:#333;
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:15px;
+
+    box-shadow:0 4px 8px rgba(0,0,0,0.15);
+
+    transition:0.3s;
+
+}
+
+
+.training-card:hover {
+
+    transform:translateY(-5px);
+
+    background:#fff3f3;
+
+}
+
+
+.training-card h3 {
+
+    margin-top:0;
+
+    color:#d62828;
+
+}
+
+
+.training-card p {
+
+    font-size:14px;
+
+}
+
 
 </style>
 
@@ -237,6 +301,39 @@ target="_blank">
 
 
 
+
+<section class="training-section">
+
+<h2>🚒 岩瀬防災訓練</h2>
+
+<div class="training-menu">
+
+<a href="next-training.html" class="training-card">
+<h3>📅 次回訓練</h3>
+<p>
+次回の防災訓練予定を確認できます。
+</p>
+</a>
+
+
+<a href="schedule.html" class="training-card">
+<h3>🗓 年間計画</h3>
+<p>
+年間の防災活動予定を確認できます。
+</p>
+</a>
+
+
+<a href="record.html" class="training-card">
+<h3>📷 活動実績</h3>
+<p>
+過去の訓練内容や写真を見ることができます。
+</p>
+</a>
+
+</div>
+
+</section>
 
 <img src="./images/iwase-logo.png"
      class="logo">
