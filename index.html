@@ -27,6 +27,46 @@ h1 {
     gap: 5px;
 }
 
+
+.title-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.character {
+    width:120px;
+}
+
+
+.title-area h1 {
+    margin:0;
+}
+
+
+.title-area p {
+    margin:5px 0;
+}
+
+
+/* パソコン表示 */
+@media screen and (min-width: 600px) {
+
+    .title-main {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap:20px;
+    }
+
+    .character {
+        width:120px;
+    }
+
+}
+
 .character {
     width: 120px;
 }
@@ -71,6 +111,8 @@ h1 {
 
 <div class="title-area">
 
+<div class="title-main">
+
 <img src="./images/bosai-iwapon.png"
      class="character">
 
@@ -79,9 +121,13 @@ h1 {
 防災アプリ
 </h1>
 
+</div>
+
 <p>
 岩瀬自治会の防災活動を支援するためのWebアプリです
 </p>
+
+</div>
 
 </div>
 
