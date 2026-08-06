@@ -24,16 +24,7 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     gap: 10px;
-}
-
-.character {
-    width: 150px;
-}
-
-.title-area h1 {
-    margin: 0;
 }
 
 .character {
@@ -50,7 +41,8 @@ h1 {
 
 .card {
     background: white;
-    width: 300px;
+    width: 90%;
+    max-width: 400px;
     margin: 20px auto;
     padding: 20px;
     border-radius: 10px;
@@ -65,24 +57,35 @@ a {
     border-radius: 5px;
 }
 
+.logo {
+    width:80%;
+    max-width:500px;
+    margin-top:40px;
+}
+
 </style>
 
 </head>
 
 
 <body>
-    
-    <div class="title-area">
 
-    <img src="./images/bosai-iwapon.png"
-         class="character">
+
+<div class="title-area">
+
+<img src="./images/bosai-iwapon.png"
+     class="character">
+
 <h1>
 岩瀬自治会<br>
 防災アプリ
 </h1>
+
 <p>
 岩瀬自治会の防災活動を支援するためのWebアプリです
 </p>
+
+</div>
 
 
 <div class="menu">
@@ -121,12 +124,7 @@ a {
 </div>
 
 
-</div>
 
-
-</body>
-
-</html>
 <div class="card">
 
 <h2>🗺 岩瀬防災マップ</h2>
@@ -135,11 +133,21 @@ a {
 地域の避難場所や危険箇所、防災関連設備を確認
 </p>
 
-<a href="https://www.google.com/maps/d/u/0/edit?hl=ja&mid=1LzzFPXh2YT1kgTya6REbD_YAigNAh4A&ll=35.78450755194393%2C139.90686938816555&z=16" target="_blank">
+<a href="https://www.google.com/maps/d/u/0/edit?hl=ja&mid=1LzzFPXh2YT1kgTya6REbD_YAigNAh4A&ll=35.78450755194393%2C139.90686938816555&z=16"
+target="_blank">
 地図を見る
 </a>
 
 </div>
 
+
 <img src="./images/iwase-logo.png"
-     style="width:80%; max-width:500px;">
+     class="logo">
+
+
+</div>
+
+
+</body>
+
+</html>
