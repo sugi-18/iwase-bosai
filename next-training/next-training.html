@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="ja">
+
 <head>
 
 <meta charset="UTF-8">
@@ -8,12 +11,116 @@
 
 <link rel="stylesheet" href="../style.css">
 
+
+<style>
+
+.next-training {
+
+    max-width:900px;
+
+    margin:30px auto;
+
+    padding:20px;
+
+    text-align:center;
+
+}
+
+
+.next-training h1 {
+
+    font-size:32px;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.training-image {
+
+    width:100%;
+
+    max-width:800px;
+
+    height:auto;
+
+    border-radius:15px;
+
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+
+}
+
+
+/* 戻るボタン */
+
+.back-button {
+
+    display:inline-block;
+
+    margin-top:30px;
+
+    padding:15px 35px;
+
+    background-color:#1976d2;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:30px;
+
+    font-size:18px;
+
+    transition:0.3s;
+
+}
+
+
+.back-button:hover {
+
+    background-color:#0d47a1;
+
+    transform:scale(1.05);
+
+}
+
+
+
+@media(max-width:600px){
+
+    .next-training h1{
+
+        font-size:24px;
+
+    }
+
+
+    .next-training{
+
+        padding:10px;
+
+    }
+
+}
+
+
+</style>
+
+
 </head>
 
 
 <body>
 
+
 <section class="next-training">
+
+
+<h1>
+🚒 次回防災訓練
+</h1>
+
 
 <img 
 src="training.png"
@@ -21,6 +128,19 @@ alt="次回防災訓練"
 class="training-image"
 >
 
+
+<br>
+
+
+<a href="../index.html" class="back-button">
+トップページへ戻る
+</a>
+
+
 </section>
 
+
 </body>
+
+
+</html>
