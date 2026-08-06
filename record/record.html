@@ -1,1 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>活動実績</title>
+
+<link rel="stylesheet" href="../style.css">
+
+
+<style>
+
+.activity {
+
+    max-width:900px;
+
+    margin:30px auto;
+
+    padding:20px;
+
+    text-align:center;
+
+}
+
+
+.activity h1 {
+
+    font-size:32px;
+
+    margin-bottom:25px;
+
+}
+
+
+/* 写真一覧 */
+
+.activity-gallery {
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:25px;
+
+    align-items:center;
+
+}
+
+
+.activity-image {
+
+    width:100%;
+
+    max-width:800px;
+
+    height:auto;
+
+    border-radius:15px;
+
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+
+}
+
+
+
+/* 戻るボタン */
+
+.back-button {
+
+    display:inline-block;
+
+    margin-top:30px;
+
+    padding:15px 35px;
+
+    background-color:#1976d2;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:30px;
+
+    font-size:18px;
+
+    transition:0.3s;
+
+}
+
+
+.back-button:hover {
+
+    background-color:#0d47a1;
+
+    transform:scale(1.05);
+
+}
+
+
+
+@media(max-width:600px){
+
+    .activity h1{
+
+        font-size:24px;
+
+    }
+
+
+    .activity{
+
+        padding:10px;
+
+    }
+
+}
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+<section class="activity">
+
+
+<h1>
+📷 活動実績
+</h1>
+
+
+<div class="activity-gallery">
+
+
+<img
+src="activity01.JPG"
+alt="活動実績1"
+class="activity-image"
+>
+
+
+<img
+src="activity02.jpg"
+alt="活動実績2"
+class="activity-image"
+>
+
+
+<img
+src="activity03.JPG"
+alt="活動実績3"
+class="activity-image"
+>
+
+
+<img
+src="activity04.jpg"
+alt="活動実績4"
+class="activity-image"
+>
+
+
+</div>
+
+
+<a href="../index.html" class="back-button">
+トップページへ戻る
+</a>
+
+
+</section>
+
+
+</body>
+
+
+</html>
