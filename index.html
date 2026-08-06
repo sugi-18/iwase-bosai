@@ -16,9 +16,13 @@ body {
     padding: 30px;
 }
 
+
 h1 {
     color: #1f4e79;
 }
+
+
+/* タイトル部分 */
 
 .title-area {
     display: flex;
@@ -51,56 +55,80 @@ h1 {
 }
 
 
+
 /* パソコン表示 */
-@media screen and (min-width: 600px) {
+
+@media screen and (min-width:600px){
 
     .title-main {
         flex-direction: row;
-        justify-content: center;
-        align-items: center;
+        justify-content:center;
+        align-items:center;
         gap:20px;
     }
 
     .character {
-        width:120px;
+        width:140px;
     }
 
 }
 
-.character {
-    width: 120px;
-}
 
-.title-area h1 {
-    margin: 0;
-}
 
-.title-area p {
-    margin: 5px 0;
-}
-
+/* メニュー */
 
 .menu {
-    margin-top: 10px;
+    margin-top:10px;
 }
 
+
+
+/* カード */
 
 .card {
-    background: white;
-    width: 90%;
-    max-width: 400px;
-    margin: 15px auto;
-    padding: 20px;
-    border-radius: 10px;
+    background:white;
+    width:90%;
+    max-width:400px;
+    margin:15px auto;
+    padding:20px;
+    border-radius:10px;
 }
 
+
+
+/* ボタン */
+
+a {
+    display:block;
+    text-decoration:none;
+    color:white;
+    background:#1f77b4;
+    padding:15px;
+    border-radius:8px;
+    font-size:18px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+
+/* ホバー効果 */
+
+a:hover {
+    background:#155a8a;
+    transform:scale(1.03);
+}
+
+
+
+/* ロゴ */
 
 .logo {
     width:80%;
     max-width:400px;
     margin-top:20px;
 }
-    
+
+
 </style>
 
 </head>
@@ -111,28 +139,33 @@ h1 {
 
 <div class="title-area">
 
+
 <div class="title-main">
 
 <img src="./images/bosai-iwapon.png"
      class="character">
+
 
 <h1>
 岩瀬自治会<br>
 防災アプリ
 </h1>
 
+
 </div>
+
 
 <p>
 岩瀬自治会の防災活動を支援するためのWebアプリです
 </p>
 
-</div>
 
 </div>
+
 
 
 <div class="menu">
+
 
 
 <div class="card">
@@ -149,6 +182,7 @@ h1 {
 </a>
 
 </div>
+
 
 
 
@@ -169,6 +203,7 @@ h1 {
 
 
 
+
 <div class="card">
 
 <h2>🗺 岩瀬防災マップ</h2>
@@ -183,6 +218,8 @@ target="_blank">
 </a>
 
 </div>
+
+
 
 
 <img src="./images/iwase-logo.png"
