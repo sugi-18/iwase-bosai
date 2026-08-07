@@ -4,13 +4,18 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
 <title>
-いわぽん防災マイスター スタンプカード
+いわぽん防災マイスター
+スタンプカード
 </title>
 
+
 <link rel="stylesheet" href="stamp.css">
+
 
 </head>
 
@@ -28,7 +33,8 @@
 
 
 
-<!-- 登録 -->
+
+<!-- 登録画面 -->
 
 <section id="register-area">
 
@@ -53,7 +59,9 @@ placeholder="氏名">
 
 
 <button id="register-button">
+
 登録する
+
 </button>
 
 
@@ -63,7 +71,7 @@ placeholder="氏名">
 
 
 
-<!-- カード -->
+<!-- カード画面 -->
 
 <section id="card-area" style="display:none;">
 
@@ -75,23 +83,56 @@ placeholder="氏名">
 
 
 
+
 <p id="user-name"></p>
 
 
 
-<div class="count-box">
 
-<span id="stamp-count">
-0
-</span>
+<!-- QR表示 -->
 
-/5回
+<div class="qr-area">
+
+
+<h3>
+参加者ID
+</h3>
+
+
+<div id="qrcode"></div>
+
+
+<p id="user-id"></p>
+
 
 </div>
 
 
 
+
+
+<div class="count-box">
+
+
+<span id="stamp-count">
+
+0
+
+</span>
+
+
+/ 5回
+
+
+</div>
+
+
+
+
+
 <p id="message"></p>
+
+
 
 
 
@@ -112,6 +153,8 @@ type="date"
 id="stamp-date">
 
 
+<br>
+
 
 <input
 type="text"
@@ -129,7 +172,10 @@ placeholder="訓練内容">
 </button>
 
 
+
 </div>
+
+
 
 
 
@@ -146,12 +192,42 @@ placeholder="訓練内容">
 </h3>
 
 
+
 <ul id="history-list">
 
 </ul>
 
 
 </div>
+
+
+
+
+
+
+
+<!-- 認定証 -->
+
+<div id="certificate-area"
+style="display:none;">
+
+
+<a href="certificate.html">
+
+
+<button>
+
+認定証を見る
+
+</button>
+
+
+</a>
+
+
+</div>
+
+
 
 
 
@@ -164,9 +240,18 @@ placeholder="訓練内容">
 
 
 
+
+
+<!-- QRコードライブラリ -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+
 <script src="stamp.js"></script>
 
 
+
 </body>
+
 
 </html>
