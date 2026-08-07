@@ -1,17 +1,22 @@
+```html
 <!DOCTYPE html>
 <html lang="ja">
 
 <head>
 
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
-
 <meta charset="UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
 <title>
 いわぽん防災マイスター認定証
 </title>
+
+
+<link 
+href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&display=swap" 
+rel="stylesheet">
 
 
 <link rel="stylesheet" href="certificate.css">
@@ -20,13 +25,15 @@
 </head>
 
 
+
 <body>
 
 
-<div class="outer-border">
+<div id="certificate" class="outer-border">
 
 
 <div class="inner-border">
+
 
 
 <div class="logo">
@@ -39,11 +46,15 @@ alt="岩瀬自治会ロゴ">
 
 
 
+
+
 <h3 class="community">
 
 岩瀬自治会
 
 </h3>
+
+
 
 
 
@@ -57,11 +68,16 @@ alt="岩瀬自治会ロゴ">
 
 
 
+
+
 <h2 class="subtitle">
 
 認　定　証
 
 </h2>
+
+
+
 
 
 
@@ -77,27 +93,24 @@ alt="岩瀬自治会ロゴ">
 
 
 
+
+
+
 <div class="message">
 
 
 <p>
-
 あなたは岩瀬自治会が実施する
-
 </p>
 
 
 <p>
-
 防災訓練及び防災講座へ積極的に参加し、
-
 </p>
 
 
 <p>
-
 地域防災力向上に貢献されました。
-
 </p>
 
 
@@ -107,10 +120,9 @@ alt="岩瀬自治会ロゴ">
 
 
 <p>
-
 ここに
-
 </p>
+
 
 
 <p class="master">
@@ -118,6 +130,7 @@ alt="岩瀬自治会ロゴ">
 「いわぽん防災マイスター」
 
 </p>
+
 
 
 <p>
@@ -134,12 +147,16 @@ alt="岩瀬自治会ロゴ">
 
 
 
+
+
+
+
 <div class="info">
 
 
 <p>
 
-認定番号
+認定番号　
 
 <span id="number"></span>
 
@@ -149,11 +166,12 @@ alt="岩瀬自治会ロゴ">
 
 <p>
 
-認定日
+認定日　
 
 <span id="today"></span>
 
 </p>
+
 
 
 </div>
@@ -162,7 +180,12 @@ alt="岩瀬自治会ロゴ">
 
 
 
+
+
+
+
 <div class="footer">
+
 
 
 <div>
@@ -173,8 +196,9 @@ alt="岩瀬自治会ロゴ">
 
 自主防災部
 
-
 </div>
+
+
 
 
 
@@ -192,11 +216,6 @@ alt="認印">
 
 
 
-</div>
-
-
-
-</div>
 
 
 </div>
@@ -204,7 +223,21 @@ alt="認印">
 
 
 
-<button onclick="savePDF()">
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<button 
+onclick="downloadPDF()">
 
 📄 PDFを保存
 
@@ -212,9 +245,16 @@ alt="認印">
 
 
 
+
+
+
+
 <script src="certificate.js"></script>
+
 
 
 </body>
 
+
 </html>
+```
