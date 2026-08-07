@@ -1,32 +1,45 @@
-// ===========================
+// =================================
 // いわぽん防災マイスター
 // スタンプカード
-// STEP2
-// ===========================
+// 完成版
+// =================================
 
 
 const STORAGE_KEY = "iwaseStamp";
 
 
 
+
+
 window.onload = function(){
+
 
 
 document
 .getElementById("register-button")
 .addEventListener(
+
 "click",
+
 registerUser
+
 );
+
+
 
 
 
 document
 .getElementById("add-button")
 .addEventListener(
+
 "click",
+
 addStamp
+
 );
+
+
 
 
 
@@ -40,9 +53,10 @@ loadCard();
 
 
 
-// =================
+
+// ===============================
 // 利用者登録
-// =================
+// ===============================
 
 function registerUser(){
 
@@ -53,6 +67,7 @@ document
 .getElementById("username")
 .value
 .trim();
+
 
 
 
@@ -69,16 +84,26 @@ return;
 
 
 
+
 const data = {
 
 
+id:
+
+"IWASE-" + Date.now(),
+
+
+
 name:name,
+
 
 
 stamps:[]
 
 
 };
+
+
 
 
 
@@ -92,7 +117,10 @@ JSON.stringify(data)
 
 
 
+
+
 displayCard(data);
+
 
 
 }
@@ -104,11 +132,13 @@ displayCard(data);
 
 
 
-// =================
-// 読み込み
-// =================
+// ===============================
+// データ読み込み
+// ===============================
+
 
 function loadCard(){
+
 
 
 const saved =
@@ -119,12 +149,17 @@ STORAGE_KEY
 
 
 
+
 if(saved){
 
 
-displayCard(
-JSON.parse(saved)
-);
+const data =
+
+JSON.parse(saved);
+
+
+
+displayCard(data);
 
 
 }
@@ -139,11 +174,14 @@ JSON.parse(saved)
 
 
 
-// =================
+
+
+// ===============================
 // スタンプ追加
-// =================
+// ===============================
 
 function addStamp(){
+
 
 
 const date =
@@ -164,6 +202,7 @@ document
 
 
 
+
 if(date===""){
 
 
@@ -177,6 +216,7 @@ return;
 
 
 
+
 if(event===""){
 
 
@@ -187,6 +227,8 @@ return;
 
 
 }
+
+
 
 
 
@@ -221,7 +263,6 @@ event:event
 
 
 
-
 localStorage.setItem(
 
 STORAGE_KEY,
@@ -235,17 +276,9 @@ JSON.stringify(data)
 
 
 
-document
-.getElementById("stamp-event")
-.value="";
-
-
-
 displayCard(data);
 
 
-
-alert("スタンプを追加しました");
 
 
 
@@ -255,15 +288,14 @@ alert("スタンプを追加しました");
 
 
 
+// ===============================
+// カード表示
+// ===============================
 
-
-
-
-// =================
-// 表示
-// =================
 
 function displayCard(data){
+
+
 
 
 
@@ -273,9 +305,12 @@ document
 
 
 
+
 document
 .getElementById("card-area")
 .style.display="block";
+
+
 
 
 
@@ -291,6 +326,58 @@ data.name+" さん";
 
 
 
+
+
+// QR表示
+
+document
+.getElementById("qrcode")
+.innerHTML="";
+
+
+
+new QRCode(
+
+document
+.getElementById("qrcode"),
+
+{
+
+
+text:data.id,
+
+
+width:180,
+
+
+height:180
+
+
+}
+
+);
+
+
+
+
+
+document
+.getElementById("user-id")
+.textContent=
+
+"ID : "+data.id;
+
+
+
+
+
+
+
+
+
+// 回数表示
+
+
 document
 .getElementById("stamp-count")
 .textContent=
@@ -302,6 +389,12 @@ data.stamps.length;
 
 
 
+
+
+
+// 認定判定
+
+
 const message =
 
 document
@@ -309,25 +402,48 @@ document
 
 
 
-if(data.stamps.length>=5){
+
+
+if(data.stamps.length >=5){
+
 
 
 message.textContent=
 
-"🎉 いわぽん防災マイスター認定対象です！";
+"🎉 いわぽん防災マイスター認定です！";
+
+
+
+
+document
+.getElementById("certificate-area")
+.style.display="block";
+
 
 
 }
+
 else{
+
 
 
 message.textContent=
 
 "認定まであと "
+
 +
+
 (5-data.stamps.length)
+
 +
+
 " 回です";
+
+
+
+document
+.getElementById("certificate-area")
+.style.display="none";
 
 
 }
@@ -336,6 +452,12 @@ message.textContent=
 
 
 
+
+
+
+
+
+// 履歴表示
 
 
 const list =
@@ -365,10 +487,15 @@ document.createElement("li");
 li.textContent=
 
 stamp.date
+
 +
+
 " "
+
 +
+
 stamp.event;
+
 
 
 
@@ -381,6 +508,9 @@ list.appendChild(li);
 
 
 );
+
+
+
 
 
 
