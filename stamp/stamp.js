@@ -1,7 +1,7 @@
 // ===========================
 // いわぽん防災マイスター
 // スタンプカード
-// STEP1
+// STEP2
 // ===========================
 
 
@@ -12,13 +12,20 @@ const STORAGE_KEY = "iwaseStamp";
 window.onload = function(){
 
 
-const button =
-document.getElementById("register-button");
-
-
-button.addEventListener(
+document
+.getElementById("register-button")
+.addEventListener(
 "click",
 registerUser
+);
+
+
+
+document
+.getElementById("add-button")
+.addEventListener(
+"click",
+addStamp
 );
 
 
@@ -31,12 +38,17 @@ loadCard();
 
 
 
+
+
+// =================
 // 利用者登録
+// =================
 
 function registerUser(){
 
 
 const name =
+
 document
 .getElementById("username")
 .value
@@ -44,7 +56,7 @@ document
 
 
 
-if(name === ""){
+if(name===""){
 
 
 alert("氏名を入力してください");
@@ -83,7 +95,6 @@ JSON.stringify(data)
 displayCard(data);
 
 
-
 }
 
 
@@ -91,10 +102,13 @@ displayCard(data);
 
 
 
-// データ読み込み
+
+
+// =================
+// 読み込み
+// =================
 
 function loadCard(){
-
 
 
 const saved =
@@ -108,9 +122,122 @@ STORAGE_KEY
 if(saved){
 
 
+displayCard(
+JSON.parse(saved)
+);
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+// =================
+// スタンプ追加
+// =================
+
+function addStamp(){
+
+
+const date =
+
+document
+.getElementById("stamp-date")
+.value;
+
+
+
+const event =
+
+document
+.getElementById("stamp-event")
+.value
+.trim();
+
+
+
+
+if(date===""){
+
+
+alert("参加日を入力してください");
+
+
+return;
+
+
+}
+
+
+
+if(event===""){
+
+
+alert("訓練内容を入力してください");
+
+
+return;
+
+
+}
+
+
+
+
+
 const data =
 
-JSON.parse(saved);
+JSON.parse(
+
+localStorage.getItem(
+STORAGE_KEY
+)
+
+);
+
+
+
+
+
+data.stamps.push({
+
+
+date:date,
+
+
+event:event
+
+
+});
+
+
+
+
+
+
+localStorage.setItem(
+
+STORAGE_KEY,
+
+
+JSON.stringify(data)
+
+);
+
+
+
+
+
+document
+.getElementById("stamp-event")
+.value="";
 
 
 
@@ -118,7 +245,7 @@ displayCard(data);
 
 
 
-}
+alert("スタンプを追加しました");
 
 
 
@@ -128,7 +255,13 @@ displayCard(data);
 
 
 
-// カード表示
+
+
+
+
+// =================
+// 表示
+// =================
 
 function displayCard(data){
 
@@ -146,11 +279,15 @@ document
 
 
 
+
+
 document
 .getElementById("user-name")
 .textContent=
 
-data.name + " さん";
+data.name+" さん";
+
+
 
 
 
@@ -162,15 +299,17 @@ data.stamps.length;
 
 
 
+
+
+
 const message =
 
-document.getElementById(
-"message"
-);
+document
+.getElementById("message");
 
 
 
-if(data.stamps.length >=5){
+if(data.stamps.length>=5){
 
 
 message.textContent=
@@ -184,7 +323,7 @@ else{
 
 message.textContent=
 
-"認定まであと " 
+"認定まであと "
 +
 (5-data.stamps.length)
 +
@@ -196,15 +335,19 @@ message.textContent=
 
 
 
+
+
+
 const list =
 
-document.getElementById(
-"history-list"
-);
+document
+.getElementById("history-list");
 
 
 
 list.innerHTML="";
+
+
 
 
 
@@ -214,7 +357,9 @@ stamp=>{
 
 
 const li =
+
 document.createElement("li");
+
 
 
 li.textContent=
@@ -226,11 +371,14 @@ stamp.date
 stamp.event;
 
 
+
 list.appendChild(li);
 
 
 
 }
+
+
 
 );
 
