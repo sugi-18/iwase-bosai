@@ -144,23 +144,3 @@ background:#f1f1f1;
 border-radius:8px;
 
 }
-
-/* QRコード中央配置 */
-#qrcode,
-#qrCode,
-.qr-area {
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin:20px auto;
-}
-
-
-/* QRコードサイズ調整 */
-#qrcode img,
-#qrcode canvas,
-#qrCode img,
-#qrCode canvas {
-    width:180px;
-    height:180px;
-}
