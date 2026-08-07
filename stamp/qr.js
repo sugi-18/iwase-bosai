@@ -1,22 +1,43 @@
 function goStamp(){
 
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+
+
+const trainingData = {
+
+
+date:
+params.get("date"),
+
+
+name:
+params.get("name"),
+
+
+detail:
+params.get("detail")
+
+
+};
+
+
+
 localStorage.setItem(
 
 "qrTraining",
 
-JSON.stringify({
-
-date:"2026-08-07",
-
-name:"夏季防災訓練",
-
-detail:"消火器訓練・AED訓練"
-
-})
+JSON.stringify(trainingData)
 
 );
 
 
+
 location.href="index.html";
+
 
 }
