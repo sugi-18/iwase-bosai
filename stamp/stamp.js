@@ -2,247 +2,260 @@ const MAX_STAMP = 10;
 
 
 // 初期表示
-
-window.onload=function(){
-
-loadData();
-
+window.onload = function(){
+    loadData();
+    loadQRData();
 };
 
 
-
+// ユーザー登録
 function registerUser(){
 
+    let name =
+    document.getElementById("username").value;
 
-let name =
-document.getElementById("username").value;
-
-
-if(name===""){
-
-alert("氏名を入力してください");
-
-return;
-
-}
+    if(name===""){
+        alert("氏名を入力してください");
+        return;
+    }
 
 
-let data={
-
-name:name,
-
-stamps:[],
-
-history:[]
-
-};
+    let data = {
+        name:name,
+        stamps:[],
+        history:[]
+    };
 
 
-localStorage.setItem(
-"iwaseStamp",
-JSON.stringify(data)
-);
+    localStorage.setItem(
+        "iwaseStamp",
+        JSON.stringify(data)
+    );
 
 
-loadData();
-
-
+    loadData();
 }
 
 
 
-// 表示
-
+// データ表示
 function loadData(){
 
-
-let data =
-JSON.parse(
-localStorage.getItem("iwaseStamp")
-);
-
+    let data =
+    JSON.parse(
+        localStorage.getItem("iwaseStamp")
+    );
 
 
-if(!data){
+    if(!data){
 
-document.getElementById("register-area")
-.style.display="block";
+        let area =
+        document.getElementById("register-area");
 
+        if(area){
+            area.style.display="block";
+        }
 
-return;
-
-}
-
-
-
-document.getElementById("register-area")
-.style.display="none";
+        return;
+    }
 
 
-document.getElementById("card-area")
-.style.display="block";
+    document.getElementById("register-area")
+    .style.display="none";
 
 
-document.getElementById("display-name")
-.innerHTML=data.name;
+    document.getElementById("card-area")
+    .style.display="block";
 
 
-document.getElementById("count")
-.innerHTML=data.stamps.length;
+    document.getElementById("display-name")
+    .innerHTML=data.name;
 
 
-
-showStamps(data.stamps.length);
-
-showHistory(data.history);
+    document.getElementById("count")
+    .innerHTML=data.stamps.length;
 
 
 
-if(data.stamps.length>=5){
+    showStamps(data.stamps.length);
 
-document.getElementById("message")
-.innerHTML=
-"🎉 いわぽん防災マイスター認定対象です！";
-
-}
+    showHistory(data.history);
 
 
 
-if(data.stamps.length>=10){
+    let message =
+    document.getElementById("message");
 
-document.getElementById("message")
-.innerHTML=
-"🏆 スタンプ10個達成！防災マスターです！";
 
-}
+    if(data.stamps.length>=10){
 
+        message.innerHTML =
+        "🏆 スタンプ10個達成！<br>防災マスター認定です！";
+
+        document.getElementById("certificate")
+        .style.display="block";
+
+    }
+
+    else if(data.stamps.length>=5){
+
+        message.innerHTML =
+        "🎉 いわぽん防災マイスター認定対象です！";
+
+    }
+
+    else{
+
+        message.innerHTML =
+        "防災訓練に参加してスタンプを集めよう！";
+
+    }
 
 }
 
 
 
 // スタンプ表示
-
 function showStamps(count){
 
+    let area =
+    document.getElementById("stamps");
 
-let area=
-document.getElementById("stamps");
-
-
-area.innerHTML="";
+    area.innerHTML="";
 
 
-for(let i=1;i<=MAX_STAMP;i++){
+    for(let i=1;i<=MAX_STAMP;i++){
+
+        let div =
+        document.createElement("div");
 
 
-let div=document.createElement("div");
+        div.className="stamp";
 
 
-div.className="stamp";
+        if(i<=count){
+
+            div.classList.add("active");
+            div.innerHTML="★";
+
+        }else{
+
+            div.innerHTML="☆";
+
+        }
 
 
-if(i<=count){
+        area.appendChild(div);
 
-div.classList.add("active");
-
-div.innerHTML="★";
-
-}else{
-
-div.innerHTML="☆";
-
-}
-
-
-area.appendChild(div);
-
-
-}
-
+    }
 
 }
 
 
 
-// 追加
-
+// スタンプ追加
 function addStamp(){
 
-
-let data =
-JSON.parse(
-localStorage.getItem("iwaseStamp")
-);
-
+    let data =
+    JSON.parse(
+        localStorage.getItem("iwaseStamp")
+    );
 
 
-if(data.stamps.length>=MAX_STAMP){
+    if(!data){
 
-alert("最大10個までです");
+        alert("先に利用者登録してください");
+        return;
 
-return;
+    }
+
+
+    if(data.stamps.length>=MAX_STAMP){
+
+        alert("最大10個までです");
+        return;
+
+    }
+
+
+
+    let date =
+    document.getElementById("training-date").value;
+
+
+    let name =
+    document.getElementById("training-name").value;
+
+
+    let detail =
+    document.getElementById("training-detail").value;
+
+
+
+    if(!date || !name){
+
+        alert("日付と訓練名を入力してください");
+        return;
+
+    }
+
+
+
+    // 重複チェック
+
+    let exists =
+    data.history.some(
+        item =>
+        item.date===date &&
+        item.name===name
+    );
+
+
+    if(exists){
+
+        alert("この訓練は登録済みです");
+        return;
+
+    }
+
+
+
+    let record={
+
+        date:date,
+        name:name
+
+    };
+
+
+    data.stamps.push(record);
+
+
+
+    data.history.push({
+
+        date:date,
+        name:name,
+        detail:detail
+
+    });
+
+
+
+    localStorage.setItem(
+
+        "iwaseStamp",
+
+        JSON.stringify(data)
+
+    );
+
+
+
+    loadData();
 
 }
 
-
-let date =
-document.getElementById("training-date").value;
-
-
-let name =
-document.getElementById("training-name").value;
-
-
-let detail =
-document.getElementById("training-detail").value;
-
-
-
-if(!date || !name){
-
-alert("日付と訓練名を入力してください");
-
-return;
-
-}
-
-
-
-data.stamps.push({
-
-date:date,
-
-name:name
-
-});
-
-
-data.history.push({
-
-date:date,
-
-name:name,
-
-detail:detail
-
-});
-
-
-localStorage.setItem(
-
-"iwaseStamp",
-
-JSON.stringify(data)
-
-);
-
-
-
-loadData();
-
-
-}
 
 
 
@@ -250,37 +263,110 @@ loadData();
 
 function showHistory(history){
 
-
-let area=
-document.getElementById("history");
-
-
-area.innerHTML="";
+    let area =
+    document.getElementById("history");
 
 
-history.reverse().forEach(item=>{
+    area.innerHTML="";
 
 
-let div=document.createElement("div");
+    history
+    .slice()
+    .reverse()
+    .forEach(item=>{
 
 
-div.className="history-item";
+        let div =
+        document.createElement("div");
 
 
-div.innerHTML=
-
-`
-<strong>${item.date}</strong><br>
-${item.name}<br>
-${item.detail}
-`;
+        div.className="history-item";
 
 
-area.appendChild(div);
+        div.innerHTML =
+
+        `<strong>${item.date}</strong><br>
+        ${item.name}<br>
+        ${item.detail || ""}`;
 
 
-});
+        area.appendChild(div);
 
+
+    });
+
+}
+
+
+
+// QR情報取得
+
+function loadQRData(){
+
+    let qr =
+    JSON.parse(
+        localStorage.getItem("qrTraining")
+    );
+
+
+    if(!qr){
+        return;
+    }
+
+
+
+    document.getElementById(
+        "training-date"
+    ).value = qr.date || "";
+
+
+
+    document.getElementById(
+        "training-name"
+    ).value = qr.name || "";
+
+
+
+    document.getElementById(
+        "training-detail"
+    ).value = qr.detail || "";
+
+
+
+    localStorage.removeItem(
+        "qrTraining"
+    );
+
+}
+
+
+
+// 認定証表示
+
+function createCertificate(){
+
+    let data =
+    JSON.parse(
+        localStorage.getItem("iwaseStamp")
+    );
+
+
+    if(!data || data.stamps.length < MAX_STAMP){
+
+        alert("10個達成後に発行できます");
+        return;
+
+    }
+
+
+    document.getElementById(
+        "certificate-name"
+    ).innerHTML=data.name;
+
+
+    document.getElementById(
+        "certificate"
+    ).style.display="block";
 
 }
 
@@ -290,56 +376,14 @@ area.appendChild(div);
 
 function resetData(){
 
+    if(confirm("データを削除しますか？")){
 
-if(confirm("データを削除しますか？")){
+        localStorage.removeItem(
+            "iwaseStamp"
+        );
 
+        location.reload();
 
-localStorage.removeItem("iwaseStamp");
-
-
-location.reload();
-
-
-}
-
+    }
 
 }
-
-// QR情報確認
-
-window.addEventListener(
-"load",
-function(){
-
-let qr =
-JSON.parse(
-localStorage.getItem("qrTraining")
-);
-
-
-if(qr){
-
-
-document.getElementById(
-"training-date"
-).value=qr.date;
-
-
-document.getElementById(
-"training-name"
-).value=qr.name;
-
-
-document.getElementById(
-"training-detail"
-).value=qr.detail;
-
-
-localStorage.removeItem(
-"qrTraining"
-);
-
-
-}
-
-});
