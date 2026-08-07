@@ -228,6 +228,66 @@ body{
 
 }
 
+/* ---------- 防災訓練 写真表示 ---------- */
+
+.training-photo-area{
+
+    margin:50px auto;
+
+    text-align:center;
+
+    max-width:900px;
+
+}
+
+
+.training-gallery{
+
+    display:flex;
+
+    gap:20px;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+}
+
+
+.training-gallery img{
+
+    max-width:300px;
+
+    width:100%;
+
+    height:auto;
+
+    border-radius:10px;
+
+}
+
+
+/* スマホ表示 */
+
+@media(max-width:600px){
+
+    .training-gallery{
+
+        flex-direction:column;
+
+        align-items:center;
+
+    }
+
+
+    .training-gallery img{
+
+        max-width:100%;
+
+    }
+
+}
+
 /* ---------- ロゴ ---------- */
 
 .logo{
