@@ -8,7 +8,8 @@
 */
 
 
-// 正しい地域コード
+// 岩瀬自治会用コード
+
 const COMMUNITY_CODE = "IWASE2026";
 
 
@@ -19,19 +20,21 @@ const COMMUNITY_CODE = "IWASE2026";
 function login(){
 
 
-    // 入力されたコード取得
 
-    const inputCode = 
-    document.getElementById("communityCode").value.trim();
+    const inputCode =
+    document
+    .getElementById("communityCode")
+    .value
+    .trim();
 
 
-
-    // 選択された利用区分取得
 
     const role =
-    document.querySelector(
+    document
+    .querySelector(
         'input[name="role"]:checked'
-    ).value;
+    )
+    .value;
 
 
 
@@ -40,7 +43,8 @@ function login(){
 
 
 
-    // コード確認
+
+    // 地域コード確認
 
     if(inputCode !== COMMUNITY_CODE){
 
@@ -56,7 +60,7 @@ function login(){
 
 
 
-    // ログイン情報保存
+    // 情報保存
 
     localStorage.setItem(
         "community",
@@ -72,8 +76,6 @@ function login(){
 
 
 
-    // ログイン日時保存
-
     localStorage.setItem(
         "loginTime",
         new Date().toISOString()
@@ -81,9 +83,11 @@ function login(){
 
 
 
+
     // トップページへ移動
 
     location.href="../index.html";
+
 
 
 }
