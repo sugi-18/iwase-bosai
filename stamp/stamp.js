@@ -87,23 +87,19 @@ function loadData(){
     document.getElementById("message");
 
 
-    if(data.stamps.length>=10){
+    if(data.stamps.length>=5){
 
-        message.innerHTML =
-        "🏆 スタンプ10個達成！<br>防災マスター認定です！";
+    message.innerHTML =
+    "🏆 スタンプ5個達成！<br>いわぽん防災マイスター認定です！";
 
-        document.getElementById("certificate")
-        .style.display="block";
+}
 
-    }
+else{
 
-    else if(data.stamps.length>=5){
+    message.innerHTML =
+    "防災訓練に参加してスタンプを集めよう！";
 
-        message.innerHTML =
-        "🎉 いわぽん防災マイスター認定対象です！";
-
-    }
-
+}
     else{
 
         message.innerHTML =
@@ -351,13 +347,12 @@ function createCertificate(){
     );
 
 
-    if(!data || data.stamps.length < MAX_STAMP){
+   if(!data || data.stamps.length < 5){
 
-        alert("10個達成後に発行できます");
-        return;
+    alert("スタンプ5個以上で認定証を発行できます");
+    return;
 
-    }
-
+}
 
     document.getElementById(
         "certificate-name"
