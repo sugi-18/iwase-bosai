@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>いわぽん防災マイスター スタンプカード</title>
+
+<link rel="stylesheet" href="stamp.css">
+
+</head>
+
+
+<body>
+
+
+<div class="stamp-container">
+
+
+<h1>
+いわぽん防災マイスター<br>
+スタンプカード
+</h1>
+
+
+<!-- 名前登録 -->
+
+<section id="register-area">
+
+<h2>初回登録</h2>
+
+<p>
+氏名を入力してください
+</p>
+
+<input 
+type="text"
+id="username"
+placeholder="例：山田 太郎">
+
+
+<button onclick="registerUser()">
+登録する
+</button>
+
+</section>
+
+
+
+<!-- メイン画面 -->
+
+<section id="card-area" style="display:none;">
+
+
+<h2>
+<span id="display-name"></span> さん
+</h2>
+
+
+<div class="stamp-count">
+
+<span id="count">
+0
+</span>
+/
+10個
+
+</div>
+
+
+
+<div id="stamps"></div>
+
+
+
+<p id="message"></p>
+
+
+
+<hr>
+
+
+<h2>
+参加履歴
+</h2>
+
+
+<div id="history"></div>
+
+
+
+<hr>
+
+
+
+<h2>
+スタンプ追加
+</h2>
+
+
+<input 
+type="date"
+id="training-date">
+
+
+<input 
+type="text"
+id="training-name"
+placeholder="訓練名">
+
+
+<textarea
+id="training-detail"
+placeholder="訓練内容"></textarea>
+
+
+
+<button onclick="addStamp()">
+スタンプ追加
+</button>
+
+
+<br>
+
+
+<button 
+class="reset"
+onclick="resetData()">
+
+データリセット
+
+</button>
+
+
+
+</section>
+
+
+
+<a href="../index.html" class="back-button">
+
+トップページへ戻る
+
+</a>
+
+
+</div>
+
+
+
+<script src="stamp.js"></script>
+
+
+</body>
+
+</html>
