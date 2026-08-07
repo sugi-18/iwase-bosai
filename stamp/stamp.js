@@ -711,3 +711,22 @@ list.appendChild(li);
 
 
 }
+
+// ------------------------
+// テストデータ削除
+// ------------------------
+
+function clearData(){
+
+    if(confirm("登録したテストデータをすべて削除しますか？")){
+
+        localStorage.clear();
+
+        alert("データを削除しました");
+
+        location.reload();
+
+    }
+
+}
+
