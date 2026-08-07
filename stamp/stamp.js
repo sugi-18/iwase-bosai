@@ -531,32 +531,22 @@ function addStamp(){
 function showHistory(history){
 
 
-
     let area =
-
     document.getElementById("history");
-
 
 
     area.innerHTML="";
 
 
 
-
-
-
     history
-
     .slice()
-
     .reverse()
-
     .forEach(item => {
 
 
 
         let div =
-
         document.createElement("div");
 
 
@@ -576,8 +566,6 @@ function showHistory(history){
 
 
 
-
-
         area.appendChild(div);
 
 
@@ -585,9 +573,7 @@ function showHistory(history){
     });
 
 
-
 }
-
 
 
 
