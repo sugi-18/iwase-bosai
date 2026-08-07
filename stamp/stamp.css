@@ -1,3 +1,4 @@
+```css
 body{
 
 font-family:sans-serif;
@@ -12,7 +13,9 @@ margin:0;
 
 .stamp-container{
 
-max-width:600px;
+max-width:700px;
+
+width:90%;
 
 margin:30px auto;
 
@@ -23,6 +26,8 @@ padding:30px;
 border-radius:15px;
 
 text-align:center;
+
+box-sizing:border-box;
 
 }
 
@@ -36,16 +41,22 @@ color:#d62828;
 
 
 
+
+
 input,
 textarea{
 
 width:90%;
+
+max-width:500px;
 
 padding:12px;
 
 margin:8px;
 
 font-size:16px;
+
+box-sizing:border-box;
 
 }
 
@@ -56,6 +67,8 @@ textarea{
 height:80px;
 
 }
+
+
 
 
 
@@ -81,11 +94,15 @@ cursor:pointer;
 
 
 
+
+
 button:hover{
 
 opacity:0.8;
 
 }
+
+
 
 
 
@@ -101,6 +118,8 @@ margin:20px;
 
 
 
+
+
 #stamps{
 
 display:flex;
@@ -112,6 +131,8 @@ justify-content:center;
 gap:10px;
 
 }
+
+
 
 
 
@@ -137,6 +158,8 @@ font-size:25px;
 
 
 
+
+
 .active{
 
 background:#e63946;
@@ -144,6 +167,8 @@ background:#e63946;
 color:white;
 
 }
+
+
 
 
 
@@ -163,6 +188,8 @@ text-align:left;
 
 
 
+
+
 #message{
 
 font-weight:bold;
@@ -173,11 +200,15 @@ color:#d62828;
 
 
 
+
+
 .reset{
 
 background:#777;
 
 }
+
+
 
 
 
@@ -198,3 +229,37 @@ text-decoration:none;
 border-radius:10px;
 
 }
+
+
+
+
+@media(max-width:600px){
+
+
+.stamp-container{
+
+padding:20px;
+
+}
+
+
+
+h1{
+
+font-size:24px;
+
+}
+
+
+
+button{
+
+width:90%;
+
+max-width:350px;
+
+}
+
+
+}
+```
