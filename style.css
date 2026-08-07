@@ -86,6 +86,7 @@ body{
 
     transition:.3s;
 
+    box-sizing:border-box;
 }
 
 .card:hover{
@@ -96,9 +97,21 @@ body{
 
 .card h2{
 
-    margin-top:0;
+margin-top:0;
 
-    color:#1f4e79;
+color:#1f4e79;
+
+font-size:22px;
+
+line-height:1.4;
+
+min-height:62px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
 
 }
 
