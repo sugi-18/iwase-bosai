@@ -78,12 +78,14 @@ else{
 
 <body>
 
+<script>
+
 // ログイン確認
 
-const role =
-localStorage.getItem("role");
+const loginData =
+localStorage.getItem("iwaseLogin");
 
-if(!role){
+if(!loginData){
 
 location.href="login/login.html";
 
