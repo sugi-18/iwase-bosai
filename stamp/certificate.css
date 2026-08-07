@@ -1,0 +1,229 @@
+/* ===========================
+   いわぽん防災マイスター認定証
+   A4横サイズ
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    background:#e5e5e5;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:30px;
+
+    font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    "MS Mincho",
+    serif;
+
+}
+
+#certificate{
+
+    width:1123px;
+    height:794px;
+
+    background:#fffdf6;
+
+    box-shadow:0 0 20px rgba(0,0,0,.25);
+
+}
+
+.outer-border{
+
+    width:100%;
+    height:100%;
+
+    border:14px solid #b78b2d;
+
+    padding:12px;
+
+}
+
+.inner-border{
+
+    width:100%;
+    height:100%;
+
+    border:4px solid #d8b85a;
+
+    position:relative;
+
+    padding:40px 70px;
+
+}
+
+.logo{
+
+    position:absolute;
+
+    top:30px;
+
+    left:40px;
+
+}
+
+#logo{
+
+    width:110px;
+
+}
+
+.community{
+
+    text-align:center;
+
+    font-size:30px;
+
+    color:#555;
+
+    margin-top:5px;
+
+    letter-spacing:6px;
+
+}
+
+.title{
+
+    text-align:center;
+
+    margin-top:25px;
+
+    color:#b78b2d;
+
+    font-size:52px;
+
+    font-weight:bold;
+
+    letter-spacing:5px;
+
+}
+
+.subtitle{
+
+    text-align:center;
+
+    margin-top:25px;
+
+    font-size:44px;
+
+    letter-spacing:18px;
+
+}
+
+.name{
+
+    text-align:center;
+
+    margin-top:60px;
+
+    font-size:46px;
+
+    font-weight:bold;
+
+    border-bottom:2px solid #444;
+
+    display:inline-block;
+
+    width:70%;
+
+    margin-left:15%;
+
+    padding-bottom:10px;
+
+}
+
+.message{
+
+    margin-top:55px;
+
+    text-align:center;
+
+    line-height:2.1;
+
+    font-size:26px;
+
+}
+
+.master{
+
+    font-size:34px;
+
+    color:#c49000;
+
+    font-weight:bold;
+
+    margin:18px 0;
+
+}
+
+.info{
+
+    margin-top:60px;
+
+    font-size:22px;
+
+    line-height:2;
+
+    width:350px;
+
+    margin-left:auto;
+
+}
+
+.footer{
+
+    position:absolute;
+
+    bottom:35px;
+
+    right:60px;
+
+    display:flex;
+
+    align-items:flex-end;
+
+    gap:35px;
+
+    font-size:24px;
+
+}
+
+#seal{
+
+    width:120px;
+
+    opacity:.92;
+
+}
+
+/* 印刷時 */
+
+@media print{
+
+body{
+
+background:white;
+
+padding:0;
+
+}
+
+#certificate{
+
+box-shadow:none;
+
+}
+
+}
