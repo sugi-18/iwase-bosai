@@ -1,142 +1,239 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>岩瀬自治会 防災アプリ</title>
+
 <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
+
 <script>
+
 // ログイン確認
-const role = localStorage.getItem("role");
-if (!role) {
-    window.location.href = "./login/login.html";
+
+const role =
+localStorage.getItem("role");
+
+if(!role){
+
+location.href="login/login.html";
+
 }
+
 </script>
+
 <header class="title-area">
+
 <div class="title-main">
+
+<img src="./images/bosai-iwapon.png"
+class="character"
+alt="防災キャラクター">
+
 <h1>
 岩瀬自治会<br>
 防災アプリ
 </h1>
+
 </div>
+
 <p>
-岩瀬自治会の防災活動を支援するWebアプリ
+岩瀬自治会の防災活動を支援するためのWebアプリ
 </p>
+
 </header>
+
 <main>
-<!-- 水害マイタイムライン -->
-<section class="card">
-<h2>
-🌧 水害マイタイムライン
-</h2>
+
+<!-- 水害 -->
+
+<div class="card">
+
+<h2>🌧 水害マイタイムライン</h2>
+
 <p>
 台風・大雨に備えた<br>
-避難行動計画を作成します
+マイタイムライン作成
 </p>
+
 <a href="./water-timeline/">
+
 開始する
+
 </a>
-</section>
-<!-- 地震マイタイムライン -->
-<section class="card">
-<h2>
-🏠 地震マイタイムライン
-</h2>
+
+</div>
+
+<!-- 地震 -->
+
+<div class="card">
+
+<h2>🏠 地震マイタイムライン</h2>
+
 <p>
-地震発生時の行動を整理し<br>
-事前の備えを確認します
+地震発生時の行動を整理する<br>
+マイタイムライン作成
 </p>
+
 <a href="./earthquake-timeline/">
+
 開始する
+
 </a>
-</section>
-<!-- 防災力診断 -->
-<section class="card">
-<h2>
-✅ 防災力診断
-</h2>
+
+</div>
+
+<!-- 防災チェックリスト -->
+
+<div class="card">
+
+<h2>✅ 防災力診断</h2>
+
 <p>
-家庭の防災対策を確認し<br>
-現在の防災力を診断します
+災害への備えを確認し、<br>
+防災力を診断します
 </p>
+
 <a href="./checklist/">
+
 診断する
+
 </a>
-</section>
-<!-- 防災マップ -->
-<section class="card">
-<h2>
-🗺 岩瀬防災マップ
-</h2>
+
+</div>
+
+<!-- 岩瀬防災マップ -->
+
+<div class="card">
+
+<h2>🗺 岩瀬防災マップ</h2>
+
 <p>
-避難場所・危険箇所・防災設備を確認できます
+地域の避難場所や危険箇所、防災関連設備を確認
 </p>
+
+<a href="https://www.google.com/maps/d/u/0/edit?hl=ja&mid=1LzzFPXh2YT1kgTya6REbD_YAigNAh4A&ll=35.78450755194393%2C139.90686938816555&z=16"
+target="_blank">
 
 地図を見る
 
 </a>
-</section>
+
+</div>
+
 <!-- リンク集 -->
-<section class="card">
-<h2>
-🔗 リンク集
-</h2>
+
+<div class="card">
+
+<h2>🔗 リンク集</h2>
+
 <p>
 行政情報・岩瀬自治会関連ページ
 </p>
+
 <a href="./links.html">
 
 リンク集を見る
 
 </a>
-</section>
+
+</div>
+
 <!-- 防災訓練 -->
+
 <section class="training-section">
+
 <h2>
 🚒 岩瀬防災訓練
 </h2>
+
 <div class="training-menu">
+
+<a href="./next-training/next-training.html"
+class="training-card">
+
+  
 <h3>
 📅 次回訓練
 </h3>
+
 <p>
 次回防災訓練のお知らせ
 </p>
+
 </a>
+
+<a href="./annual_schedule/annual_schedule.html"
+class="training-card">
+
 <h3>
 🗓 年間計画
 </h3>
+
 <p>
 年間の防災活動予定
 </p>
+
 </a>
+
+<a href="./record/record.html"
+class="training-card">
+
 <h3>
 📷 活動実績
 </h3>
+
 <p>
 過去の訓練内容や写真を確認
 </p>
+
 </a>
+
+<a href="./stamp/stamp.html"
+class="training-card">
+
 <h3>
 ⭐ いわぽん防災マイスター
 </h3>
+
 <p>
-スタンプを集めて<br>
-防災マイスターを目指しましょう
+スタンプを集めて防災マイスターを目指しましょう！
 </p>
+
 </a>
+
 </div>
+
 </section>
-<!-- 自治会ロゴ -->
+
+<!-- ロゴ -->
+
 <section class="logo-area">
+
+<img src="./images/iwase-logo.png"
+class="logo"
+alt="岩瀬自治会ロゴ">
+
 </section>
+
 </main>
+
 <footer>
+
 <p>
 © 岩瀬自治会
 </p>
+
 </footer>
+
 </body>
+
 </html>
