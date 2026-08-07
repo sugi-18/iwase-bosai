@@ -25,18 +25,13 @@
 </h1>
 
 
-<!-- 名前登録 -->
-
 <section id="register-area">
 
 <h2>初回登録</h2>
 
-<p>
-氏名を入力してください
-</p>
+<p>氏名を入力してください</p>
 
 <input 
-type="text"
 id="username"
 placeholder="例：山田 太郎">
 
@@ -45,11 +40,10 @@ placeholder="例：山田 太郎">
 登録する
 </button>
 
+
 </section>
 
 
-
-<!-- メイン画面 -->
 
 <section id="card-area" style="display:none;">
 
@@ -61,78 +55,67 @@ placeholder="例：山田 太郎">
 
 <div class="stamp-count">
 
-<span id="count">
-0
-</span>
-/
-10個
+<span id="count">0</span> / 10個
 
 </div>
-
 
 
 <div id="stamps"></div>
 
 
-
 <p id="message"></p>
-
 
 
 <hr>
 
 
-<h2>
-参加履歴
-</h2>
-
+<h2>参加履歴</h2>
 
 <div id="history"></div>
 
 
-
 <hr>
 
 
-
-<h2>
-スタンプ追加
-</h2>
+<h2>スタンプ追加</h2>
 
 
-<input 
-type="date"
-id="training-date">
+<input type="date" id="training-date">
 
 
 <input 
-type="text"
 id="training-name"
 placeholder="訓練名">
 
 
-<textarea
+<textarea 
 id="training-detail"
 placeholder="訓練内容"></textarea>
 
 
-
 <button onclick="addStamp()">
+
 スタンプ追加
+
 </button>
 
 
 <br>
 
 
-<button 
-class="reset"
-onclick="resetData()">
+<button onclick="createCertificate()">
+
+認定証PDF発行
+
+</button>
+
+
+
+<button class="reset" onclick="resetData()">
 
 データリセット
 
 </button>
-
 
 
 </section>
@@ -146,11 +129,14 @@ onclick="resetData()">
 </a>
 
 
+
 </div>
 
 
 
 <script src="stamp.js"></script>
+
+<script src="certificate.js"></script>
 
 
 </body>
