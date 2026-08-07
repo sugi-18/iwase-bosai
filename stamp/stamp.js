@@ -1,180 +1,87 @@
-```javascript
-const MAX_STAMP = 10;
+// ===========================
+// いわぽん防災マイスター
+// スタンプカード
+// STEP1
+// ===========================
 
 
-// 初期読み込み
+const STORAGE_KEY = "iwaseStamp";
+
+
 
 window.onload = function(){
 
-    loadData();
 
-    loadQRData();
+const button =
+document.getElementById("register-button");
+
+
+button.addEventListener(
+"click",
+registerUser
+);
+
+
+
+loadCard();
+
 
 };
 
 
 
 
-// 登録
+// 利用者登録
 
 function registerUser(){
 
-    const name =
-    document.getElementById("username").value.trim();
+
+const name =
+document
+.getElementById("username")
+.value
+.trim();
 
 
-    if(name === ""){
 
-        alert("氏名を入力してください");
-
-        return;
-
-    }
+if(name === ""){
 
 
-    const data = {
-
-        name:name,
-
-        stamps:[],
-
-        history:[]
-
-    };
+alert("氏名を入力してください");
 
 
-    localStorage.setItem(
+return;
 
-        "iwaseStamp",
-
-        JSON.stringify(data)
-
-    );
-
-
-    loadData();
 
 }
 
 
 
+const data = {
 
-// データ表示
 
-function loadData(){
+name:name,
 
 
-    const data =
+stamps:[]
 
-    JSON.parse(
 
-        localStorage.getItem("iwaseStamp")
+};
 
-    );
 
 
+localStorage.setItem(
 
-    if(!data){
+STORAGE_KEY,
 
-        document.getElementById("register-area")
-        .style.display="block";
+JSON.stringify(data)
 
-        document.getElementById("card-area")
-        .style.display="none";
+);
 
-        return;
 
-    }
 
+displayCard(data);
 
-
-    document.getElementById("register-area")
-    .style.display="none";
-
-
-    document.getElementById("card-area")
-    .style.display="block";
-
-
-
-    document.getElementById("display-name")
-    .textContent=data.name;
-
-
-    document.getElementById("count")
-    .textContent=data.stamps.length;
-
-
-
-    showStamps(data.stamps.length);
-
-
-    showHistory(data.history);
-
-
-
-    const message =
-    document.getElementById("message");
-
-
-
-    if(data.stamps.length >= 5){
-
-        message.innerHTML =
-        "🏆 5個達成！<br>いわぽん防災マイスター認定対象です";
-
-    }else{
-
-        message.innerHTML =
-        "防災訓練に参加してスタンプを集めよう！";
-
-    }
-
-}
-
-
-
-
-// スタンプ表示
-
-function showStamps(count){
-
-
-    const area =
-    document.getElementById("stamps");
-
-
-    area.innerHTML="";
-
-
-
-    for(let i=1;i<=MAX_STAMP;i++){
-
-
-        const div =
-        document.createElement("div");
-
-
-        div.className="stamp";
-
-
-        if(i<=count){
-
-            div.className="stamp active";
-
-            div.textContent="★";
-
-        }else{
-
-            div.textContent="☆";
-
-        }
-
-
-        area.appendChild(div);
-
-
-    }
 
 
 }
@@ -183,159 +90,36 @@ function showStamps(count){
 
 
 
-// スタンプ追加
 
-function addStamp(){
+// データ読み込み
 
+function loadCard(){
 
-    const data =
 
-    JSON.parse(
 
-        localStorage.getItem("iwaseStamp")
+const saved =
 
-    );
+localStorage.getItem(
+STORAGE_KEY
+);
 
 
 
-    if(!data){
+if(saved){
 
-        alert("先に登録してください");
 
-        return;
+const data =
 
-    }
+JSON.parse(saved);
 
 
 
-    if(data.stamps.length >= MAX_STAMP){
+displayCard(data);
 
-        alert("スタンプは10個までです");
-
-        return;
-
-    }
-
-
-
-    const date =
-    document.getElementById("training-date").value;
-
-
-    const name =
-    document.getElementById("training-name").value.trim();
-
-
-    const detail =
-    document.getElementById("training-detail").value.trim();
-
-
-
-    if(!date || !name){
-
-        alert("日付と訓練名を入力してください");
-
-        return;
-
-    }
-
-
-
-    const exists =
-
-    data.history.some(item =>
-
-        item.date === date &&
-        item.name === name
-
-    );
-
-
-
-    if(exists){
-
-        alert("登録済みの訓練です");
-
-        return;
-
-    }
-
-
-
-    data.stamps.push({
-
-        date:date,
-
-        name:name
-
-    });
-
-
-
-    data.history.push({
-
-        date:date,
-
-        name:name,
-
-        detail:detail
-
-    });
-
-
-
-    localStorage.setItem(
-
-        "iwaseStamp",
-
-        JSON.stringify(data)
-
-    );
-
-
-
-    loadData();
 
 
 }
 
-
-
-
-// 履歴表示
-
-function showHistory(history){
-
-
-    const area =
-    document.getElementById("history");
-
-
-    area.innerHTML="";
-
-
-
-    history.slice().reverse().forEach(item=>{
-
-
-        const div =
-        document.createElement("div");
-
-
-        div.className="history-item";
-
-
-        div.innerHTML =
-
-        `<strong>${item.date}</strong><br>
-        ${item.name}<br>
-        ${item.detail || ""}`;
-
-
-        area.appendChild(div);
-
-
-    });
 
 
 }
@@ -344,42 +128,67 @@ function showHistory(history){
 
 
 
-// QR読み込み
+// カード表示
 
-function loadQRData(){
-
-
-    const qr =
-
-    JSON.parse(
-
-        localStorage.getItem("qrTraining")
-
-    );
-
-
-    if(!qr){
-
-        return;
-
-    }
+function displayCard(data){
 
 
 
-    document.getElementById("training-date")
-    .value = qr.date || "";
-
-
-    document.getElementById("training-name")
-    .value = qr.name || "";
-
-
-    document.getElementById("training-detail")
-    .value = qr.detail || "";
+document
+.getElementById("register-area")
+.style.display="none";
 
 
 
-    localStorage.removeItem("qrTraining");
+document
+.getElementById("card-area")
+.style.display="block";
+
+
+
+document
+.getElementById("user-name")
+.textContent=
+
+data.name + " さん";
+
+
+
+document
+.getElementById("stamp-count")
+.textContent=
+
+data.stamps.length;
+
+
+
+const message =
+
+document.getElementById(
+"message"
+);
+
+
+
+if(data.stamps.length >=5){
+
+
+message.textContent=
+
+"🎉 いわぽん防災マイスター認定対象です！";
+
+
+}
+else{
+
+
+message.textContent=
+
+"認定まであと " 
++
+(5-data.stamps.length)
++
+" 回です";
 
 
 }
@@ -387,61 +196,44 @@ function loadQRData(){
 
 
 
+const list =
 
-// 認定証
-
-function createCertificate(){
-
-
-    const data =
-
-    JSON.parse(
-
-        localStorage.getItem("iwaseStamp")
-
-    );
+document.getElementById(
+"history-list"
+);
 
 
 
-    if(!data || data.stamps.length < 5){
-
-        alert(
-        "スタンプ5個以上で認定証を発行できます"
-        );
-
-        return;
-
-    }
+list.innerHTML="";
 
 
 
-    location.href="certificate.html";
+data.stamps.forEach(
+
+stamp=>{
+
+
+const li =
+document.createElement("li");
+
+
+li.textContent=
+
+stamp.date
++
+" "
++
+stamp.event;
+
+
+list.appendChild(li);
+
 
 
 }
 
+);
 
-
-
-
-// リセット
-
-function resetData(){
-
-
-    if(confirm("データを削除しますか？")){
-
-
-        localStorage.removeItem(
-        "iwaseStamp"
-        );
-
-
-        location.reload();
-
-
-    }
 
 
 }
-```
