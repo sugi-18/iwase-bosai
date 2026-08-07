@@ -7,6 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
 <title>
 岩瀬自治会 防災アプリ ログイン
 </title>
@@ -18,10 +19,13 @@
 </head>
 
 
+
 <body>
 
 
+
 <div class="login-container">
+
 
 
 <h1>
@@ -30,16 +34,19 @@
 </h1>
 
 
+
 <p class="login-description">
 
 地域専用防災アプリです。<br>
-地域コードを入力してください。
+地域コードを入力してログインしてください。
 
 </p>
 
 
 
+
 <div class="login-card">
+
 
 
 <h2>
@@ -47,11 +54,14 @@
 </h2>
 
 
+
 <input
 type="text"
 id="communityCode"
 placeholder="例：IWASE2026"
+autocomplete="off"
 >
+
 
 
 
@@ -60,7 +70,10 @@ placeholder="例：IWASE2026"
 </h2>
 
 
+
+
 <div class="role-area">
+
 
 
 <label>
@@ -78,6 +91,7 @@ checked
 
 
 
+
 <label>
 
 <input
@@ -91,12 +105,15 @@ value="guest"
 </label>
 
 
+
 </div>
 
 
 
 
+
 <button
+type="button"
 onclick="login()"
 >
 
@@ -105,10 +122,15 @@ onclick="login()"
 </button>
 
 
+
+
 <p id="message"></p>
 
 
+
+
 </div>
+
 
 
 
@@ -123,7 +145,10 @@ onclick="login()"
 </div>
 
 
+
+
 <script src="login.js"></script>
+
 
 
 </body>
