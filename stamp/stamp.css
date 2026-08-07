@@ -155,5 +155,28 @@ border-radius:8px;
 #qrcode img,
 #qrcode canvas {
     display:block;
+
     margin:0 auto;
 }
+
+/* テストデータ削除ボタン */
+
+.delete-button{
+
+    background:#d62828;
+
+    margin-top:30px;
+
+    padding:12px 25px;
+
+    font-size:16px;
+
+}
+
+
+.delete-button:hover{
+
+    opacity:0.8;
+
+}
+
