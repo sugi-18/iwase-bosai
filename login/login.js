@@ -1,93 +1,169 @@
-/*
-================================
-
-岩瀬自治会 防災アプリ
-ログイン処理
-
-================================
-*/
-
-
-// 岩瀬自治会用コード
-
-const COMMUNITY_CODE = "IWASE2026";
-
-
-
-
+// =====================================
+// 岩瀬自治会 防災アプリ
 // ログイン処理
-
-function login(){
-
+// =====================================
 
 
-    const inputCode =
-    document
-    .getElementById("communityCode")
-    .value
-    .trim();
+// 共通パスワード
+// 公開前に変更してください
+
+const APP_PASSWORD = "iwasebosai";
 
 
+// ログイン有効時間
+// 24時間
 
-    const role =
-    document
-    .querySelector(
-        'input[name="role"]:checked'
-    )
-    .value;
+const LOGIN_LIMIT = 24 * 60 * 60 * 1000;
 
 
 
-    const message =
-    document.getElementById("message");
+// =====================================
+// ページ読み込み時
+// =====================================
+
+window.onload = function(){
+
+    checkLogin();
+
+};
 
 
 
 
-    // 地域コード確認
+// =====================================
+// 既にログイン済みか確認
+// =====================================
 
-    if(inputCode !== COMMUNITY_CODE){
+function checkLogin(){
 
 
-        message.textContent =
-        "地域コードが違います。";
+    const loginData =
+    localStorage.getItem("iwaseLogin");
 
+
+    if(!loginData){
 
         return;
-
 
     }
 
 
 
-    // 情報保存
-
-    localStorage.setItem(
-        "community",
-        COMMUNITY_CODE
-    );
+    const data =
+    JSON.parse(loginData);
 
 
 
-    localStorage.setItem(
-        "role",
-        role
-    );
+    const now =
+    new Date().getTime();
 
 
 
-    localStorage.setItem(
-        "loginTime",
-        new Date().toISOString()
-    );
+    // 24時間以内ならトップページへ
+
+    if(
+        data.login === true &&
+        now - data.time < LOGIN_LIMIT
+    ){
+
+        location.href = "../index.html";
+
+    }
+
+
+    else{
+
+
+        // 期限切れ
+
+        localStorage.removeItem("iwaseLogin");
+
+    }
+
+
+}
 
 
 
 
-    // トップページへ移動
+// =====================================
+// ログイン実行
+// =====================================
 
-    location.href="../index.html";
+function login(){
 
+
+    const password =
+    document.getElementById("password").value;
+
+
+
+    const error =
+    document.getElementById("error-message");
+
+
+
+    if(password === ""){
+
+
+        error.textContent =
+        "パスワードを入力してください。";
+
+
+        return;
+
+    }
+
+
+
+    // パスワード確認
+
+    if(password === APP_PASSWORD){
+
+
+
+        const loginData = {
+
+
+            login:true,
+
+
+            time:
+            new Date().getTime()
+
+
+        };
+
+
+
+        localStorage.setItem(
+
+            "iwaseLogin",
+
+            JSON.stringify(loginData)
+
+        );
+
+
+
+        // トップページへ移動
+
+        location.href =
+        "../index.html";
+
+
+
+    }
+
+
+    else{
+
+
+        error.textContent =
+        "パスワードが違います。";
+
+
+    }
 
 
 }
