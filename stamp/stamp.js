@@ -1,14 +1,8 @@
 ```javascript
-// ==================================
-// いわぽん防災マイスター
-// スタンプカード JavaScript
-// ==================================
-
-
 const MAX_STAMP = 10;
 
 
-// 初期表示
+// 初期読み込み
 
 window.onload = function(){
 
@@ -21,17 +15,12 @@ window.onload = function(){
 
 
 
-
-// ==================================
-// 初回登録
-// ==================================
+// 登録
 
 function registerUser(){
 
-
-    let name =
+    const name =
     document.getElementById("username").value.trim();
-
 
 
     if(name === ""){
@@ -43,8 +32,7 @@ function registerUser(){
     }
 
 
-
-    let data = {
+    const data = {
 
         name:name,
 
@@ -55,7 +43,6 @@ function registerUser(){
     };
 
 
-
     localStorage.setItem(
 
         "iwaseStamp",
@@ -65,27 +52,19 @@ function registerUser(){
     );
 
 
-
     loadData();
-
 
 }
 
 
 
 
-
-
-
-// ==================================
 // データ表示
-// ==================================
 
 function loadData(){
 
 
-
-    let data =
+    const data =
 
     JSON.parse(
 
@@ -95,193 +74,101 @@ function loadData(){
 
 
 
-
-
     if(!data){
 
+        document.getElementById("register-area")
+        .style.display="block";
 
-        let area =
-
-        document.getElementById("register-area");
-
-
-
-        if(area){
-
-            area.style.display="block";
-
-        }
-
+        document.getElementById("card-area")
+        .style.display="none";
 
         return;
-
 
     }
 
 
 
-
-
-
     document.getElementById("register-area")
-
     .style.display="none";
 
 
-
-
-
     document.getElementById("card-area")
-
     .style.display="block";
 
 
 
-
-
-
     document.getElementById("display-name")
-
-    .innerHTML=data.name;
-
-
-
+    .textContent=data.name;
 
 
     document.getElementById("count")
-
-    .innerHTML=data.stamps.length;
-
+    .textContent=data.stamps.length;
 
 
 
+    showStamps(data.stamps.length);
+
+
+    showHistory(data.history);
 
 
 
-    showStamps(
-
-        data.stamps.length
-
-    );
-
-
-
-
-
-    showHistory(
-
-        data.history
-
-    );
-
-
-
-
-
-
-
-    let message =
-
+    const message =
     document.getElementById("message");
-
-
-
-
 
 
 
     if(data.stamps.length >= 5){
 
+        message.innerHTML =
+        "🏆 5個達成！<br>いわぽん防災マイスター認定対象です";
 
+    }else{
 
         message.innerHTML =
-
-        "🏆 スタンプ5個達成！<br>" +
-
-        "いわぽん防災マイスター認定対象です！";
-
-
-
-    }
-
-    else{
-
-
-
-        message.innerHTML =
-
         "防災訓練に参加してスタンプを集めよう！";
 
-
-
     }
-
-
-
-
 
 }
 
 
 
 
-
-
-
-
-
-// ==================================
 // スタンプ表示
-// ==================================
 
 function showStamps(count){
 
 
-
-    let area =
-
+    const area =
     document.getElementById("stamps");
-
 
 
     area.innerHTML="";
 
 
 
-
-
     for(let i=1;i<=MAX_STAMP;i++){
 
 
-
-        let div =
-
+        const div =
         document.createElement("div");
-
 
 
         div.className="stamp";
 
 
-
-
-
         if(i<=count){
 
+            div.className="stamp active";
 
-            div.classList.add("active");
+            div.textContent="★";
 
-            div.innerHTML="★";
+        }else{
 
-        }
-
-        else{
-
-
-            div.innerHTML="☆";
+            div.textContent="☆";
 
         }
-
 
 
         area.appendChild(div);
@@ -290,26 +177,18 @@ function showStamps(count){
     }
 
 
-
 }
 
 
 
 
 
-
-
-
-
-// ==================================
 // スタンプ追加
-// ==================================
 
 function addStamp(){
 
 
-
-    let data =
+    const data =
 
     JSON.parse(
 
@@ -319,167 +198,81 @@ function addStamp(){
 
 
 
-
-
     if(!data){
 
-
-        alert(
-
-        "先に利用者登録してください"
-
-        );
-
+        alert("先に登録してください");
 
         return;
 
-
     }
-
-
-
 
 
 
     if(data.stamps.length >= MAX_STAMP){
 
-
-
-        alert(
-
-        "最大10個までです"
-
-        );
-
+        alert("スタンプは10個までです");
 
         return;
-
 
     }
 
 
 
+    const date =
+    document.getElementById("training-date").value;
 
 
+    const name =
+    document.getElementById("training-name").value.trim();
 
 
-
-    let date =
-
-    document.getElementById("training-date")
-
-    .value;
-
-
-
-
-
-    let name =
-
-    document.getElementById("training-name")
-
-    .value.trim();
-
-
-
-
-
-    let detail =
-
-    document.getElementById("training-detail")
-
-    .value.trim();
-
-
-
+    const detail =
+    document.getElementById("training-detail").value.trim();
 
 
 
     if(!date || !name){
 
-
-
-        alert(
-
-        "日付と訓練名を入力してください"
-
-        );
-
+        alert("日付と訓練名を入力してください");
 
         return;
-
 
     }
 
 
 
+    const exists =
 
-
-
-
-    let exists =
-
-    data.history.some(
-
-        item =>
+    data.history.some(item =>
 
         item.date === date &&
-
         item.name === name
 
     );
 
 
 
-
-
-
-
     if(exists){
 
-
-        alert(
-
-        "この訓練は登録済みです"
-
-        );
-
+        alert("登録済みの訓練です");
 
         return;
-
 
     }
 
 
 
-
-
-
-
-    let record = {
-
+    data.stamps.push({
 
         date:date,
 
         name:name
 
-
-    };
-
-
-
-
-
-
-    data.stamps.push(record);
-
-
-
+    });
 
 
 
     data.history.push({
-
 
         date:date,
 
@@ -487,12 +280,7 @@ function addStamp(){
 
         detail:detail
 
-
     });
-
-
-
-
 
 
 
@@ -506,12 +294,7 @@ function addStamp(){
 
 
 
-
-
-
-
     loadData();
-
 
 
 }
@@ -519,19 +302,12 @@ function addStamp(){
 
 
 
-
-
-
-
-
-// ==================================
 // 履歴表示
-// ==================================
 
 function showHistory(history){
 
 
-    let area =
+    const area =
     document.getElementById("history");
 
 
@@ -539,35 +315,24 @@ function showHistory(history){
 
 
 
-    history
-    .slice()
-    .reverse()
-    .forEach(item => {
+    history.slice().reverse().forEach(item=>{
 
 
-
-        let div =
+        const div =
         document.createElement("div");
-
 
 
         div.className="history-item";
 
 
-
         div.innerHTML =
 
-
         `<strong>${item.date}</strong><br>
-
         ${item.name}<br>
-
         ${item.detail || ""}`;
 
 
-
         area.appendChild(div);
-
 
 
     });
@@ -579,27 +344,18 @@ function showHistory(history){
 
 
 
-
-
-
-// ==================================
-// QR情報取得
-// ==================================
+// QR読み込み
 
 function loadQRData(){
 
 
-
-    let qr =
+    const qr =
 
     JSON.parse(
 
         localStorage.getItem("qrTraining")
 
     );
-
-
-
 
 
     if(!qr){
@@ -610,46 +366,20 @@ function loadQRData(){
 
 
 
+    document.getElementById("training-date")
+    .value = qr.date || "";
+
+
+    document.getElementById("training-name")
+    .value = qr.name || "";
+
+
+    document.getElementById("training-detail")
+    .value = qr.detail || "";
 
 
 
-    document.getElementById(
-
-        "training-date"
-
-    ).value = qr.date || "";
-
-
-
-
-
-    document.getElementById(
-
-        "training-name"
-
-    ).value = qr.name || "";
-
-
-
-
-
-    document.getElementById(
-
-        "training-detail"
-
-    ).value = qr.detail || "";
-
-
-
-
-
-
-    localStorage.removeItem(
-
-        "qrTraining"
-
-    );
-
+    localStorage.removeItem("qrTraining");
 
 
 }
@@ -658,19 +388,12 @@ function loadQRData(){
 
 
 
-
-
-
-
-// ==================================
-// 認定証発行
-// ==================================
+// 認定証
 
 function createCertificate(){
 
 
-
-    let data =
+    const data =
 
     JSON.parse(
 
@@ -680,33 +403,19 @@ function createCertificate(){
 
 
 
-
-
-
     if(!data || data.stamps.length < 5){
 
-
-
         alert(
-
         "スタンプ5個以上で認定証を発行できます"
-
         );
 
-
         return;
-
 
     }
 
 
 
-
-
-
-
     location.href="certificate.html";
-
 
 
 }
@@ -715,44 +424,23 @@ function createCertificate(){
 
 
 
-
-
-
-
-// ==================================
-// データリセット
-// ==================================
+// リセット
 
 function resetData(){
-
 
 
     if(confirm("データを削除しますか？")){
 
 
-
         localStorage.removeItem(
-
-            "iwaseStamp"
-
+        "iwaseStamp"
         );
-
-
-
-        localStorage.removeItem(
-
-            "iwaseCertificateNumber"
-
-        );
-
 
 
         location.reload();
 
 
-
     }
-
 
 
 }
