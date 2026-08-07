@@ -148,6 +148,12 @@ border-radius:8px;
 /* QRコード中央配置 */
 
 #qrcode {
-    text-align: center;
-    margin: 20px auto;
+    width:180px;
+    margin:20px auto;
+}
+
+#qrcode img,
+#qrcode canvas {
+    display:block;
+    margin:0 auto;
 }
