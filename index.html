@@ -8,455 +8,172 @@
 
 <title>岩瀬自治会 防災アプリ</title>
 
-
-<style>
-
-body {
-    font-family: sans-serif;
-    text-align: center;
-    background-color: #f5f5f5;
-    padding: 30px;
-}
-
-
-h1 {
-    color:#1f4e79;
-}
-
-
-/* タイトル */
-
-.title-area {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:5px;
-}
-
-
-.title-main {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:10px;
-}
-
-
-.character {
-    width:120px;
-}
-
-
-.title-area h1 {
-    margin:0;
-}
-
-
-.title-area p {
-    margin:5px 0;
-}
-
-
-/* PC表示 */
-
-@media screen and (min-width:600px){
-
-    .title-main {
-        flex-direction:row;
-        justify-content:center;
-        align-items:center;
-        gap:20px;
-    }
-
-    .character {
-        width:140px;
-    }
-
-}
-
-
-/* メニュー */
-
-.menu {
-    margin-top:10px;
-}
-
-
-
-/* 通常カード */
-
-.card {
-
-    background:white;
-
-    width:90%;
-
-    max-width:400px;
-
-    margin:15px auto;
-
-    padding:20px;
-
-    border-radius:10px;
-
-}
-
-
-
-/* ボタン */
-
-.card a {
-
-    display:block;
-
-    text-decoration:none;
-
-    color:white;
-
-    background:#1f77b4;
-
-    padding:15px;
-
-    border-radius:8px;
-
-    font-size:18px;
-
-    font-weight:bold;
-
-    transition:0.3s;
-
-}
-
-
-.card a:hover {
-
-    background:#155a8a;
-
-    transform:scale(1.03);
-
-}
-
-
-
-/* 訓練部分 */
-
-.training-section {
-
-    margin:40px 15px;
-
-    text-align:center;
-
-}
-
-
-/* 赤枠→赤アンダーラインへ変更 */
-
-.training-section h2 {
-
-    display:inline-block;
-
-    color:#d62828;
-
-    padding-bottom:8px;
-
-    border-bottom:4px solid #d62828;
-
-}
-
-
-
-/* 訓練ボタン */
-
-.training-menu {
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:15px;
-
-    width:90%;
-
-    max-width:400px;
-
-    margin:0 auto;
-
-}
-
-
-
-.training-card {
-
-    display:block;
-
-    text-decoration:none;
-
-    color:#333;
-
-    background:white;
-
-    padding:20px;
-
-    border-radius:10px;
-
-    box-shadow:0 4px 8px rgba(0,0,0,0.15);
-
-    transition:0.3s;
-
-}
-
-
-
-.training-card:hover {
-
-    transform:scale(1.03);
-
-    background:#fff3f3;
-
-}
-
-
-
-.training-card h3 {
-
-    margin-top:0;
-
-    color:#d62828;
-
-}
-
-
-.training-card p {
-
-    font-size:14px;
-
-}
-
-
-
-/* ロゴ */
-
-.logo {
-
-    width:80%;
-
-    max-width:400px;
-
-    margin-top:20px;
-
-}
-
-
-</style>
-
+<link rel="stylesheet" href="style.css">
 
 </head>
 
-
-
 <body>
-
-
 
 <div class="title-area">
 
+    <div class="title-main">
 
-<div class="title-main">
+        <img src="./images/bosai-iwapon.png"
+             class="character"
+             alt="防災キャラクター">
 
+        <h1>
+            岩瀬自治会<br>
+            防災アプリ
+        </h1>
 
-<img src="./images/bosai-iwapon.png"
-class="character">
+    </div>
 
-
-<h1>
-岩瀬自治会<br>
-防災アプリ
-</h1>
-
-
-</div>
-
-
-<p>
-岩瀬自治会の防災活動を支援するためのWebアプリです
-</p>
-
+    <p>
+        岩瀬自治会の防災活動を支援するためのWebアプリです
+    </p>
 
 </div>
-
-
-
-
 
 <div class="menu">
 
+    <div class="card">
 
+        <h2>🌧 水害</h2>
 
-<div class="card">
+        <p>
+            台風・大雨に備えた<br>
+            マイタイムライン作成
+        </p>
 
-<h2>🌧 水害</h2>
+        <a href="./water-timeline/">
+            開始する
+        </a>
 
-<p>
-台風・大雨に備えた<br>
-マイタイムライン作成
-</p>
+    </div>
 
-<a href="./water-timeline/">
-開始する
-</a>
+    <div class="card">
+
+        <h2>🏠 地震</h2>
+
+        <p>
+            地震発生時の行動を整理する<br>
+            マイタイムライン作成
+        </p>
+
+        <a href="./earthquake-timeline/">
+            開始する
+        </a>
+
+    </div>
+
+    <div class="card">
+
+        <h2>✅ 防災チェックリスト</h2>
+
+        <p>
+            災害への備えを確認し、<br>
+            防災力を診断します
+        </p>
+
+        <a href="./checklist/">
+            診断する
+        </a>
+
+    </div>
+
+    <div class="card">
+
+        <h2>🗺 岩瀬防災マップ</h2>
+
+        <p>
+            地域の避難場所や危険箇所、防災関連設備を確認
+        </p>
+
+        <a href="https://www.google.com/maps/d/u/0/edit?hl=ja&mid=1LzzFPXh2YT1kgTya6REbD_YAigNAh4A&ll=35.78450755194393%2C139.90686938816555&z=16"
+           target="_blank">
+
+            地図を見る
+
+        </a>
+
+    </div>
+
+    <!-- リンク集 -->
+
+    <div class="card">
+
+        <h2>🔗 リンク集</h2>
+
+        <p>
+            行政・災害情報・<br>
+            岩瀬自治会の各種ページ
+        </p>
+
+        <a href="links.html">
+
+            リンク集を見る
+
+        </a>
+
+    </div>
 
 </div>
-
-
-
-
-<div class="card">
-
-<h2>🏠 地震</h2>
-
-<p>
-地震発生時の行動を整理する<br>
-マイタイムライン作成
-</p>
-
-<a href="./earthquake-timeline/">
-開始する
-</a>
-
-</div>
-
-
-
-
-<div class="card">
-
-<h2>✅ 防災チェックリスト</h2>
-
-<p>
-災害への備えを確認し、<br>
-防災力を診断します
-</p>
-
-
-<a href="./checklist/">
-診断する
-</a>
-
-
-</div>
-
-
-
-
-
-<div class="card">
-
-<h2>🗺 岩瀬防災マップ</h2>
-
-<p>
-地域の避難場所や危険箇所、防災関連設備を確認
-</p>
-
-
-<a href="https://www.google.com/maps/d/u/0/edit?hl=ja&mid=1LzzFPXh2YT1kgTya6REbD_YAigNAh4A&ll=35.78450755194393%2C139.90686938816555&z=16"
-target="_blank">
-
-地図を見る
-
-</a>
-
-
-</div>
-
-
-
-
 
 <section class="training-section">
 
+    <h2>
+        🚒 岩瀬防災訓練
+    </h2>
 
-<h2>
-🚒 岩瀬防災訓練
-</h2>
+    <div class="training-menu">
 
+        <a href="./next-training/next-training.html"
+           class="training-card">
 
+            <h3>
+                📅 次回訓練
+            </h3>
 
-<div class="training-menu">
+            <p>
+                次回防災訓練のお知らせ
+            </p>
 
+        </a>
 
-<a href="./next-training/next-training.html"
-class="training-card">
+        <a href="./annual_schedule/annual_schedule.html"
+           class="training-card">
 
+            <h3>
+                🗓 年間計画
+            </h3>
 
-<h3>
-📅 次回訓練
-</h3>
+            <p>
+                年間の防災活動予定を確認できます。
+            </p>
 
+        </a>
 
-<p>
-次回防災訓練のお知らせ
-</p>
+        <a href="./record/record.html"
+           class="training-card">
 
+            <h3>
+                📷 活動実績
+            </h3>
 
-</a>
+            <p>
+                過去の訓練内容や写真を見ることができます。
+            </p>
 
+        </a>
 
-
-
-<a href="./annual_schedule/annual_schedule.html"
-class="training-card">
-
-
-<h3>
-🗓 年間計画
-</h3>
-
-
-<p>
-年間の防災活動予定を確認できます。
-</p>
-
-
-</a>
-
-
-
-
-<a href="./record/record.html"
-class="training-card">
-
-
-<h3>
-📷 活動実績
-</h3>
-
-
-<p>
-過去の訓練内容や写真を見ることができます。
-</p>
-
-
-</a>
-
-
-
-</div>
-
+    </div>
 
 </section>
 
-
-
-
-
 <img src="./images/iwase-logo.png"
-class="logo">
-
-
-
-</div>
-
-
+     class="logo"
+     alt="岩瀬自治会ロゴ">
 
 </body>
 
