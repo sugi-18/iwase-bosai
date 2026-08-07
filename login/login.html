@@ -7,151 +7,88 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
-<title>
-岩瀬自治会 防災アプリ ログイン
-</title>
-
+<title>岩瀬自治会 防災アプリ ログイン</title>
 
 <link rel="stylesheet" href="login.css">
 
-
 </head>
-
 
 
 <body>
 
 
-
 <div class="login-container">
 
 
-
 <h1>
-🛡️ 岩瀬自治会<br>
+🚒 岩瀬自治会<br>
 防災アプリ
 </h1>
 
 
+<p class="login-message">
 
-<p class="login-description">
-
-地域専用防災アプリです。<br>
-地域コードを入力してログインしてください。
+利用するには<br>
+パスワードを入力してください。
 
 </p>
 
 
-
-
-<div class="login-card">
-
-
-
-<h2>
-地域コード
-</h2>
-
+<div class="login-box">
 
 
 <input
-type="text"
-id="communityCode"
-placeholder="例：IWASE2026"
-autocomplete="off"
+type="password"
+id="password"
+placeholder="パスワード入力"
+autocomplete="current-password"
 >
 
 
-
-
-<h2>
-利用区分
-</h2>
-
-
-
-
-<div class="role-area">
-
-
-
-<label>
-
-<input
-type="radio"
-name="role"
-value="member"
-checked
->
-
-自治会員
-
-</label>
-
-
-
-
-<label>
-
-<input
-type="radio"
-name="role"
-value="guest"
->
-
-一般利用
-
-</label>
-
-
-
-</div>
-
-
-
-
-
-<button
-type="button"
-onclick="login()"
->
+<button onclick="login()">
 
 ログイン
 
 </button>
 
 
-
-
-<p id="message"></p>
-
-
+<p id="error-message"></p>
 
 
 </div>
 
 
+<div class="notice">
 
 
-<footer>
+<h2>ご利用について</h2>
 
-岩瀬自治会 防災活動
 
-</footer>
+<p>
 
+本アプリは岩瀬自治会の防災活動を
+より多くの方に知っていただくための
+地域防災情報アプリです。
+
+</p>
+
+
+<p>
+
+認証後24時間利用できます。
+
+</p>
 
 
 </div>
 
 
+</div>
 
 
 <script src="login.js"></script>
 
 
-
 </body>
-
 
 </html>
