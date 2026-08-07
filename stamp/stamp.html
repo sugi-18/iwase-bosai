@@ -71,6 +71,8 @@ placeholder="氏名">
 
 
 
+
+
 <!-- カード画面 -->
 
 <section id="card-area" style="display:none;">
@@ -84,12 +86,15 @@ placeholder="氏名">
 
 
 
+
 <p id="user-name"></p>
 
 
 
 
-<!-- QR表示 -->
+
+
+<!-- 個人QR -->
 
 <div class="qr-area">
 
@@ -111,17 +116,33 @@ placeholder="氏名">
 
 
 
-<div class="count-box">
 
+
+<!-- スタンプカード -->
+
+<div class="stamp-card">
+
+
+<h3>
+参加スタンプ
+</h3>
+
+
+<div id="stamp-icons">
+
+</div>
+
+
+
+<p>
 
 <span id="stamp-count">
-
 0
-
 </span>
 
+/10個
 
-/ 5回
+</p>
 
 
 </div>
@@ -130,7 +151,11 @@ placeholder="氏名">
 
 
 
-<p id="message"></p>
+
+
+<p id="message">
+
+</p>
 
 
 
@@ -138,7 +163,9 @@ placeholder="氏名">
 
 
 
-<!-- スタンプ追加 -->
+
+
+<!-- 参加記録追加 -->
 
 <div class="add-area">
 
@@ -148,12 +175,15 @@ placeholder="氏名">
 </h3>
 
 
+
 <input
 type="date"
 id="stamp-date">
 
 
+
 <br>
+
 
 
 <input
@@ -163,6 +193,7 @@ placeholder="訓練内容">
 
 
 <br>
+
 
 
 <button id="add-button">
@@ -182,7 +213,7 @@ placeholder="訓練内容">
 
 
 
-<!-- 履歴 -->
+<!-- 参加履歴 -->
 
 <div id="history">
 
@@ -196,6 +227,7 @@ placeholder="訓練内容">
 <ul id="history-list">
 
 </ul>
+
 
 
 </div>
@@ -242,9 +274,13 @@ style="display:none;">
 
 
 
-<!-- QRコードライブラリ -->
+
+
+
+<!-- QRコード作成ライブラリ -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 
 
 <script src="stamp.js"></script>
