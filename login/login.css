@@ -1,84 +1,64 @@
-/* ==========================
-   岩瀬自治会 防災アプリ
-   ログイン画面
-========================== */
+* {
+
+    box-sizing: border-box;
+
+}
+
+
+body {
+
+    margin: 0;
+
+    padding: 0;
+
+    font-family:
+    "Noto Sans JP",
+    "Hiragino Kaku Gothic ProN",
+    Meiryo,
+    sans-serif;
+
+    background:
+    linear-gradient(
+        135deg,
+        #e8f5ff,
+        #ffffff
+    );
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
 
 
 /* 全体 */
 
-*{
+.login-container {
 
-box-sizing:border-box;
+    width: 90%;
 
-}
+    max-width: 450px;
 
-
-
-body{
-
-margin:0;
-
-font-family:
-
-"ヒラギノ角ゴ Pro",
-"Hiragino Kaku Gothic Pro",
-"Yu Gothic",
-Meiryo,
-sans-serif;
-
-
-background:#f1f7fb;
-
-
-color:#333;
-
+    text-align: center;
 
 }
-
-
-
-
-/* コンテナ */
-
-.login-container{
-
-
-width:100%;
-
-
-max-width:450px;
-
-
-margin:0 auto;
-
-
-padding:30px 20px;
-
-
-
-text-align:center;
-
-
-}
-
 
 
 /* タイトル */
 
-.login-container h1{
+.login-container h1 {
 
+    color: #005bac;
 
-font-size:28px;
+    font-size: 28px;
 
+    line-height: 1.5;
 
-line-height:1.5;
-
-
-color:#0066cc;
-
-
-margin-bottom:20px;
-
+    margin-bottom: 25px;
 
 }
 
@@ -86,58 +66,30 @@ margin-bottom:20px;
 
 /* 説明 */
 
-.login-description{
+.login-message {
 
+    font-size: 16px;
 
-font-size:16px;
+    line-height: 1.8;
 
-
-line-height:1.8;
-
-
-margin-bottom:30px;
-
+    margin-bottom: 25px;
 
 }
 
 
 
-/* カード */
+/* ログインボックス */
 
-.login-card{
+.login-box {
 
+    background: #ffffff;
 
-background:white;
+    padding: 30px 25px;
 
+    border-radius: 15px;
 
-border-radius:15px;
-
-
-padding:30px 25px;
-
-
-box-shadow:0 4px 12px rgba(0,0,0,0.15);
-
-
-}
-
-
-
-
-.login-card h2{
-
-
-font-size:18px;
-
-
-margin-top:15px;
-
-
-margin-bottom:10px;
-
-
-color:#333;
-
+    box-shadow:
+    0 4px 15px rgba(0,0,0,0.15);
 
 }
 
@@ -145,65 +97,33 @@ color:#333;
 
 /* 入力 */
 
-#communityCode{
+.login-box input {
 
+    width: 100%;
 
-width:100%;
+    padding: 15px;
 
+    font-size: 16px;
 
-padding:15px;
+    border:
 
+    2px solid #cccccc;
 
-font-size:18px;
+    border-radius: 8px;
 
-
-text-align:center;
-
-
-border:2px solid #ccc;
-
-
-border-radius:8px;
-
-
+    margin-bottom: 20px;
 
 }
 
 
 
-/* ラジオ */
+/* 入力フォーカス */
 
-.role-area{
+.login-box input:focus {
 
+    outline: none;
 
-display:flex;
-
-
-justify-content:center;
-
-
-gap:25px;
-
-
-font-size:16px;
-
-
-margin:15px 0 25px;
-
-
-
-}
-
-
-
-.role-area input{
-
-
-transform:scale(1.3);
-
-
-margin-right:8px;
-
+    border-color: #005bac;
 
 }
 
@@ -211,101 +131,103 @@ margin-right:8px;
 
 /* ボタン */
 
-button{
+.login-box button {
 
+    width: 100%;
 
-width:100%;
+    padding: 15px;
 
+    font-size: 18px;
 
-padding:15px;
+    font-weight: bold;
 
+    color: white;
 
-font-size:18px;
+    background-color: #005bac;
 
+    border: none;
 
-font-weight:bold;
+    border-radius: 8px;
 
-
-border:none;
-
-
-border-radius:10px;
-
-
-background:#0066cc;
-
-
-color:white;
-
-
-cursor:pointer;
-
-
+    cursor: pointer;
 
 }
 
 
 
-/* 押した時 */
+/* 押下時 */
 
-button:active{
+.login-box button:active {
 
-
-transform:scale(0.98);
-
+    transform: scale(0.98);
 
 }
 
 
 
-/* メッセージ */
+/* エラー表示 */
 
-#message{
+#error-message {
 
+    color: red;
 
-margin-top:15px;
+    margin-top: 15px;
 
-
-font-weight:bold;
-
-
-color:#d62828;
-
+    font-weight: bold;
 
 }
 
 
 
-/* フッター */
+/* 注意書き */
 
-footer{
+.notice {
+
+    margin-top: 25px;
+
+    padding: 15px;
+
+    background: rgba(255,255,255,0.8);
+
+    border-radius: 10px;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+}
 
 
-margin-top:40px;
 
+.notice h2 {
 
-font-size:13px;
+    font-size: 16px;
 
+    color: #444;
 
-color:#777;
-
+    margin-bottom: 10px;
 
 }
 
 
 
-/* PC */
+/* スマホ対応 */
 
-@media(min-width:700px){
-
-
-.login-container{
+@media(max-width:480px){
 
 
-padding-top:60px;
+    .login-container h1 {
+
+        font-size:24px;
+
+    }
 
 
-}
+    .login-box {
+
+        padding:25px 20px;
+
+    }
 
 
 }
