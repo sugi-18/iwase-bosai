@@ -304,3 +304,42 @@ location.reload();
 
 
 }
+
+// QR情報確認
+
+window.addEventListener(
+"load",
+function(){
+
+let qr =
+JSON.parse(
+localStorage.getItem("qrTraining")
+);
+
+
+if(qr){
+
+
+document.getElementById(
+"training-date"
+).value=qr.date;
+
+
+document.getElementById(
+"training-name"
+).value=qr.name;
+
+
+document.getElementById(
+"training-detail"
+).value=qr.detail;
+
+
+localStorage.removeItem(
+"qrTraining"
+);
+
+
+}
+
+});
