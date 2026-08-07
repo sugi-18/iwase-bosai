@@ -27,9 +27,11 @@
 </h1>
 
 
-<!-- 登録エリア -->
+
+<!-- 登録 -->
 
 <section id="register-area">
+
 
 <h2>
 利用者登録
@@ -41,10 +43,13 @@
 </p>
 
 
-<input 
+<input
 type="text"
 id="username"
 placeholder="氏名">
+
+
+<br>
 
 
 <button id="register-button">
@@ -56,9 +61,12 @@ placeholder="氏名">
 
 
 
-<!-- カード表示 -->
+
+
+<!-- カード -->
 
 <section id="card-area" style="display:none;">
+
 
 
 <h2>
@@ -66,7 +74,9 @@ placeholder="氏名">
 </h2>
 
 
+
 <p id="user-name"></p>
+
 
 
 <div class="count-box">
@@ -75,18 +85,58 @@ placeholder="氏名">
 0
 </span>
 
-/
-5回
+/5回
 
 </div>
 
 
 
-<p id="message">
-
-</p>
+<p id="message"></p>
 
 
+
+
+
+<!-- スタンプ追加 -->
+
+<div class="add-area">
+
+
+<h3>
+参加記録追加
+</h3>
+
+
+<input
+type="date"
+id="stamp-date">
+
+
+
+<input
+type="text"
+id="stamp-event"
+placeholder="訓練内容">
+
+
+<br>
+
+
+<button id="add-button">
+
+スタンプ追加
+
+</button>
+
+
+</div>
+
+
+
+
+
+
+<!-- 履歴 -->
 
 <div id="history">
 
@@ -104,6 +154,7 @@ placeholder="氏名">
 </div>
 
 
+
 </section>
 
 
@@ -112,9 +163,10 @@ placeholder="氏名">
 
 
 
+
 <script src="stamp.js"></script>
 
 
 </body>
 
-</html
+</html>
