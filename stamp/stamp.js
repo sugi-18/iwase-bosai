@@ -1,7 +1,8 @@
 // =================================
 // いわぽん防災マイスター
 // スタンプカード
-// STEP6
+// STEP7
+// 履歴修正・削除対応
 // =================================
 
 
@@ -10,6 +11,9 @@ const STORAGE_KEY = "iwaseStamp";
 const MAX_STAMP = 10;
 
 const CERTIFICATE_COUNT = 5;
+
+
+let editIndex = null;
 
 
 
@@ -43,9 +47,8 @@ loadCard();
 
 
 
-
 // ===============================
-// 登録
+// 利用者登録
 // ===============================
 
 function registerUser(){
@@ -60,16 +63,16 @@ document
 
 
 
-
 if(name===""){
 
 
 alert("氏名を入力してください");
 
+
 return;
 
-}
 
+}
 
 
 
@@ -111,7 +114,6 @@ displayCard(data);
 
 
 
-
 // ===============================
 // 読み込み
 // ===============================
@@ -140,9 +142,7 @@ JSON.parse(saved)
 }
 
 
-
 }
-
 
 
 
@@ -154,7 +154,6 @@ JSON.parse(saved)
 // ===============================
 
 function addStamp(){
-
 
 
 const date =
@@ -175,24 +174,31 @@ document
 
 
 
+
 if(date===""){
+
 
 alert("参加日を入力してください");
 
+
 return;
 
-}
 
+}
 
 
 
 if(event===""){
 
+
 alert("訓練内容を入力してください");
+
 
 return;
 
+
 }
+
 
 
 
@@ -212,13 +218,32 @@ STORAGE_KEY
 
 
 
+
+if(editIndex !== null){
+
+
+data.stamps[editIndex]={
+
+date:date,
+
+event:event
+
+};
+
+
+editIndex=null;
+
+
+
+}
+else{
+
+
 if(data.stamps.length >= MAX_STAMP){
 
 
 alert(
-
 "スタンプは10個まで登録できます"
-
 );
 
 
@@ -229,9 +254,6 @@ return;
 
 
 
-
-
-
 data.stamps.push({
 
 date:date,
@@ -239,6 +261,10 @@ date:date,
 event:event
 
 });
+
+
+}
+
 
 
 
@@ -256,15 +282,171 @@ JSON.stringify(data)
 
 
 document
+.getElementById("stamp-date")
+.value="";
+
+
+
+document
 .getElementById("stamp-event")
 .value="";
+
+
+
+document
+.getElementById("add-button")
+.textContent=
+
+"スタンプ追加";
+
 
 
 
 displayCard(data);
 
 
+
 }
+
+
+
+
+
+
+
+// ===============================
+// 修正
+// ===============================
+
+function editStamp(index){
+
+
+const data =
+
+JSON.parse(
+
+localStorage.getItem(
+STORAGE_KEY
+)
+
+);
+
+
+
+const stamp =
+
+data.stamps[index];
+
+
+
+document
+.getElementById("stamp-date")
+.value=
+
+stamp.date;
+
+
+
+document
+.getElementById("stamp-event")
+.value=
+
+stamp.event;
+
+
+
+editIndex=index;
+
+
+
+document
+.getElementById("add-button")
+.textContent=
+
+"修正保存";
+
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+
+}
+
+
+
+
+
+
+
+// ===============================
+// 削除
+// ===============================
+
+function deleteStamp(index){
+
+
+
+const result =
+
+confirm(
+
+"この参加記録を削除しますか？"
+
+);
+
+
+
+if(!result){
+
+return;
+
+}
+
+
+
+const data =
+
+JSON.parse(
+
+localStorage.getItem(
+STORAGE_KEY
+)
+
+);
+
+
+
+data.stamps.splice(
+
+index,
+
+1
+
+);
+
+
+
+localStorage.setItem(
+
+STORAGE_KEY,
+
+JSON.stringify(data)
+
+);
+
+
+
+displayCard(data);
+
+
+
+}
+
 
 
 
@@ -306,6 +488,49 @@ data.name+" さん";
 
 
 
+// QR表示
+
+document
+.getElementById("qrcode")
+.innerHTML="";
+
+
+
+new QRCode(
+
+document
+.getElementById("qrcode"),
+
+{
+
+text:data.id,
+
+width:180,
+
+height:180
+
+}
+
+);
+
+
+
+
+
+document
+.getElementById("user-id")
+.textContent=
+
+"ID : "+data.id;
+
+
+
+
+
+
+
+
+
 // スタンプ表示
 
 const icons =
@@ -319,7 +544,11 @@ icons.innerHTML="";
 
 
 
-for(let i=0;i<MAX_STAMP;i++){
+for(
+let i=0;
+i<MAX_STAMP;
+i++
+){
 
 
 const span =
@@ -328,21 +557,17 @@ document.createElement("span");
 
 
 
-if(i < data.stamps.length){
+span.textContent =
 
+i < data.stamps.length
 
-span.textContent="⭐";
+?
 
+"⭐"
 
-}
+:
 
-else{
-
-
-span.textContent="☆";
-
-
-}
+"☆";
 
 
 
@@ -356,12 +581,12 @@ icons.appendChild(span);
 
 
 
-
 document
 .getElementById("stamp-count")
 .textContent=
 
 data.stamps.length;
+
 
 
 
@@ -382,11 +607,9 @@ document
 if(data.stamps.length >= CERTIFICATE_COUNT){
 
 
-
 message.textContent=
 
 "🎉 いわぽん防災マイスター認定条件達成！";
-
 
 
 document
@@ -395,7 +618,6 @@ document
 
 
 }
-
 else{
 
 
@@ -405,7 +627,7 @@ message.textContent=
 
 +
 
-(CERTIFICATE_COUNT - data.stamps.length)
+(CERTIFICATE_COUNT-data.stamps.length)
 
 +
 
@@ -419,7 +641,6 @@ document
 
 
 }
-
 
 
 
@@ -442,10 +663,9 @@ list.innerHTML="";
 
 
 
-
 data.stamps.forEach(
 
-stamp=>{
+(stamp,index)=>{
 
 
 const li =
@@ -454,17 +674,29 @@ document.createElement("li");
 
 
 
-li.textContent=
+li.innerHTML=
 
-stamp.date
+`
 
-+
+${stamp.date}<br>
 
-" "
+${stamp.event}<br>
 
-+
 
-stamp.event;
+<button onclick="editStamp(${index})">
+
+修正
+
+</button>
+
+
+<button onclick="deleteStamp(${index})">
+
+削除
+
+</button>
+
+`;
 
 
 
@@ -473,7 +705,6 @@ list.appendChild(li);
 
 
 }
-
 
 );
 
