@@ -1,6 +1,7 @@
+```css
 /* ==================================
-   いわぽん防災マイスター 認定証
-   certificate.css
+いわぽん防災マイスター 認定証
+certificate.css
 ================================== */
 
 
@@ -24,34 +25,32 @@ body {
 
 
 
+
+
 /* 認定証本体 */
 
 #certificate {
 
+    width:297mm;
 
-    width:1000px;
+    height:210mm;
 
-    max-width:95%;
-
-    min-height:700px;
+    max-width:100%;
 
 
     margin:30px auto;
 
 
-    background:
-    #fffdf6;
+    background:#fffdf6;
 
 
-    border:
-
-    15px solid #c9a227;
+    border:12px solid #c9a227;
 
 
     box-sizing:border-box;
 
 
-    padding:70px 80px;
+    padding:45px 70px;
 
 
     text-align:center;
@@ -64,12 +63,13 @@ body {
 
     0 5px 20px rgba(0,0,0,0.2);
 
-
 }
 
 
 
-/* 内側の二重枠 */
+
+
+/* 内側二重枠 */
 
 #certificate::before {
 
@@ -80,73 +80,75 @@ body {
     position:absolute;
 
 
-    top:20px;
+    top:15px;
 
-    left:20px;
+    left:15px;
 
-    right:20px;
+    right:15px;
 
-    bottom:20px;
+    bottom:15px;
 
 
-    border:
-
-    3px solid #c9a227;
+    border:3px solid #c9a227;
 
 
     pointer-events:none;
 
+}
+
+
+
+
+
+/* ロゴ */
+
+.logo img {
+
+
+    width:90px;
+
+
+    position:absolute;
+
+
+    top:35px;
+
+
+    right:50px;
+
 
 }
 
 
 
 
-/* タイトル */
-
-.certificate-title {
 
 
-    font-size:48px;
+/* 発行団体 */
+
+.community {
 
 
-    font-weight:bold;
+    font-size:22px;
 
 
-    letter-spacing:15px;
+    margin-top:5px;
 
 
-    margin-bottom:50px;
-
-
-    color:#8b0000;
+    letter-spacing:5px;
 
 
 }
 
 
 
-/* 認定証文字 */
-
-.certificate-subtitle {
-
-
-    font-size:32px;
-
-
-    margin-bottom:50px;
-
-
-    letter-spacing:10px;
-
-
-}
 
 
 
-/* 氏名 */
 
-#username {
+/* メインタイトル */
+
+.title {
 
 
     font-size:42px;
@@ -155,30 +157,88 @@ body {
     font-weight:bold;
 
 
-    margin:40px 0;
+    color:#8b0000;
 
 
-    padding-bottom:15px;
+    letter-spacing:8px;
 
 
-    border-bottom:
-
-    2px solid #333;
+    margin-top:25px;
 
 
-    display:inline-block;
+    margin-bottom:25px;
 
 
 }
 
 
 
+
+
+
+
+/* 認定証 */
+
+.subtitle {
+
+
+    font-size:32px;
+
+
+    letter-spacing:15px;
+
+
+    margin-bottom:35px;
+
+
+}
+
+
+
+
+
+
+
+/* 氏名 */
+
+.name {
+
+
+    font-size:40px;
+
+
+    font-weight:bold;
+
+
+    margin:30px;
+
+
+}
+
+
+
+.name span {
+
+
+    border-bottom:2px solid #333;
+
+
+    padding:0 30px 10px;
+
+}
+
+
+
+
+
+
+
 /* 本文 */
 
-.certificate-text {
+.message {
 
 
-    font-size:22px;
+    font-size:20px;
 
 
     line-height:2;
@@ -188,69 +248,72 @@ body {
 
 
 
-/* 日付 */
-
-#today {
 
 
-    margin-top:50px;
+
+.master {
 
 
-    font-size:22px;
+    font-size:28px;
+
+
+    font-weight:bold;
+
+
+    color:#8b0000;
 
 
 }
 
 
 
-/* 認定番号 */
-
-#number {
 
 
-    margin-top:25px;
+
+
+/* 認定情報 */
+
+.info {
+
+
+    margin-top:35px;
 
 
     font-size:18px;
 
 
-    color:#555;
+    line-height:1.8;
 
 
 }
 
 
 
-/* ロゴ */
-
-.certificate-logo {
-
-
-    width:120px;
-
-
-    position:absolute;
-
-
-    top:45px;
-
-
-    right:60px;
-
-
-}
 
 
 
-/* 発行者 */
 
-.issuer {
+/* フッター */
 
-
-    margin-top:60px;
+.footer {
 
 
-    font-size:24px;
+    display:flex;
+
+
+    justify-content:center;
+
+
+    align-items:center;
+
+
+    gap:80px;
+
+
+    margin-top:25px;
+
+
+    font-size:20px;
 
 
     font-weight:bold;
@@ -260,9 +323,23 @@ body {
 
 
 
-/* PDF保存ボタン */
+.footer img {
 
-.pdf-button {
+
+    width:80px;
+
+
+}
+
+
+
+
+
+
+
+/* PDFボタン */
+
+button {
 
 
     display:block;
@@ -274,7 +351,7 @@ body {
     padding:15px 40px;
 
 
-    font-size:20px;
+    font-size:18px;
 
 
     color:white;
@@ -291,18 +368,20 @@ body {
 
     cursor:pointer;
 
+}
+
+
+
+button:hover {
+
+
+    opacity:0.8;
 
 }
 
 
 
-.pdf-button:hover {
 
-
-    background:#a61b1b;
-
-
-}
 
 
 
@@ -311,50 +390,121 @@ body {
 @media screen and (max-width:600px){
 
 
-    #certificate {
+
+body{
+
+    padding:10px;
+
+}
 
 
-        padding:50px 20px;
+
+#certificate{
 
 
-        border-width:8px;
+    width:100%;
 
 
-    }
+    height:auto;
 
 
-    .certificate-title {
+    padding:40px 20px;
 
 
-        font-size:28px;
-
-        letter-spacing:5px;
-
-    }
-
-
-    .certificate-subtitle {
-
-
-        font-size:24px;
-
-    }
-
-
-    #username {
-
-
-        font-size:30px;
-
-    }
-
-
-    .certificate-text {
-
-
-        font-size:16px;
-
-    }
+    border-width:8px;
 
 
 }
+
+
+
+.logo img{
+
+
+    width:60px;
+
+
+    right:20px;
+
+
+    top:20px;
+
+
+}
+
+
+
+.community{
+
+
+    font-size:16px;
+
+}
+
+
+
+.title{
+
+
+    font-size:24px;
+
+
+    letter-spacing:3px;
+
+}
+
+
+
+.subtitle{
+
+
+    font-size:22px;
+
+
+    letter-spacing:5px;
+
+}
+
+
+
+.name{
+
+
+    font-size:28px;
+
+}
+
+
+
+.message{
+
+
+    font-size:15px;
+
+}
+
+
+
+.master{
+
+
+    font-size:20px;
+
+}
+
+
+
+.footer{
+
+
+    gap:30px;
+
+
+    font-size:15px;
+
+}
+
+
+
+}
+```
