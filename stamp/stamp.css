@@ -190,32 +190,35 @@ border-radius:8px;
 
 }
 
-/* トップページへ戻るボタン */
+/* 戻るボタン */
 
-.back-button{
+.back-button {
 
-    display:block;
+    display: inline-block;
 
-    width:fit-content;
+    margin-top: 30px;
 
-    margin:30px auto 0;
+    padding: 15px 35px;
 
-    padding:15px 35px;
+    background-color: #1976d2;
 
-    background:#0077b6;
+    color: white;
 
-    color:white;
+    text-decoration: none;
 
-    text-decoration:none;
+    border-radius: 30px;
 
-    font-size:18px;
+    font-size: 18px;
 
-    border-radius:10px;
+    transition: 0.3s;
 
 }
 
-.back-button:hover{
 
-    opacity:0.8;
+.back-button:hover {
+
+    background-color: #0d47a1;
+
+    transform: scale(1.05);
 
 }
