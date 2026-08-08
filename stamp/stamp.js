@@ -517,7 +517,6 @@ function displayCard(data){
     .getElementById("message");
 
 
-
     const certificateArea =
     document
     .getElementById("certificate-area");
@@ -632,7 +631,7 @@ function clearData(){
     ){
 
 
-        // iwaseStampだけを削除
+        // スタンプカードのデータだけ削除
         // 他のlocalStorageデータは残す
 
         localStorage.removeItem(
