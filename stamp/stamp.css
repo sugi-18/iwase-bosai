@@ -163,15 +163,26 @@ border-radius:8px;
 
 .delete-button{
 
+    display:block;
+
+    margin:40px auto 0;
+
     background:#d62828;
 
-    margin-top:40px;
+    color:white;
+
+    border:none;
 
     padding:12px 25px;
 
     font-size:16px;
 
+    border-radius:10px;
+
+    cursor:pointer;
+
 }
+
 
 .delete-button:hover{
 
