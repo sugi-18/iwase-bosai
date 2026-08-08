@@ -1,15 +1,5 @@
-/* =================================
-いわぽん防災マイスター
-スタンプカード
-================================= */
-
-/* ===============================
-全体
-=============================== */
-
 body{
 
-```
 font-family:
 "Helvetica Neue",
 Arial,
@@ -20,76 +10,51 @@ background:#f5f5f5;
 margin:0;
 
 padding:20px;
-```
 
 }
 
-/* ===============================
-メインカード
-=============================== */
-
 .stamp-container{
 
-```
 max-width:500px;
 
-margin:0 auto;
+margin\:auto;
 
-background:white;
+background\:white;
 
 padding:30px;
 
 border-radius:15px;
 
-box-shadow:
-0 3px 10px rgba(0,0,0,0.15);
+box-shadow:0 3px 10px rgba(0,0,0,0.15);
 
-text-align:center;
-```
+text-align\:center;
 
 }
 
-/* ===============================
-見出し
-=============================== */
+
 
 h1{
 
-```
 color:#d62828;
 
 font-size:28px;
 
-line-height:1.5;
-```
-
 }
+
+
 
 h2{
 
-```
 border-bottom:3px solid #d62828;
 
 padding-bottom:10px;
-```
 
 }
 
-h3{
 
-```
-margin-top:20px;
-```
-
-}
-
-/* ===============================
-入力欄
-=============================== */
 
 input{
 
-```
 width:80%;
 
 padding:12px;
@@ -102,23 +67,17 @@ border-radius:8px;
 
 border:1px solid #ccc;
 
-box-sizing:border-box;
-```
-
 }
 
-/* ===============================
-通常ボタン
-=============================== */
+
 
 button{
 
-```
 background:#0077b6;
 
-color:white;
+color\:white;
 
-border:none;
+border\:none;
 
 padding:15px 35px;
 
@@ -126,278 +85,91 @@ font-size:18px;
 
 border-radius:10px;
 
-cursor:pointer;
-```
+cursor\:pointer;
 
 }
 
-button:hover{
+button\:hover{
 
-```
 opacity:0.8;
-```
 
 }
 
-/* ===============================
-スタンプ
-=============================== */
 
-#stamp-icons{
-
-```
-display:flex;
-
-flex-wrap:wrap;
-
-justify-content:center;
-
-gap:8px;
-
-margin:20px auto;
-
-max-width:400px;
-```
-
-}
-
-#stamp-icons span{
-
-```
-font-size:32px;
-
-line-height:1.2;
-```
-
-}
-
-/* ===============================
-スタンプ数
-=============================== */
 
 .count-box{
 
-```
 font-size:40px;
 
-font-weight:bold;
+font-weight\:bold;
 
 margin:30px;
 
 color:#0077b6;
-```
 
 }
 
-#stamp-count{
 
-```
-font-size:32px;
 
-font-weight:bold;
+\#message{
 
-color:#0077b6;
-```
-
-}
-
-/* ===============================
-メッセージ
-=============================== */
-
-#message{
-
-```
 font-size:18px;
 
-font-weight:bold;
-
-margin:25px 0;
-
-line-height:1.6;
-```
+font-weight\:bold;
 
 }
 
-/* ===============================
-QRコード
-=============================== */
 
-#qrcode{
 
-```
-width:180px;
+\#history{
 
-height:180px;
-
-margin:20px auto;
-```
-
-}
-
-#qrcode img,
-#qrcode canvas{
-
-```
-display:block;
-
-margin:0 auto;
-```
-
-}
-
-/* ===============================
-参加履歴
-=============================== */
-
-#history{
-
-```
 margin-top:30px;
 
-text-align:left;
-```
+text-align\:left;
 
 }
 
-#history h3{
 
-```
-text-align:center;
-```
 
-}
+\#history li{
 
-#history-list{
-
-```
-padding-left:20px;
-```
-
-}
-
-#history li{
-
-```
 margin-bottom:15px;
 
-padding:12px;
+padding:10px;
 
 background:#f1f1f1;
 
 border-radius:8px;
 
-line-height:1.7;
+}
+
+/\* QRコード中央配置 \*/
+
+\#qrcode {
+width:180px;
+margin:20px auto;
+}
+
+\#qrcode img,
+\#qrcode canvas {
+display\:block;
+
+```
+margin:0 auto;
 ```
 
 }
 
-/* ===============================
-修正・削除ボタン
-=============================== */
-
-#history-list button{
-
-```
-padding:7px 12px;
-
-font-size:14px;
-
-margin-left:5px;
-
-margin-top:5px;
-```
-
-}
-
-/* ===============================
-認定証エリア
-=============================== */
-
-#certificate-area{
-
-```
-width:100%;
-
-margin-top:35px;
-
-padding-top:25px;
-
-border-top:2px solid #ddd;
-
-box-sizing:border-box;
-```
-
-}
-
-/* ===============================
-認定証を見るボタン
-=============================== */
-
-.certificate-button{
-
-```
-display:inline-block;
-
-box-sizing:border-box;
-
-background:#d62828;
-
-color:white;
-
-text-decoration:none;
-
-padding:15px 35px;
-
-font-size:18px;
-
-font-weight:bold;
-
-border-radius:10px;
-
-cursor:pointer;
-
-transition:0.3s;
-```
-
-}
-
-.certificate-button:hover{
-
-```
-opacity:0.85;
-
-transform:scale(1.03);
-```
-
-}
-
-/* ===============================
-認定証ボタンエリア
-=============================== */
-
-.certificate-button-area{
-
-```
-text-align:center;
-
-margin-bottom:25px;
-```
-
-}
-
-/* ===============================
-テストデータ削除ボタン
-=============================== */
+/\* テストデータ削除ボタン \*/
 
 .delete-button{
 
 ```
 display:block;
 
-margin:20px auto 0;
+margin:40px auto 0;
 
-background:#777;
+background:#d62828;
 
 color:white;
 
@@ -414,7 +186,7 @@ cursor:pointer;
 
 }
 
-.delete-button:hover{
+.delete-button\:hover{
 
 ```
 opacity:0.8;
@@ -422,155 +194,38 @@ opacity:0.8;
 
 }
 
-/* ===============================
-トップページへ戻る
-=============================== */
+/\* 戻るボタン \*/
 
-.back-button{
+.back-button {
 
 ```
-display:inline-block;
+display: inline-block;
 
-margin-top:30px;
+margin-top: 30px;
 
-padding:15px 35px;
+padding: 15px 35px;
 
-background-color:#1976d2;
+background-color: #1976d2;
 
-color:white;
+color: white;
 
-text-decoration:none;
+text-decoration: none;
 
-border-radius:30px;
+border-radius: 30px;
 
-font-size:18px;
+font-size: 18px;
 
-transition:0.3s;
+transition: 0.3s;
 ```
 
 }
 
-.back-button:hover{
+.back-button\:hover {
 
 ```
-background-color:#0d47a1;
+background-color: #0d47a1;
 
-transform:scale(1.05);
-```
-
-}
-
-/* ===============================
-PC表示
-=============================== */
-
-@media screen and (min-width:768px){
-
-```
-.stamp-container{
-
-    max-width:600px;
-
-    padding:40px;
-
-}
-
-
-h1{
-
-    font-size:30px;
-
-}
-
-
-#stamp-icons{
-
-    max-width:500px;
-
-}
-
-
-.certificate-button{
-
-    min-width:240px;
-
-}
-```
-
-}
-
-/* ===============================
-スマートフォン表示
-=============================== */
-
-@media screen and (max-width:767px){
-
-```
-body{
-
-    padding:10px;
-
-}
-
-
-.stamp-container{
-
-    padding:20px 15px;
-
-}
-
-
-h1{
-
-    font-size:24px;
-
-}
-
-
-input{
-
-    width:90%;
-
-    margin:10px;
-
-}
-
-
-button{
-
-    padding:13px 25px;
-
-    font-size:16px;
-
-}
-
-
-.certificate-button{
-
-    display:block;
-
-    width:90%;
-
-    max-width:300px;
-
-    margin:0 auto;
-
-    padding:14px 20px;
-
-    font-size:17px;
-
-}
-
-
-.back-button{
-
-    width:90%;
-
-    max-width:300px;
-
-    box-sizing:border-box;
-
-}
+transform: scale(1.05);
 ```
 
 }
