@@ -2,71 +2,160 @@
 <html lang="ja">
 
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>岩瀬防災訓練</title>
 
-<link rel="stylesheet" href="../style.css">
+<style>
+/* ---------- 全体 ---------- */
+body {
+    margin: 0;
+    font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Helvetica Neue",
+    "Yu Gothic",
+    "Meiryo",
+    sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+    text-align: center;
+}
+
+/* ---------- ヘッダー ---------- */
+.header {
+    background-color: #d62828;
+    color: white;
+    padding: 30px 20px;
+}
+
+.header h1 {
+    margin: 0 0 10px;
+    font-size: 28px;
+}
+
+.header p {
+    margin: 0;
+    font-size: 16px;
+}
+
+/* ---------- メイン ---------- */
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px 20px 50px;
+}
+
+/* ---------- 訓練案内 ---------- */
+.training-photo-area {
+    margin: 20px auto 40px;
+}
+
+.training-photo-area h2 {
+    display: inline-block;
+    color: #d62828;
+    padding-bottom: 8px;
+    border-bottom: 4px solid #d62828;
+    margin-bottom: 30px;
+}
+
+/* ---------- 写真 ---------- */
+.training-gallery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.training-gallery img {
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+/* ---------- 戻るボタン ---------- */
+.back-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 15px 35px;
+    background-color: #1976d2;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.back-button:hover {
+    background-color: #125aa0;
+    transform: translateY(-2px);
+}
+
+/* ---------- フッター ---------- */
+footer {
+    padding: 20px;
+    background-color: #eeeeee;
+    color: #666;
+    font-size: 14px;
+}
+
+/* ---------- スマホ ---------- */
+@media (max-width: 600px) {
+    .header h1 {
+        font-size: 24px;
+    }
+
+    main {
+        padding: 25px 15px 40px;
+    }
+
+    .training-photo-area h2 {
+        font-size: 22px;
+    }
+
+    .back-button {
+        width: 80%;
+        max-width: 300px;
+        box-sizing: border-box;
+        padding: 15px 20px;
+    }
+}
+</style>
 
 </head>
 
 <body>
 
 <header class="header">
-
-<h1>
-🚒 岩瀬防災訓練
-</h1>
-
-<p>
-次回防災訓練のお知らせ
-</p>
-
+<h1>🚒 岩瀬防災訓練</h1>
+<p>次回防災訓練のお知らせ</p>
 </header>
 
 <main>
 
 <section class="training-photo-area">
-
-<h2>
-次回訓練案内
-</h2>
+<h2>次回訓練案内</h2>
 
 <div class="training-gallery">
 
-<img src="training1.png"
-alt="次回防災訓練案内1"
-onerror="this.style.display='none';">
-
-<img src="training2.png"
-alt="次回防災訓練案内2"
-onerror="this.style.display='none';">
-
-<img src="training3.png"
-alt="次回防災訓練案内3"
-onerror="this.style.display='none';">
+<img src="training1.png" alt="次回防災訓練案内1" onerror="this.style.display='none';">
+<img src="training2.png" alt="次回防災訓練案内2" onerror="this.style.display='none';">
+<img src="training3.png" alt="次回防災訓練案内3" onerror="this.style.display='none';">
 
 </div>
-
 </section>
 
-<a href="../index.html" class="back-button">
-トップページへ戻る
-</a>
+<a href="../index.html" class="back-button">トップページへ戻る</a>
 
 </main>
 
 <footer>
-
-<p>
-© 岩瀬自治会
-</p>
-
+<p>© 岩瀬自治会</p>
 </footer>
 
 </body>
-
 </html>
