@@ -1,94 +1,124 @@
-```javascript
 // =================================
 // いわぽん防災マイスター
 // スタンプカード
-// STEP7
-// 履歴修正・削除対応
+// 完成版
 // =================================
-
 
 const STORAGE_KEY = "iwaseStamp";
 
 const MAX_STAMP = 10;
-
 const CERTIFICATE_COUNT = 5;
-
 
 let editIndex = null;
 
 
-
-// ===============================
+// =================================
 // 初期読み込み
-// ===============================
+// =================================
 
-window.onload = function(){
+window.addEventListener("DOMContentLoaded", function () {
 
+    const registerButton =
+        document.getElementById("register-button");
 
-    document
-    .getElementById("register-button")
-    .addEventListener(
-        "click",
-        registerUser
-    );
+    const addButton =
+        document.getElementById("add-button");
 
 
-    document
-    .getElementById("add-button")
-    .addEventListener(
-        "click",
-        addStamp
-    );
+    if (registerButton) {
+
+        registerButton.addEventListener(
+            "click",
+            registerUser
+        );
+
+    }
+
+
+    if (addButton) {
+
+        addButton.addEventListener(
+            "click",
+            addStamp
+        );
+
+    }
 
 
     loadCard();
 
-};
+});
 
 
-
-// ===============================
+// =================================
 // 利用者登録
-// ===============================
+// =================================
 
-function registerUser(){
+function registerUser() {
 
-
-    const name =
-    document
-    .getElementById("username")
-    .value
-    .trim();
+    const username =
+        document.getElementById("username");
 
 
-    if(name === ""){
+    if (!username) {
 
-        alert("氏名を入力してください");
+        alert("氏名入力欄が見つかりません。");
 
         return;
 
     }
 
 
+    const name =
+        username.value.trim();
+
+
+    if (name === "") {
+
+        alert("氏名を入力してください。");
+
+        username.focus();
+
+        return;
+
+    }
+
 
     const data = {
 
         id:
-        "IWASE-" + Date.now(),
+            "IWASE-" +
+            Date.now(),
 
-        name:name,
+        name:
+            name,
 
-        stamps:[]
+        stamps:
+            []
 
     };
 
 
+    try {
 
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(data)
-    );
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(data)
+        );
 
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "利用者情報を保存できませんでした。"
+        );
+
+        return;
+
+    }
 
 
     displayCard(data);
@@ -96,24 +126,56 @@ function registerUser(){
 }
 
 
+// =================================
+// 保存データ読み込み
+// =================================
 
-// ===============================
-// 読み込み
-// ===============================
-
-function loadCard(){
-
+function loadCard() {
 
     const saved =
-    localStorage.getItem(
-        STORAGE_KEY
-    );
+        localStorage.getItem(
+            STORAGE_KEY
+        );
 
 
-    if(saved){
+    if (!saved) {
 
-        displayCard(
-            JSON.parse(saved)
+        return;
+
+    }
+
+
+    try {
+
+        const data =
+            JSON.parse(saved);
+
+
+        if (
+            !data ||
+            !data.name ||
+            !Array.isArray(data.stamps)
+        ) {
+
+            localStorage.removeItem(
+                STORAGE_KEY
+            );
+
+            return;
+
+        }
+
+
+        displayCard(data);
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        localStorage.removeItem(
+            STORAGE_KEY
         );
 
     }
@@ -121,83 +183,138 @@ function loadCard(){
 }
 
 
-
-// ===============================
+// =================================
 // スタンプ追加
-// ===============================
+// =================================
 
-function addStamp(){
+function addStamp() {
+
+    const dateInput =
+        document.getElementById(
+            "stamp-date"
+        );
+
+
+    const eventInput =
+        document.getElementById(
+            "stamp-event"
+        );
+
+
+    if (!dateInput || !eventInput) {
+
+        alert(
+            "参加記録入力欄が見つかりません。"
+        );
+
+        return;
+
+    }
 
 
     const date =
-    document
-    .getElementById("stamp-date")
-    .value;
+        dateInput.value;
 
 
     const event =
-    document
-    .getElementById("stamp-event")
-    .value
-    .trim();
+        eventInput.value.trim();
 
 
+    if (date === "") {
 
-    if(date === ""){
+        alert(
+            "参加日を入力してください。"
+        );
 
-        alert("参加日を入力してください");
-
-        return;
-
-    }
-
-
-
-    if(event === ""){
-
-        alert("訓練内容を入力してください");
+        dateInput.focus();
 
         return;
 
     }
 
+
+    if (event === "") {
+
+        alert(
+            "訓練内容を入力してください。"
+        );
+
+        eventInput.focus();
+
+        return;
+
+    }
 
 
     const saved =
-    localStorage.getItem(
-        STORAGE_KEY
-    );
+        localStorage.getItem(
+            STORAGE_KEY
+        );
 
 
-    if(!saved){
+    if (!saved) {
 
-        alert("利用者登録をしてください");
+        alert(
+            "先に利用者登録をしてください。"
+        );
 
         return;
 
     }
 
 
-
-    const data =
-    JSON.parse(saved);
+    let data;
 
 
+    try {
 
-    // ===========================
+        data =
+            JSON.parse(saved);
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "利用者データを読み込めませんでした。"
+        );
+
+        return;
+
+    }
+
+
+    if (!Array.isArray(data.stamps)) {
+
+        data.stamps = [];
+
+    }
+
+
+    // =================================
     // 履歴修正
-    // ===========================
+    // =================================
 
-    if(editIndex !== null){
+    if (editIndex !== null) {
 
+        if (
+            editIndex >= 0 &&
+            editIndex < data.stamps.length
+        ) {
 
-        data.stamps[editIndex] = {
+            data.stamps[editIndex] = {
 
-            date:date,
+                date:
+                    date,
 
-            event:event
+                event:
+                    event
 
-        };
+            };
+
+        }
 
 
         editIndex = null;
@@ -205,17 +322,19 @@ function addStamp(){
     }
 
 
-    // ===========================
+    // =================================
     // 新規追加
-    // ===========================
+    // =================================
 
-    else{
+    else {
 
-
-        if(data.stamps.length >= MAX_STAMP){
+        if (
+            data.stamps.length >=
+            MAX_STAMP
+        ) {
 
             alert(
-                "スタンプは10個まで登録できます"
+                "スタンプは10個まで登録できます。"
             );
 
             return;
@@ -225,38 +344,60 @@ function addStamp(){
 
         data.stamps.push({
 
-            date:date,
+            date:
+                date,
 
-            event:event
+            event:
+                event
 
         });
 
     }
 
 
+    // =================================
+    // 保存
+    // =================================
 
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(data)
-    );
+    try {
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(data)
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "データを保存できませんでした。"
+        );
+
+        return;
+
+    }
 
 
+    dateInput.value = "";
 
-    document
-    .getElementById("stamp-date")
-    .value = "";
-
-
-    document
-    .getElementById("stamp-event")
-    .value = "";
+    eventInput.value = "";
 
 
-    document
-    .getElementById("add-button")
-    .textContent =
-    "スタンプ追加";
+    const addButton =
+        document.getElementById(
+            "add-button"
+        );
 
+
+    if (addButton) {
+
+        addButton.textContent =
+            "スタンプ追加";
+
+    }
 
 
     displayCard(data);
@@ -264,117 +405,187 @@ function addStamp(){
 }
 
 
+// =================================
+// 参加履歴修正
+// =================================
 
-// ===============================
-// 修正
-// ===============================
-
-function editStamp(index){
-
+function editStamp(index) {
 
     const saved =
-    localStorage.getItem(
-        STORAGE_KEY
-    );
+        localStorage.getItem(
+            STORAGE_KEY
+        );
 
 
-    if(!saved){
+    if (!saved) {
 
         return;
 
     }
 
 
-    const data =
-    JSON.parse(saved);
+    let data;
+
+
+    try {
+
+        data =
+            JSON.parse(saved);
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        return;
+
+    }
+
+
+    if (!Array.isArray(data.stamps)) {
+
+        return;
+
+    }
 
 
     const stamp =
-    data.stamps[index];
+        data.stamps[index];
 
 
-
-    if(!stamp){
+    if (!stamp) {
 
         return;
 
     }
 
 
-
-    document
-    .getElementById("stamp-date")
-    .value =
-    stamp.date;
-
-
-    document
-    .getElementById("stamp-event")
-    .value =
-    stamp.event;
+    const dateInput =
+        document.getElementById(
+            "stamp-date"
+        );
 
 
+    const eventInput =
+        document.getElementById(
+            "stamp-event"
+        );
 
-    editIndex = index;
+
+    if (dateInput) {
+
+        dateInput.value =
+            stamp.date || "";
+
+    }
 
 
-    document
-    .getElementById("add-button")
-    .textContent =
-    "修正保存";
+    if (eventInput) {
 
+        eventInput.value =
+            stamp.event || "";
+
+    }
+
+
+    editIndex =
+        index;
+
+
+    const addButton =
+        document.getElementById(
+            "add-button"
+        );
+
+
+    if (addButton) {
+
+        addButton.textContent =
+            "修正保存";
+
+    }
 
 
     window.scrollTo({
 
-        top:0,
+        top:
+            0,
 
-        behavior:"smooth"
+        behavior:
+            "smooth"
 
     });
 
 }
 
 
+// =================================
+// 参加履歴削除
+// =================================
 
-// ===============================
-// 参加記録削除
-// ===============================
-
-function deleteStamp(index){
-
+function deleteStamp(index) {
 
     const result =
-    confirm(
-        "この参加記録を削除しますか？"
-    );
+        confirm(
+            "この参加記録を削除しますか？"
+        );
 
 
-    if(!result){
+    if (!result) {
 
         return;
 
     }
-
 
 
     const saved =
-    localStorage.getItem(
-        STORAGE_KEY
-    );
+        localStorage.getItem(
+            STORAGE_KEY
+        );
 
 
-    if(!saved){
+    if (!saved) {
 
         return;
 
     }
 
 
+    let data;
 
-    const data =
-    JSON.parse(saved);
 
+    try {
+
+        data =
+            JSON.parse(saved);
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        return;
+
+    }
+
+
+    if (!Array.isArray(data.stamps)) {
+
+        return;
+
+    }
+
+
+    if (
+        index < 0 ||
+        index >= data.stamps.length
+    ) {
+
+        return;
+
+    }
 
 
     data.stamps.splice(
@@ -383,12 +594,26 @@ function deleteStamp(index){
     );
 
 
+    try {
 
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(data)
-    );
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(data)
+        );
 
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "データを保存できませんでした。"
+        );
+
+        return;
+
+    }
 
 
     displayCard(data);
@@ -396,257 +621,436 @@ function deleteStamp(index){
 }
 
 
+// =================================
+// スタンプカード表示
+// =================================
 
-// ===============================
-// 表示
-// ===============================
+function displayCard(data) {
 
-function displayCard(data){
+    if (!data) {
 
-
-    document
-    .getElementById("register-area")
-    .style.display =
-    "none";
-
-
-    document
-    .getElementById("card-area")
-    .style.display =
-    "block";
-
-
-
-    // ===========================
-    // 氏名
-    // ===========================
-
-    document
-    .getElementById("user-name")
-    .textContent =
-    data.name + " さん";
-
-
-
-    // ===========================
-    // QRコード
-    // ===========================
-
-    document
-    .getElementById("qrcode")
-    .innerHTML = "";
-
-
-    new QRCode(
-
-        document
-        .getElementById("qrcode"),
-
-        {
-
-            text:data.id,
-
-            width:180,
-
-            height:180
-
-        }
-
-    );
-
-
-
-    document
-    .getElementById("user-id")
-    .textContent =
-    "ID : " + data.id;
-
-
-
-    // ===========================
-    // スタンプ表示
-    // ===========================
-
-    const icons =
-    document
-    .getElementById("stamp-icons");
-
-
-    icons.innerHTML = "";
-
-
-
-    for(
-        let i = 0;
-        i < MAX_STAMP;
-        i++
-    ){
-
-
-        const span =
-        document.createElement("span");
-
-
-        span.textContent =
-        i < data.stamps.length
-        ?
-        "⭐"
-        :
-        "☆";
-
-
-        icons.appendChild(span);
+        return;
 
     }
 
 
-
-    document
-    .getElementById("stamp-count")
-    .textContent =
-    data.stamps.length;
-
+    const registerArea =
+        document.getElementById(
+            "register-area"
+        );
 
 
-    // ===========================
+    const cardArea =
+        document.getElementById(
+            "card-area"
+        );
+
+
+    if (registerArea) {
+
+        registerArea.style.display =
+            "none";
+
+    }
+
+
+    if (cardArea) {
+
+        cardArea.style.display =
+            "block";
+
+    }
+
+
+    // =================================
+    // 氏名
+    // =================================
+
+    const userName =
+        document.getElementById(
+            "user-name"
+        );
+
+
+    if (userName) {
+
+        userName.textContent =
+            data.name +
+            " さん";
+
+    }
+
+
+    // =================================
+    // QRコード
+    // =================================
+
+    const qrArea =
+        document.getElementById(
+            "qrcode"
+        );
+
+
+    if (qrArea) {
+
+        qrArea.innerHTML =
+            "";
+
+
+        if (
+            typeof QRCode !==
+            "undefined"
+        ) {
+
+            new QRCode(
+
+                qrArea,
+
+                {
+
+                    text:
+                        data.id,
+
+                    width:
+                        180,
+
+                    height:
+                        180
+
+                }
+
+            );
+
+        }
+
+        else {
+
+            qrArea.textContent =
+                "QRコードを読み込めませんでした。";
+
+        }
+
+    }
+
+
+    // =================================
+    // 利用者ID
+    // =================================
+
+    const userId =
+        document.getElementById(
+            "user-id"
+        );
+
+
+    if (userId) {
+
+        userId.textContent =
+            "ID : " +
+            data.id;
+
+    }
+
+
+    // =================================
+    // スタンプ表示
+    // =================================
+
+    const icons =
+        document.getElementById(
+            "stamp-icons"
+        );
+
+
+    if (icons) {
+
+        icons.innerHTML =
+            "";
+
+
+        for (
+            let i = 0;
+            i < MAX_STAMP;
+            i++
+        ) {
+
+            const span =
+                document.createElement(
+                    "span"
+                );
+
+
+            if (
+                i <
+                data.stamps.length
+            ) {
+
+                span.textContent =
+                    "⭐";
+
+            }
+
+            else {
+
+                span.textContent =
+                    "☆";
+
+            }
+
+
+            icons.appendChild(
+                span
+            );
+
+        }
+
+    }
+
+
+    // =================================
+    // スタンプ数
+    // =================================
+
+    const stampCount =
+        document.getElementById(
+            "stamp-count"
+        );
+
+
+    if (stampCount) {
+
+        stampCount.textContent =
+            data.stamps.length;
+
+    }
+
+
+    // =================================
     // 認定判定
-    // ===========================
+    // =================================
 
     const message =
-    document
-    .getElementById("message");
+        document.getElementById(
+            "message"
+        );
 
 
     const certificateArea =
-    document
-    .getElementById("certificate-area");
+        document.getElementById(
+            "certificate-area"
+        );
 
 
-
-    if(
+    if (
         data.stamps.length >=
         CERTIFICATE_COUNT
-    ){
+    ) {
 
+        if (message) {
 
-        message.textContent =
-        "🎉 いわぽん防災マイスター認定条件達成！";
-
-
-        certificateArea.style.display =
-        "block";
-
-
-    }
-
-    else{
-
-
-        message.textContent =
-        "認定まであと "
-        +
-        (
-            CERTIFICATE_COUNT -
-            data.stamps.length
-        )
-        +
-        " 個です";
-
-
-        certificateArea.style.display =
-        "none";
-
-    }
-
-
-
-    // ===========================
-    // 履歴表示
-    // ===========================
-
-    const list =
-    document
-    .getElementById("history-list");
-
-
-    list.innerHTML = "";
-
-
-
-    data.stamps.forEach(
-
-        (stamp,index)=>{
-
-
-            const li =
-            document.createElement("li");
-
-
-
-            li.innerHTML =
-
-            `
-            ${stamp.date}<br>
-            ${stamp.event}<br>
-
-            <button
-            onclick="editStamp(${index})">
-
-            修正
-
-            </button>
-
-
-            <button
-            onclick="deleteStamp(${index})">
-
-            削除
-
-            </button>
-            `;
-
-
-
-            list.appendChild(li);
+            message.textContent =
+                "🎉 いわぽん防災マイスター認定条件達成！";
 
         }
 
+
+        if (certificateArea) {
+
+            certificateArea.style.display =
+                "block";
+
+        }
+
+    }
+
+    else {
+
+        const remaining =
+            CERTIFICATE_COUNT -
+            data.stamps.length;
+
+
+        if (message) {
+
+            message.textContent =
+                "認定まであと " +
+                remaining +
+                " 個です";
+
+        }
+
+
+        if (certificateArea) {
+
+            certificateArea.style.display =
+                "none";
+
+        }
+
+    }
+
+
+    // =================================
+    // 参加履歴表示
+    // =================================
+
+    const historyList =
+        document.getElementById(
+            "history-list"
+        );
+
+
+    if (!historyList) {
+
+        return;
+
+    }
+
+
+    historyList.innerHTML =
+        "";
+
+
+    data.stamps.forEach(
+        function (stamp, index) {
+
+            const li =
+                document.createElement(
+                    "li"
+                );
+
+
+            // 日付
+            const dateText =
+                document.createElement(
+                    "div"
+                );
+
+
+            dateText.textContent =
+                stamp.date || "";
+
+
+            // 内容
+            const eventText =
+                document.createElement(
+                    "div"
+                );
+
+
+            eventText.textContent =
+                stamp.event || "";
+
+
+            // 修正ボタン
+            const editButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            editButton.type =
+                "button";
+
+
+            editButton.textContent =
+                "修正";
+
+
+            editButton.addEventListener(
+                "click",
+                function () {
+
+                    editStamp(index);
+
+                }
+            );
+
+
+            // 削除ボタン
+            const deleteButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            deleteButton.type =
+                "button";
+
+
+            deleteButton.textContent =
+                "削除";
+
+
+            deleteButton.addEventListener(
+                "click",
+                function () {
+
+                    deleteStamp(index);
+
+                }
+            );
+
+
+            li.appendChild(
+                dateText
+            );
+
+
+            li.appendChild(
+                eventText
+            );
+
+
+            li.appendChild(
+                editButton
+            );
+
+
+            li.appendChild(
+                deleteButton
+            );
+
+
+            historyList.appendChild(
+                li
+            );
+
+        }
     );
 
 }
 
 
-
-// ===============================
+// =================================
 // テストデータ削除
-// ===============================
+// =================================
 
-function clearData(){
+function clearData() {
 
-
-    if(
+    const result =
         confirm(
             "登録したテストデータをすべて削除しますか？"
-        )
-    ){
-
-
-        // スタンプカードのデータだけ削除
-        // 他のlocalStorageデータは残す
-
-        localStorage.removeItem(
-            STORAGE_KEY
         );
 
 
-        alert(
-            "データを削除しました"
-        );
+    if (!result) {
 
-
-        location.reload();
+        return;
 
     }
 
+
+    localStorage.removeItem(
+        STORAGE_KEY
+    );
+
+
+    alert(
+        "データを削除しました。"
+    );
+
+
+    location.reload();
+
 }
-```
