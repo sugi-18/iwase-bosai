@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 
 <head>
@@ -7,58 +8,46 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
 <title>
 いわぽん防災マイスター
 スタンプカード
 </title>
 
-
 <link rel="stylesheet" href="stamp.css">
-
 
 </head>
 
-
 <body>
 
-
 <div class="stamp-container">
-
 
 <h1>
 ⭐️ いわぽん防災マイスター<br>
 スタンプカード
 </h1>
 
-
-
-
 <!-- ======================== -->
+
 <!-- 登録画面 -->
+
 <!-- ======================== -->
 
 <section id="register-area">
-
 
 <h2>
 利用者登録
 </h2>
 
-
 <p>
 氏名を入力してください
 </p>
-
 
 <input
 type="text"
 id="username"
 placeholder="氏名">
 
-
 <br>
-
 
 <button
 type="button"
@@ -68,82 +57,55 @@ id="register-button">
 
 </button>
 
-
 </section>
 
-
-
-
-
-
-
 <!-- ======================== -->
+
 <!-- カード画面 -->
+
 <!-- ======================== -->
 
 <section
 id="card-area"
 style="display:none;">
 
-
-
 <h2>
 防災参加カード
 </h2>
 
-
-
-
-
 <p id="user-name"></p>
 
-
-
-
-
-
 <!-- ======================== -->
+
 <!-- 個人QR -->
+
 <!-- ======================== -->
 
 <div class="qr-area">
-
 
 <h3>
 参加者ID
 </h3>
 
-
 <div id="qrcode"></div>
-
 
 <p id="user-id"></p>
 
-
 </div>
 
-
-
-
-
-
-
 <!-- ======================== -->
+
 <!-- スタンプカード -->
+
 <!-- ======================== -->
 
 <div class="stamp-card">
-
 
 <h3>
 参加スタンプ
 </h3>
 
-
-<div id="stamp-icons">
-</div>
-
-
+<div id="stamp-icons"></div>
 
 <p>
 
@@ -155,58 +117,34 @@ style="display:none;">
 
 </p>
 
-
 </div>
 
-
-
-
-
-
-
-<p id="message">
-</p>
-
-
-
-
-
-
-
-
+<p id="message"></p>
 
 <!-- ======================== -->
+
 <!-- 参加記録追加 -->
+
 <!-- ======================== -->
 
 <div class="add-area">
-
 
 <h3>
 参加記録追加
 </h3>
 
-
-
 <input
 type="date"
 id="stamp-date">
 
-
-
 <br>
-
-
 
 <input
 type="text"
 id="stamp-event"
 placeholder="訓練内容">
 
-
 <br>
-
-
 
 <button
 type="button"
@@ -216,72 +154,45 @@ id="add-button">
 
 </button>
 
-
-
 </div>
 
-
-
-
-
-
-
-
 <!-- ======================== -->
+
 <!-- 参加履歴 -->
+
 <!-- ======================== -->
 
 <div id="history">
-
 
 <h3>
 参加履歴
 </h3>
 
-
-
-<ul id="history-list">
-
-</ul>
-
-
+<ul id="history-list"></ul>
 
 </div>
 
-
-
-
-
-
-
 <!-- ======================== -->
+
 <!-- 認定証・削除・戻る -->
+
 <!-- ======================== -->
 
 <div
 id="certificate-area"
 style="display:none;">
 
+<div class="certificate-button-area">
 
-
-<!-- 認定証を見る -->
-
-<a href="certificate.html">
-
-<button
-type="button">
+<a
+href="certificate.html"
+class="certificate-button">
 
 認定証を見る
 
-</button>
-
 </a>
 
-
-
-
-
-<!-- テストデータ削除 -->
+</div>
 
 <button
 type="button"
@@ -292,12 +203,6 @@ class="delete-button">
 
 </button>
 
-
-
-
-
-<!-- トップページへ戻る -->
-
 <a
 href="../index.html"
 class="back-button">
@@ -306,44 +211,28 @@ class="back-button">
 
 </a>
 
-
 </div>
-
-
-
-
 
 </section>
 
-
-
 </div>
 
-
-
-
-
-
-
-
-
 <!-- ======================== -->
+
 <!-- QRコード作成ライブラリ -->
+
 <!-- ======================== -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-
-
 <!-- ======================== -->
+
 <!-- スタンプカードJavaScript -->
+
 <!-- ======================== -->
 
 <script src="stamp.js"></script>
 
-
-
 </body>
-
 
 </html>
