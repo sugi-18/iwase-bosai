@@ -234,28 +234,46 @@ placeholder="訓練内容">
 
 
 
-  
 
 
-<!-- 認定証 -->
+<!-- 認定証・削除・戻る -->
 
 <div id="certificate-area"
 style="display:none;">
 
 
-<a href="certificate.html">
-    <button type="button" onclick="viewCertificate()">
-        認定証を見る
-    </button>
-</a>
+<!-- 認定証を見る -->
 
-<button type="button" onclick="clearData()" class="delete-button">
-    テストデータ削除
+<button
+type="button"
+onclick="viewCertificate()">
+
+認定証を見る
+
 </button>
 
-<a href="../index.html" class="back-button">
-    トップページへ戻る
-</a>
+
+
+<!-- テストデータ削除 -->
+
+<button
+type="button"
+onclick="clearData()"
+class="delete-button">
+
+テストデータ削除
+
+</button>
+
+
+
+<!-- トップページへ戻る -->
+
+<a
+href="../index.html"
+class="back-button">
+
+トップページへ戻る
 
 </a>
 
