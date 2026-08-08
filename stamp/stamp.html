@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ja">
 
 <head>
@@ -27,9 +26,7 @@
 </h1>
 
 <!-- ======================== -->
-
 <!-- 登録画面 -->
-
 <!-- ======================== -->
 
 <section id="register-area">
@@ -60,9 +57,7 @@ id="register-button">
 </section>
 
 <!-- ======================== -->
-
 <!-- カード画面 -->
-
 <!-- ======================== -->
 
 <section
@@ -76,9 +71,7 @@ style="display:none;">
 <p id="user-name"></p>
 
 <!-- ======================== -->
-
 <!-- 個人QR -->
-
 <!-- ======================== -->
 
 <div class="qr-area">
@@ -94,9 +87,7 @@ style="display:none;">
 </div>
 
 <!-- ======================== -->
-
 <!-- スタンプカード -->
-
 <!-- ======================== -->
 
 <div class="stamp-card">
@@ -105,7 +96,8 @@ style="display:none;">
 参加スタンプ
 </h3>
 
-<div id="stamp-icons"></div>
+<div id="stamp-icons">
+</div>
 
 <p>
 
@@ -119,12 +111,11 @@ style="display:none;">
 
 </div>
 
-<p id="message"></p>
+<p id="message">
+</p>
 
 <!-- ======================== -->
-
 <!-- 参加記録追加 -->
-
 <!-- ======================== -->
 
 <div class="add-area">
@@ -157,9 +148,7 @@ id="add-button">
 </div>
 
 <!-- ======================== -->
-
 <!-- 参加履歴 -->
-
 <!-- ======================== -->
 
 <div id="history">
@@ -168,31 +157,34 @@ id="add-button">
 参加履歴
 </h3>
 
-<ul id="history-list"></ul>
+<ul id="history-list">
+
+</ul>
 
 </div>
 
 <!-- ======================== -->
-
 <!-- 認定証・削除・戻る -->
-
 <!-- ======================== -->
 
 <div
 id="certificate-area"
 style="display:none;">
 
-<div class="certificate-button-area">
+<!-- 認定証を見る -->
 
-<a
-href="certificate.html"
-class="certificate-button">
+<a href="certificate.html">
+
+<button
+type="button">
 
 認定証を見る
 
+</button>
+
 </a>
 
-</div>
+<!-- テストデータ削除 -->
 
 <button
 type="button"
@@ -202,6 +194,8 @@ class="delete-button">
 テストデータ削除
 
 </button>
+
+<!-- トップページへ戻る -->
 
 <a
 href="../index.html"
@@ -218,17 +212,13 @@ class="back-button">
 </div>
 
 <!-- ======================== -->
-
 <!-- QRコード作成ライブラリ -->
-
 <!-- ======================== -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <!-- ======================== -->
-
 <!-- スタンプカードJavaScript -->
-
 <!-- ======================== -->
 
 <script src="stamp.js"></script>
