@@ -13,13 +13,14 @@ padding:20px;
 
 }
 
+
 .stamp-container{
 
 max-width:500px;
 
-margin\:auto;
+margin:auto;
 
-background\:white;
+background:white;
 
 padding:30px;
 
@@ -27,7 +28,7 @@ border-radius:15px;
 
 box-shadow:0 3px 10px rgba(0,0,0,0.15);
 
-text-align\:center;
+text-align:center;
 
 }
 
@@ -75,9 +76,9 @@ button{
 
 background:#0077b6;
 
-color\:white;
+color:white;
 
-border\:none;
+border:none;
 
 padding:15px 35px;
 
@@ -85,11 +86,12 @@ font-size:18px;
 
 border-radius:10px;
 
-cursor\:pointer;
+cursor:pointer;
 
 }
 
-button\:hover{
+
+button:hover{
 
 opacity:0.8;
 
@@ -101,7 +103,7 @@ opacity:0.8;
 
 font-size:40px;
 
-font-weight\:bold;
+font-weight:bold;
 
 margin:30px;
 
@@ -111,27 +113,27 @@ color:#0077b6;
 
 
 
-\#message{
+#message{
 
 font-size:18px;
 
-font-weight\:bold;
+font-weight:bold;
 
 }
 
 
 
-\#history{
+#history{
 
 margin-top:30px;
 
-text-align\:left;
+text-align:left;
 
 }
 
 
 
-\#history li{
+#history li{
 
 margin-bottom:15px;
 
@@ -143,89 +145,80 @@ border-radius:8px;
 
 }
 
-/\* QRコード中央配置 \*/
+/* QRコード中央配置 */
 
-\#qrcode {
-width:180px;
-margin:20px auto;
+#qrcode {
+    width:180px;
+    margin:20px auto;
 }
 
-\#qrcode img,
-\#qrcode canvas {
-display\:block;
+#qrcode img,
+#qrcode canvas {
+    display:block;
 
-```
-margin:0 auto;
-```
-
+    margin:0 auto;
 }
 
-/\* テストデータ削除ボタン \*/
+/* テストデータ削除ボタン */
 
 .delete-button{
 
-```
-display:block;
+    display:block;
 
-margin:40px auto 0;
+    margin:40px auto 0;
 
-background:#d62828;
+    background:#d62828;
 
-color:white;
+    color:white;
 
-border:none;
+    border:none;
 
-padding:12px 25px;
+    padding:12px 25px;
 
-font-size:16px;
+    font-size:16px;
 
-border-radius:10px;
+    border-radius:10px;
 
-cursor:pointer;
-```
+    cursor:pointer;
 
 }
 
-.delete-button\:hover{
 
-```
-opacity:0.8;
-```
+.delete-button:hover{
+
+    opacity:0.8;
 
 }
 
-/\* 戻るボタン \*/
+/* 戻るボタン */
 
 .back-button {
 
-```
-display: inline-block;
+    display: inline-block;
 
-margin-top: 30px;
+    margin-top: 30px;
 
-padding: 15px 35px;
+    padding: 15px 35px;
 
-background-color: #1976d2;
+    background-color: #1976d2;
 
-color: white;
+    color: white;
 
-text-decoration: none;
+    text-decoration: none;
 
-border-radius: 30px;
+    border-radius: 30px;
 
-font-size: 18px;
+    font-size: 18px;
 
-transition: 0.3s;
-```
+    transition: 0.3s;
 
 }
 
-.back-button\:hover {
 
-```
-background-color: #0d47a1;
+.back-button:hover {
 
-transform: scale(1.05);
-```
+    background-color: #0d47a1;
+
+    transform: scale(1.05);
 
 }
