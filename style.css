@@ -1,0 +1,1308 @@
+/* =========================================
+   岩瀬自治会 防災アプリ 共通スタイル
+========================================= */
+
+body{
+
+font-family:sans-serif;
+
+text-align:center;
+
+background:#f5f5f5;
+
+margin:0;
+
+padding:30px 15px;
+
+color:#333;
+
+overflow-x:hidden;
+
+}
+
+/* ---------- タイトル ---------- */
+
+.title-area{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    margin-bottom:20px;
+}
+
+.title-main{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+}
+
+.character{
+    width:120px;
+}
+
+.title-area h1{
+    margin:0;
+    color:#1f4e79;
+    line-height:1.3;
+}
+
+.title-area p{
+    margin:0;
+    color:#666;
+    font-size:15px;
+}
+
+/* PC表示 */
+
+@media screen and (min-width:600px){
+
+.title-main{
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+}
+
+.character{
+    width:140px;
+}
+
+}
+
+/* ---------- メニュー ---------- */
+
+.menu{
+    margin-top:20px;
+}
+
+/* ---------- カード ---------- */
+
+.card{
+
+background:white;
+
+width:90%;
+max-width:420px;
+
+margin:18px auto;
+
+padding:22px;
+
+border-radius:15px;
+
+box-shadow:0 4px 12px rgba(0,0,0,0.12);
+
+transition:.3s;
+
+box-sizing:border-box;
+
+}
+
+.card:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.card h2{
+
+margin-top:0;
+
+color:#1f4e79;
+
+font-size:22px;
+
+line-height:1.4;
+
+min-height:62px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+}
+
+.card p{
+
+    color:#555;
+
+    line-height:1.6;
+
+    margin-bottom:18px;
+
+}
+
+/* ---------- ボタン ---------- */
+
+.card a{
+
+    display:block;
+
+    text-decoration:none;
+
+    background:#1f77b4;
+
+    color:white;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+.card a:hover{
+
+    background:#155a8a;
+
+    transform:scale(1.03);
+
+}
+
+/* ---------- 防災訓練 ---------- */
+
+.training-section{
+
+    margin:50px auto;
+
+    text-align:center;
+
+}
+
+.training-section h2{
+
+    display:inline-block;
+
+    color:#d62828;
+
+    padding-bottom:8px;
+
+    border-bottom:4px solid #d62828;
+
+    margin-bottom:30px;
+
+}
+
+.training-menu{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+    width:90%;
+
+    max-width:420px;
+
+    margin:0 auto;
+
+}
+
+.training-card{
+
+    display:block;
+
+    text-decoration:none;
+
+    color:#333;
+
+    background:white;
+
+    padding:22px;
+
+    border-radius:15px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.12);
+
+    transition:.3s;
+
+}
+
+.training-card:hover{
+
+    transform:scale(1.03);
+
+    background:#fff4f4;
+
+}
+
+.training-card h3{
+
+    margin-top:0;
+
+    color:#d62828;
+
+}
+
+.training-card p{
+
+    margin-bottom:0;
+
+    color:#666;
+
+}
+
+/* ---------- 防災訓練 写真表示 ---------- */
+
+.training-photo-area{
+
+margin:50px auto;
+
+text-align:center;
+
+max-width:900px;
+
+}
+
+
+.training-gallery{
+
+display:flex;
+
+flex-direction:column;
+
+gap:20px;
+
+align-items:center;
+
+}
+
+
+.training-gallery img{
+
+width:90%;
+
+max-width:700px;
+
+height:auto;
+
+border-radius:10px;
+
+}
+
+
+/* スマホ表示 */
+
+@media(max-width:600px){
+
+    .training-gallery{
+
+        flex-direction:column;
+
+        align-items:center;
+
+    }
+
+
+    .training-gallery img{
+
+        max-width:100%;
+
+    }
+
+}
+
+/* ---------- ロゴ表示 ---------- */
+
+.logo-area{
+
+margin-top:40px;
+
+text-align:center;
+
+}
+
+
+.logo{
+
+width:80%;
+
+max-width:420px;
+
+display:block;
+
+margin:0 auto;
+
+}
+
+/* =========================================
+   links.html用
+========================================= */
+
+.container{
+
+    width:92%;
+
+    max-width:600px;
+
+    margin:auto;
+
+}
+
+.container h2{
+
+    color:#1f4e79;
+
+    margin-top:35px;
+
+    margin-bottom:15px;
+
+}
+
+.link-button{
+
+    display:block;
+
+    text-decoration:none;
+
+    background:#1976d2;
+
+    color:white;
+
+    padding:16px;
+
+    margin:12px 0;
+
+    border-radius:12px;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+    box-shadow:0 3px 8px rgba(0,0,0,.15);
+
+}
+
+.link-button:hover{
+
+    background:#125ea8;
+
+    transform:scale(1.02);
+
+}
+
+.back-button{
+
+    display:block;
+
+    text-decoration:none;
+
+    background:#43a047;
+
+    color:white;
+
+    padding:16px;
+
+    border-radius:12px;
+
+    margin:40px 0;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+.back-button:hover{
+
+    background:#2e7d32;
+
+    transform:scale(1.02);
+
+}
+
+hr{
+
+    border:none;
+
+    border-top:2px solid #ddd;
+
+    margin:35px 0;
+
+}
+
+/* ---------- スマホ ---------- */
+
+@media screen and (max-width:480px){
+
+.card,
+.training-menu,
+.container{
+
+    width:95%;
+
+}
+
+.card a,
+.link-button,
+.back-button{
+
+    font-size:16px;
+
+}
+
+}
+/* ==================================================
+   自治会からのお知らせ・緊急情報
+================================================== */
+
+.announcement-section {
+
+    width:90%;
+
+    max-width:700px;
+
+    margin:25px auto 35px;
+
+    text-align:left;
+
+}
+
+
+.announcement-section h2 {
+
+    margin:0 0 15px;
+
+    text-align:center;
+
+    color:#1f4e79;
+
+    font-size:22px;
+
+}
+
+
+.announcement-list {
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+
+/* ---------- お知らせカード ---------- */
+
+.announcement-card {
+
+    background:white;
+
+    border-radius:12px;
+
+    padding:16px 18px;
+
+    box-shadow:
+        0 3px 10px
+        rgba(0,0,0,.10);
+
+    border-left:6px solid #1f77b4;
+
+}
+
+
+.announcement-card h3 {
+
+    margin:8px 0;
+
+    font-size:18px;
+
+    color:#333;
+
+    line-height:1.5;
+
+}
+
+
+.announcement-card p {
+
+    margin:0;
+
+    color:#555;
+
+    line-height:1.7;
+
+    font-size:15px;
+
+}
+
+
+/* ---------- ヘッダー ---------- */
+
+.announcement-card-header {
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+}
+
+
+.announcement-card-header time {
+
+    font-size:12px;
+
+    color:#777;
+
+}
+
+
+/* ---------- バッジ ---------- */
+
+.announcement-badge {
+
+    display:inline-block;
+
+    padding:4px 9px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+}
+
+
+/* ---------- 通常 ---------- */
+
+.announcement-normal {
+
+    border-left-color:#1f77b4;
+
+}
+
+
+.announcement-normal
+.announcement-badge {
+
+    background:#eaf4fb;
+
+    color:#1f5f8a;
+
+}
+
+
+/* ---------- 重要 ---------- */
+
+.announcement-important {
+
+    border-left-color:#f39c12;
+
+}
+
+
+.announcement-important
+.announcement-badge {
+
+    background:#fff4df;
+
+    color:#a86400;
+
+}
+
+
+/* ---------- 緊急 ---------- */
+
+.announcement-urgent {
+
+    border-left-color:#d62828;
+
+    background:#fff5f5;
+
+}
+
+
+.announcement-urgent
+.announcement-badge {
+
+    background:#d62828;
+
+    color:white;
+
+}
+
+
+.announcement-urgent h3 {
+
+    color:#b51f1f;
+
+}
+
+
+/* ---------- 空表示 ---------- */
+
+.announcement-empty {
+
+    background:white;
+
+    padding:18px;
+
+    border-radius:12px;
+
+    text-align:center;
+
+    color:#777;
+
+}
+
+
+/* ---------- エラー ---------- */
+
+.announcement-error {
+
+    background:#fff0f0;
+
+    color:#b00000;
+
+    padding:18px;
+
+    border-radius:12px;
+
+    text-align:center;
+
+}
+
+
+/* ==================================================
+   管理者 お知らせ管理
+================================================== */
+
+.announcement-management-item {
+
+    background:white;
+
+    border-radius:12px;
+
+    padding:18px;
+
+    margin-bottom:15px;
+
+    border:1px solid #ddd;
+
+}
+
+
+.announcement-management-header {
+
+    margin-bottom:8px;
+
+}
+
+
+.announcement-type-badge {
+
+    display:inline-block;
+
+    padding:5px 10px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+}
+
+
+.announcement-type-badge.urgent {
+
+    background:#d62828;
+
+    color:white;
+
+}
+
+
+.announcement-type-badge.important {
+
+    background:#f39c12;
+
+    color:white;
+
+}
+
+
+.announcement-type-badge.normal {
+
+    background:#1f77b4;
+
+    color:white;
+
+}
+
+
+.announcement-status {
+
+    display:inline-block;
+
+    margin-left:8px;
+
+    padding:4px 8px;
+
+    border-radius:12px;
+
+    font-size:11px;
+
+}
+
+
+.announcement-status.published {
+
+    background:#e8f5e9;
+
+    color:#2e7d32;
+
+}
+
+
+.announcement-status.unpublished {
+
+    background:#eee;
+
+    color:#777;
+
+}
+
+
+.announcement-management-item h4 {
+
+    margin:10px 0;
+
+    font-size:18px;
+
+}
+
+
+.announcement-management-body {
+
+    line-height:1.7;
+
+    color:#555;
+
+}
+
+
+.announcement-management-date {
+
+    font-size:12px;
+
+    color:#777;
+
+    margin-top:12px;
+
+}
+
+
+.announcement-management-actions {
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+    margin-top:15px;
+
+}
+
+
+.announcement-publish-check {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+}
+
+
+/* ==================================================
+   スマートフォン
+================================================== */
+
+@media(max-width:600px){
+
+    .announcement-section {
+
+        width:92%;
+
+    }
+
+
+    .announcement-section h2 {
+
+        font-size:20px;
+
+    }
+
+
+    .announcement-card {
+
+        padding:15px;
+
+    }
+
+
+    .announcement-card h3 {
+
+        font-size:17px;
+
+    }
+
+
+    .announcement-card-header {
+
+        align-items:flex-start;
+
+        flex-direction:column;
+
+        gap:5px;
+
+    }
+
+
+    .announcement-management-actions {
+
+        flex-direction:column;
+
+    }
+
+
+    .announcement-management-actions button {
+
+        width:100%;
+
+    }
+
+}
+
+/* ==================================================
+   お知らせ NEW表示
+================================================== */
+
+.announcement-card-labels {
+
+    display:flex;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:6px;
+
+}
+
+
+.announcement-new-badge {
+
+    display:inline-block;
+
+    padding:3px 7px;
+
+    border-radius:5px;
+
+    background:#e53935;
+
+    color:white;
+
+    font-size:11px;
+
+    font-weight:bold;
+
+    line-height:1.3;
+
+}
+
+
+/* ==================================================
+   お知らせカード フッター
+================================================== */
+
+.announcement-card-footer {
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    margin-top:14px;
+
+}
+
+
+.announcement-detail-button {
+
+    border:none;
+
+    background:none;
+
+    color:#1f5f8a;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    padding:6px 2px;
+
+}
+
+
+.announcement-detail-button:hover {
+
+    text-decoration:underline;
+
+}
+
+/* ==================================================
+   お知らせ詳細モーダル
+   スマホ表示安定版
+================================================== */
+
+.announcement-detail-modal {
+
+    display:none;
+
+    position:fixed !important;
+
+    top:0 !important;
+    left:0 !important;
+    right:0 !important;
+    bottom:0 !important;
+
+    width:100vw !important;
+    height:100vh !important;
+
+    z-index:99999 !important;
+
+    margin:0 !important;
+    padding:0 !important;
+
+}
+
+
+.announcement-detail-modal.active {
+
+    display:block !important;
+
+}
+
+
+/* ==================================================
+   背景
+================================================== */
+
+.announcement-detail-overlay {
+
+    position:fixed !important;
+
+    top:0 !important;
+    left:0 !important;
+    right:0 !important;
+    bottom:0 !important;
+
+    width:100vw !important;
+    height:100vh !important;
+
+    background:rgba(0,0,0,.55);
+
+    z-index:99998 !important;
+
+}
+
+
+/* ==================================================
+   詳細ダイアログ
+================================================== */
+
+.announcement-detail-dialog {
+
+    position:fixed !important;
+
+    top:50% !important;
+    left:50% !important;
+
+    transform:translate(
+        -50%,
+        -50%
+    ) !important;
+
+    width:90% !important;
+
+    max-width:650px;
+
+    max-height:85vh;
+
+    overflow-y:auto;
+
+    box-sizing:border-box;
+
+    background:white;
+
+    border-radius:16px;
+
+    padding:28px 24px;
+
+    box-shadow:
+        0 10px 40px
+        rgba(0,0,0,.30);
+
+    z-index:100000 !important;
+
+}
+
+
+/* ==================================================
+   閉じるボタン
+================================================== */
+
+.announcement-detail-close {
+
+    position:absolute !important;
+
+    top:10px !important;
+    right:14px !important;
+
+    width:38px;
+    height:38px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#eee;
+
+    color:#555;
+
+    font-size:28px;
+
+    line-height:1;
+
+    cursor:pointer;
+
+    z-index:100001;
+
+}
+
+
+.announcement-detail-close:hover {
+
+    background:#ddd;
+
+}
+
+
+/* ==================================================
+   詳細ヘッダー
+================================================== */
+
+.announcement-detail-header {
+
+    padding-bottom:14px;
+
+    margin-bottom:18px;
+
+    border-bottom:1px solid #ddd;
+
+}
+
+
+.announcement-detail-header
+.announcement-detail-labels {
+
+    display:flex;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:6px;
+
+    margin-bottom:8px;
+
+}
+
+
+.announcement-detail-header time {
+
+    font-size:13px;
+
+    color:#777;
+
+}
+
+
+.announcement-detail-content h2 {
+
+    margin:0 0 20px;
+
+    padding-right:35px;
+
+    color:#333;
+
+    font-size:22px;
+
+    line-height:1.5;
+
+}
+
+
+.announcement-detail-body {
+
+    color:#444;
+
+    font-size:16px;
+
+    line-height:2;
+
+    word-break:break-word;
+
+}
+
+
+/* ==================================================
+   種類別
+================================================== */
+
+.announcement-detail-header.announcement-urgent {
+
+    border-left:5px solid #d62828;
+
+    padding-left:12px;
+
+}
+
+
+.announcement-detail-header.announcement-important {
+
+    border-left:5px solid #f39c12;
+
+    padding-left:12px;
+
+}
+
+
+.announcement-detail-header.announcement-normal {
+
+    border-left:5px solid #1f77b4;
+
+    padding-left:12px;
+
+}
+
+
+/* ==================================================
+   モーダル表示中
+================================================== */
+
+body.announcement-modal-open {
+
+    overflow:hidden !important;
+
+}
+
+
+/* ==================================================
+   スマートフォン
+================================================== */
+
+@media (max-width:600px){
+
+    .announcement-detail-modal {
+
+        position:fixed !important;
+
+        width:100vw !important;
+
+        height:100dvh !important;
+
+    }
+
+
+    .announcement-detail-overlay {
+
+        width:100vw !important;
+
+        height:100dvh !important;
+
+    }
+
+
+    .announcement-detail-dialog {
+
+        position:fixed !important;
+
+        top:50% !important;
+        left:50% !important;
+
+        width:92% !important;
+
+        max-width:none;
+
+        max-height:82dvh;
+
+        padding:24px 18px;
+
+        border-radius:14px;
+
+        transform:translate(
+            -50%,
+            -50%
+        ) !important;
+
+    }
+
+
+    .announcement-detail-close {
+
+        top:8px !important;
+
+        right:8px !important;
+
+        width:36px;
+
+        height:36px;
+
+        font-size:26px;
+
+    }
+
+
+    .announcement-detail-content h2 {
+
+        font-size:20px;
+
+        line-height:1.5;
+
+    }
+
+
+    .announcement-detail-body {
+
+        font-size:15px;
+
+        line-height:1.9;
+
+    }
+
+}

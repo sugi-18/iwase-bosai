@@ -1,0 +1,233 @@
+* {
+
+    box-sizing: border-box;
+
+}
+
+
+body {
+
+    margin: 0;
+
+    padding: 0;
+
+    font-family:
+    "Noto Sans JP",
+    "Hiragino Kaku Gothic ProN",
+    Meiryo,
+    sans-serif;
+
+    background:
+    linear-gradient(
+        135deg,
+        #e8f5ff,
+        #ffffff
+    );
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+
+/* 全体 */
+
+.login-container {
+
+    width: 90%;
+
+    max-width: 450px;
+
+    text-align: center;
+
+}
+
+
+/* タイトル */
+
+.login-container h1 {
+
+    color: #005bac;
+
+    font-size: 28px;
+
+    line-height: 1.5;
+
+    margin-bottom: 25px;
+
+}
+
+
+
+/* 説明 */
+
+.login-message {
+
+    font-size: 16px;
+
+    line-height: 1.8;
+
+    margin-bottom: 25px;
+
+}
+
+
+
+/* ログインボックス */
+
+.login-box {
+
+    background: #ffffff;
+
+    padding: 30px 25px;
+
+    border-radius: 15px;
+
+    box-shadow:
+    0 4px 15px rgba(0,0,0,0.15);
+
+}
+
+
+
+/* 入力 */
+
+.login-box input {
+
+    width: 100%;
+
+    padding: 15px;
+
+    font-size: 16px;
+
+    border:
+
+    2px solid #cccccc;
+
+    border-radius: 8px;
+
+    margin-bottom: 20px;
+
+}
+
+
+
+/* 入力フォーカス */
+
+.login-box input:focus {
+
+    outline: none;
+
+    border-color: #005bac;
+
+}
+
+
+
+/* ボタン */
+
+.login-box button {
+
+    width: 100%;
+
+    padding: 15px;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    color: white;
+
+    background-color: #005bac;
+
+    border: none;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+}
+
+
+
+/* 押下時 */
+
+.login-box button:active {
+
+    transform: scale(0.98);
+
+}
+
+
+
+/* エラー表示 */
+
+#error-message {
+
+    color: red;
+
+    margin-top: 15px;
+
+    font-weight: bold;
+
+}
+
+
+
+/* 注意書き */
+
+.notice {
+
+    margin-top: 25px;
+
+    padding: 15px;
+
+    background: rgba(255,255,255,0.8);
+
+    border-radius: 10px;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+}
+
+
+
+.notice h2 {
+
+    font-size: 16px;
+
+    color: #444;
+
+    margin-bottom: 10px;
+
+}
+
+
+
+/* スマホ対応 */
+
+@media(max-width:480px){
+
+
+    .login-container h1 {
+
+        font-size:24px;
+
+    }
+
+
+    .login-box {
+
+        padding:25px 20px;
+
+    }
+
+
+}

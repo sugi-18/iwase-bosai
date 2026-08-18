@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    岩瀬自治会 防災アプリ
+</title>
+
+<link
+    rel="stylesheet"
+    href="login.css"
+>
+
+<!-- ==================================================
+     追加要素のスタイル
+
+     既存 login.css には手を入れず、
+     今回追加した部分だけをここで指定する。
+     ================================================== -->
+
+<style>
+
+.field-label {
+    display: block;
+    margin: 14px 0 4px;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+.field-note {
+    margin: 4px 0 0;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    text-align: left;
+    opacity: 0.75;
+}
+
+#error-message {
+    white-space: pre-line;
+}
+
+#force-new-area {
+    display: none;
+    margin-top: 14px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #f8f8f8;
+}
+
+#force-new-area p {
+    margin: 0 0 8px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    text-align: left;
+}
+
+.restore-box {
+    margin-top: 24px;
+    text-align: left;
+}
+
+.restore-box summary {
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 8px 0;
+}
+
+.restore-box p {
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+.sub-button {
+    background: #fff;
+    border: 1px solid #666;
+    color: #333;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="login-container">
+
+
+<h1>
+🚒 岩瀬自治会<br>
+防災アプリ
+</h1>
+
+
+<p class="login-message">
+
+自治会コード・氏名・暗証番号を入力してください。<br>
+登録済みの方も、同じ入力でご利用を再開できます。
+
+</p>
+
+
+<div class="login-box">
+
+
+<label
+    class="field-label"
+    for="access-code"
+>
+自治会コード
+</label>
+
+<input
+    type="password"
+    id="access-code"
+    placeholder="自治会コード"
+    autocomplete="off"
+>
+
+
+<label
+    class="field-label"
+    for="username"
+>
+氏名
+</label>
+
+<input
+    type="text"
+    id="username"
+    placeholder="岩瀬 太郎"
+    autocomplete="name"
+>
+
+
+<label
+    class="field-label"
+    for="pin-code"
+>
+暗証番号（数字4桁）
+</label>
+
+<input
+    type="password"
+    id="pin-code"
+    placeholder="0000"
+    inputmode="numeric"
+    pattern="[0-9]*"
+    maxlength="4"
+    autocomplete="off"
+>
+
+<p class="field-note">
+
+暗証番号は、機種変更やブラウザを変えたときに
+同じ記録を引き継ぐために使います。
+氏名と合わせて覚えておいてください。
+
+</p>
+
+
+<button
+    type="button"
+    id="login-button"
+    onclick="login()"
+>
+
+登録して開始
+
+</button>
+
+
+<p
+    id="error-message"
+    aria-live="polite"
+></p>
+
+
+<!-- ==================================================
+     同姓同名の別人として登録する場合
+
+     暗証番号が一致しなかったときだけ表示する。
+     ================================================== -->
+
+<div id="force-new-area">
+
+<p>
+
+同じ氏名の方がすでに登録されています。
+ご自身の記録を引き継ぐ場合は、暗証番号を確認して
+もう一度お試しください。
+
+</p>
+
+<p>
+
+同姓同名の別の方として新しく登録する場合は、
+下のボタンを押してください。
+（他の方と違う暗証番号を設定してください）
+
+</p>
+
+<button
+    type="button"
+    id="force-new-button"
+    class="sub-button"
+    onclick="registerAsNewPerson()"
+>
+
+同姓同名の別の人として登録する
+
+</button>
+
+</div>
+
+
+</div>
+
+
+<!-- ==================================================
+     利用者IDでの復元
+
+     スタンプカードに表示されるIDやQRコードを
+     控えている方向けの入口。
+     ================================================== -->
+
+<details class="restore-box">
+
+<summary>
+利用者IDをお持ちの方はこちら
+</summary>
+
+<p>
+
+スタンプカード画面に表示される
+「IWASE-」から始まる利用者IDを入力すると、
+氏名や暗証番号がわからなくてもご利用を再開できます。
+
+</p>
+
+<input
+    type="text"
+    id="restore-id"
+    placeholder="IWASE-XXXXXXXXXXXXX-XXXXXX"
+    autocomplete="off"
+>
+
+<button
+    type="button"
+    id="restore-button"
+    class="sub-button"
+    onclick="restoreById()"
+>
+
+利用者IDで再開する
+
+</button>
+
+<p
+    id="restore-message"
+    aria-live="polite"
+></p>
+
+</details>
+
+
+<div class="notice">
+
+
+<h2>
+ご利用について
+</h2>
+
+
+<p>
+
+本アプリは岩瀬自治会の防災活動を支援するためのWebアプリです。
+
+</p>
+
+
+<p>
+
+自治会コードと氏名の登録が必要です。
+自治会員用コードをお持ちでない方はご利用いただけません。
+
+</p>
+
+
+<p>
+
+登録した利用者情報は、
+訓練参加・スタンプ管理のためデータベースに保存されます。
+
+</p>
+
+
+<p>
+
+暗証番号を忘れた場合は、自治会防災担当までご連絡ください。
+
+</p>
+
+
+<p>
+
+退会時には利用者情報および訓練参加記録を削除します。
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+<!-- Supabase -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+
+<script
+    src="../stamp/supabase.js"
+></script>
+
+
+<!-- 利用者情報の保存・復元 -->
+
+<script
+    src="../common/iwase-identity.js"
+></script>
+
+
+<script
+    src="login.js"
+></script>
+
+
+</body>
+
+</html>

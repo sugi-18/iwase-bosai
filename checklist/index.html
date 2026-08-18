@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>防災チェックリスト｜岩瀬自治会</title>
+
+<link rel="stylesheet" href="style.css">
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+<!-- PDF保存 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>✅ 防災チェックリスト</h1>
+
+<p class="sub">
+あなたの防災対策状況を診断します
+</p>
+
+<!-- 家の安全 -->
+
+<div class="card">
+
+<h2>🏠 家の安全</h2>
+
+<label><input type="checkbox" data-category="home" data-text="家具を固定している">家具を固定している</label>
+
+<label><input type="checkbox" data-category="home" data-text="寝室に家具を置いていない">寝室に家具を置いていない</label>
+
+<label><input type="checkbox" data-category="home" data-text="感震ブレーカーを設置している">感震ブレーカーを設置している</label>
+
+<label><input type="checkbox" data-category="home" data-text="消火器を設置している">消火器を設置している</label>
+
+<label><input type="checkbox" data-category="home" data-text="ガラス飛散防止対策をしている">ガラス飛散防止対策をしている</label>
+
+</div>
+
+<!-- 備蓄 -->
+
+<div class="card">
+
+<h2>🎒 備蓄</h2>
+
+<label><input type="checkbox" data-category="stock" data-text="飲料水3日分">飲料水3日分</label>
+
+<label><input type="checkbox" data-category="stock" data-text="食料3日分">食料3日分</label>
+
+<label><input type="checkbox" data-category="stock" data-text="携帯トイレ">携帯トイレ</label>
+
+<label><input type="checkbox" data-category="stock" data-text="懐中電灯">懐中電灯</label>
+
+<label><input type="checkbox" data-category="stock" data-text="モバイルバッテリー">モバイルバッテリー</label>
+
+</div>
+
+<!-- 避難 -->
+
+<div class="card">
+
+<h2>🚶 避難</h2>
+
+<label><input type="checkbox" data-category="evac" data-text="避難場所を知っている">避難場所を知っている</label>
+
+<label><input type="checkbox" data-category="evac" data-text="避難経路を確認している">避難経路を確認している</label>
+
+<label><input type="checkbox" data-category="evac" data-text="ハザードマップを確認した">ハザードマップを確認した</label>
+
+<label><input type="checkbox" data-category="evac" data-text="非常持出袋を準備している">非常持出袋を準備している</label>
+
+<label><input type="checkbox" data-category="evac" data-text="家族との連絡方法を決めている">家族との連絡方法を決めている</label>
+
+</div>
+
+<!-- 地域 -->
+
+<div class="card">
+
+<h2>🤝 地域</h2>
+
+<label><input type="checkbox" data-category="community" data-text="自治会に加入している">自治会に加入している</label>
+
+<label><input type="checkbox" data-category="community" data-text="防災訓練に参加したことがある">防災訓練に参加したことがある</label>
+
+<label><input type="checkbox" data-category="community" data-text="近所で助け合える人がいる">近所で助け合える人がいる</label>
+
+<label><input type="checkbox" data-category="community" data-text="地域の消火栓を知っている">地域の消火栓を知っている</label>
+
+<label><input type="checkbox" data-category="community" data-text="防災倉庫の場所を知っている">防災倉庫の場所を知っている</label>
+
+</div>
+
+<button onclick="diagnose()">
+診断する
+</button>
+
+<!-- 結果 -->
+
+<div id="result" class="card" style="display:none;">
+
+<h2>診断結果</h2>
+
+<h1 id="score"></h1>
+
+<h3 id="rank"></h3>
+
+<div class="chart-area">
+
+<canvas id="radarChart"></canvas>
+
+</div>
+
+<h3>改善すると良い項目</h3>
+
+<ul id="adviceList"></ul>
+
+<button onclick="savePDF()">
+📄 PDF保存
+</button>
+
+</div>
+
+<div style="margin-top:30px;">
+
+<a href="../">
+トップページへ戻る
+</a>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,480 @@
+/* =====================================================
+   いわぽん防災マイスター 認定証
+
+   セレクタについて
+
+   PDFを作るとき、認定証を複製して
+   id を certificate-pdf に付け替えている。
+   そのため #certificate で書いたルールは
+   複製には一切適用されない。
+
+   これが「画面はきれいなのにPDFだけ文字が揃わない」
+   原因だったため、見た目に関わる指定は
+   すべて .certificate クラスで書く。
+===================================================== */
+
+
+/* =====================================================
+   基本設定
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+
+    font-family:
+        "Yu Mincho",
+        "游明朝",
+        "Hiragino Mincho ProN",
+        "Hiragino Mincho Pro",
+        serif;
+
+    background: #f5f5f5;
+
+    text-align: center;
+
+    padding: 20px;
+
+}
+
+
+
+/* =====================================================
+   認定証
+===================================================== */
+
+.certificate {
+
+    width: 100%;
+
+    max-width: 900px;
+
+    min-height: 630px;
+
+    margin: 30px auto;
+
+    padding: 60px;
+
+    background: #ffffff;
+
+    border: 8px double #b8860b;
+
+    box-sizing: border-box;
+
+    /* 中の inline-block を中央へ寄せるために必要 */
+    text-align: center;
+
+}
+
+
+
+/* =====================================================
+   タイトル
+===================================================== */
+
+.certificate h1 {
+
+    margin: 0 0 40px 0;
+
+    font-size: 48px;
+
+    letter-spacing: 15px;
+
+    /* letter-spacing の分だけ右に寄るのを補正 */
+    text-indent: 15px;
+
+}
+
+
+
+/* =====================================================
+   説明文
+
+   文字は左揃え、ブロックは中央配置
+===================================================== */
+
+.certificate .message {
+
+    display: inline-block;
+
+    margin: 0;
+
+    font-size: 20px;
+
+    line-height: 2;
+
+    text-align: left;
+
+}
+
+
+
+/* =====================================================
+   マイスター
+===================================================== */
+
+.certificate h2 {
+
+    margin: 40px 0 25px 0;
+
+    font-size: 34px;
+
+    color: #b8860b;
+
+}
+
+
+
+/* =====================================================
+   認定文
+===================================================== */
+
+.certificate .certification {
+
+    margin: 0;
+
+    font-size: 20px;
+
+}
+
+
+
+/* =====================================================
+   認定情報
+
+   ・ブロック全体は中央配置
+   ・項目名と値はそれぞれ左端で揃える
+===================================================== */
+
+.certificate .info {
+
+    display: inline-block;
+
+    margin: 45px auto 0 auto;
+
+    font-size: 20px;
+
+    line-height: 2;
+
+    text-align: left;
+
+}
+
+
+
+.certificate .info p {
+
+    display: grid;
+
+    grid-template-columns: 5em 1em auto;
+
+    align-items: baseline;
+
+    margin: 0;
+
+}
+
+
+
+.certificate .info .label {
+
+    white-space: nowrap;
+
+}
+
+
+
+.certificate .info .colon {
+
+    text-align: center;
+
+}
+
+
+
+.certificate .info .value {
+
+    white-space: nowrap;
+
+}
+
+
+
+/* =====================================================
+   自治会名
+===================================================== */
+
+.certificate .organization {
+
+    margin: 45px 0 0 0;
+
+    font-size: 24px;
+
+    font-weight: bold;
+
+}
+
+
+
+/* =====================================================
+   PDFボタン
+===================================================== */
+
+#pdf-button {
+
+    display: inline-block;
+
+    margin: 20px auto 40px auto;
+
+    padding: 15px 40px;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    color: #ffffff;
+
+    background: #d62828;
+
+    border: none;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+}
+
+
+
+#pdf-button:active {
+
+    transform: scale(0.98);
+
+}
+
+
+
+/* =====================================================
+   スマホ表示
+
+   :not(.pdf-certificate) を付けている理由
+
+   PDF用の複製は幅1000pxで描画するが、
+   スマホから作成すると画面幅が600px以下のため
+   この指定が複製にも当たってしまう。
+   その結果、1000pxの用紙に小さい文字が並んだ
+   PDFができてしまうので、複製は対象外にする。
+===================================================== */
+
+@media screen and (max-width: 600px) {
+
+    body {
+
+        padding: 10px;
+
+    }
+
+
+    .certificate:not(.pdf-certificate) {
+
+        width: 100%;
+
+        min-height: auto;
+
+        margin: 15px auto;
+
+        padding: 35px 20px;
+
+        border-width: 6px;
+
+    }
+
+
+    .certificate:not(.pdf-certificate) h1 {
+
+        font-size: 36px;
+
+        letter-spacing: 8px;
+
+        text-indent: 8px;
+
+        margin-bottom: 30px;
+
+    }
+
+
+    .certificate:not(.pdf-certificate) .message {
+
+        font-size: 16px;
+
+        line-height: 1.8;
+
+    }
+
+
+    .certificate:not(.pdf-certificate) h2 {
+
+        font-size: 25px;
+
+        margin: 30px 0 20px 0;
+
+    }
+
+
+    .certificate:not(.pdf-certificate) .certification {
+
+        font-size: 16px;
+
+    }
+
+
+    .certificate:not(.pdf-certificate) .info {
+
+        margin-top: 30px;
+
+        font-size: 16px;
+
+        line-height: 1.9;
+
+    }
+
+
+    .certificate:not(.pdf-certificate) .info p {
+
+        grid-template-columns: 4.5em 1em auto;
+
+    }
+
+
+    .certificate:not(.pdf-certificate) .organization {
+
+        margin-top: 35px;
+
+        font-size: 20px;
+
+    }
+
+
+    #pdf-button {
+
+        width: 90%;
+
+        max-width: 350px;
+
+        padding: 15px 20px;
+
+        font-size: 17px;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   PDF生成専用
+
+   1000 × 707px（A4横と同じ比率）で描画する
+===================================================== */
+
+.pdf-certificate {
+
+    width: 1000px !important;
+
+    height: 707px !important;
+
+    max-width: none !important;
+
+    min-height: 0 !important;
+
+    margin: 0 !important;
+
+    padding: 60px !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+
+    border: 8px double #b8860b !important;
+
+    text-align: center !important;
+
+}
+
+
+
+/* PDF内の要素 */
+
+.pdf-certificate h1 {
+
+    font-size: 48px !important;
+
+    letter-spacing: 15px !important;
+
+    text-indent: 15px !important;
+
+    margin: 0 0 40px 0 !important;
+
+}
+
+
+.pdf-certificate .message {
+
+    font-size: 20px !important;
+
+    line-height: 2 !important;
+
+}
+
+
+.pdf-certificate h2 {
+
+    font-size: 34px !important;
+
+    margin: 40px 0 25px 0 !important;
+
+}
+
+
+.pdf-certificate .certification {
+
+    font-size: 20px !important;
+
+}
+
+
+.pdf-certificate .info {
+
+    font-size: 20px !important;
+
+    line-height: 2 !important;
+
+    margin: 45px auto 0 auto !important;
+
+}
+
+
+.pdf-certificate .info p {
+
+    grid-template-columns: 5em 1em auto !important;
+
+}
+
+
+.pdf-certificate .organization {
+
+    font-size: 24px !important;
+
+    margin: 45px 0 0 0 !important;
+
+}

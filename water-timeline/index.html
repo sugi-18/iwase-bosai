@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>松戸市 マイタイムライン つくり（いわせちゃや de 防災）</title>
+  <style>
+    :root {
+      --primary-color: #007bc3;
+      --accent-color: #e60012;
+      --bg-color: #f4f9ff;
+      --card-bg: #ffffff;
+      --text-color: #333333;
+    }
+
+    body {
+      font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 16px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      color: var(--primary-color);
+      text-align: center;
+      border-bottom: 3px solid var(--primary-color);
+      padding-bottom: 8px;
+      margin-top: 0;
+    }
+
+    rt {
+      font-size: 0.6em;
+      color: #555;
+    }
+
+    .notice-box {
+      background-color: #fff3cd;
+      border: 2px solid #ffeba8;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      color: #856404;
+    }
+
+    .step-header {
+      background: var(--primary-color);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: bold;
+      margin-top: 24px;
+      margin-bottom: 16px;
+      font-size: 1.1rem;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      background: #fafafa;
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid #eee;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 4px;
+      font-size: 1.05rem;
+    }
+
+    .sub-label {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      box-sizing: border-box;
+      background-color: #fff;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--primary-color);
+      outline: none;
+    }
+
+    button.btn-generate {
+      width: 100%;
+      background-color: #ff9800;
+      color: #fff;
+      border: none;
+      padding: 16px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: background-color 0.2s;
+    }
+
+    button.btn-generate:hover {
+      background-color: #e68a00;
+    }
+
+    /* AIプロンプト表示エリア */
+    #prompt-section {
+      display: none;
+      margin-top: 30px;
+      background: #eef7fe;
+      border: 2px solid var(--primary-color);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .prompt-box {
+      background: #fff;
+      border: 1px solid #bbb;
+      padding: 12px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.95rem;
+      white-space: pre-wrap;
+      word-break: break-all;
+      margin: 10px 0;
+    }
+
+    .btn-copy {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* マイタイムライン結果エリア */
+    #timeline-result {
+      display: none;
+      margin-top: 30px;
+      border-top: 2px dashed #ccc;
+      padding-top: 20px;
+    }
+
+    .timeline-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+      border-left: 8px solid #ccc;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .level-3d { border-color: #2196F3; }
+    .level-1d { border-color: #FFC107; }
+    .level-alert { border-color: #FF5722; background-color: #fff5f5; }
+    .level-safe { border-color: #4CAF50; }
+
+    .time-title {
+      font-weight: bold;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge {
+      background: #333;
+      color: #fff;
+      font-size: 0.8rem;
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+
+    ul {
+      margin: 8px 0 0 0;
+      padding-left: 20px;
+    }
+
+    .btn-print {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 14px;
+      width: 100%;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .container { box-shadow: none; border: none; max-width: 100%; }
+      .no-print { display: none !important; }
+      #timeline-result { display: block !important; border: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>
+    <ruby>松戸市<rt>まつどし</rt></ruby> 
+    マイタイムライン 
+    <ruby>自動<rt>じどう</rt></ruby><ruby>作成<rt>さくせい</rt></ruby>アプリ
+  </h1>
+
+  <div class="notice-box no-print">
+    🔒 <strong><ruby>個人情報<rt>こじんじょうほう</rt></ruby>（名前・くわしい住所）は 書かないでください！</strong><br>
+    自分たちの 状況（じょうきょう）を 自由に 入力してください[cite: 1]。
+  </div>
+
+  <form id="timelineForm" class="no-print">
+    <div class="step-header">
+      ステップ 1：わが家の <ruby>前提条件<rt>ぜんていじょうけん</rt></ruby>を 書こう！[cite: 1]
+    </div>
+
+    <!-- 1. 家族構成 -->
+    <div class="form-group">
+      <label>① <ruby>家族構成<rt>かぞくこうせい</rt></ruby>（いっしょに にげる ひと）[cite: 1]</label>
+      <div class="sub-label">書き込み例：夫婦、高校生の息子、犬1匹[cite: 1]</div>
+      <input type="text" id="family" placeholder="例：夫婦、高校生の息子、犬1匹" required>
+    </div>
+
+    <!-- 2. 住環境 -->
+    <div class="form-group">
+      <label>② <ruby>住環境<rt>じゅうかんきょう</rt></ruby>（たてものの 特徴・ばしょ）[cite: 1]</label>
+      <div class="sub-label">書き込み例：江戸川の近く、一戸建ての1階、浸水リスクあり[cite: 1]</div>
+      <input type="text" id="housing" placeholder="例：江戸川の近く、一戸建ての1階、浸水リスクあり" required>
+    </div>
+
+    <!-- 3. 避難の基準・タイミング -->
+    <div class="form-group">
+      <label>③ <ruby>避難<rt>ひなん</rt></ruby>の <ruby>基準<rt>きじゅん</rt></ruby>・タイミング[cite: 1]</label>
+      <div class="sub-label">書き込み例：松戸市から「高齢者等避難」や「避難指示」が出たとき[cite: 1]</div>
+      <input type="text" id="timing" placeholder="例：松戸市から「高齢者等避難」や「避難指示」が出たとき" required>
+    </div>
+
+    <!-- 4. 避難場所・ルート -->
+    <div class="form-group">
+      <label>④ <ruby>避難場所<rt>ひなんばしょ</rt></ruby>・ルート[cite: 1]</label>
+      <div class="sub-label">書き込み例：○○小学校、または近くの頑丈な建物の2階以上[cite: 1]</div>
+      <input type="text" id="place" placeholder="例：○○小学校、または近くの頑丈な建物の2階以上" required>
+    </div>
+
+    <button type="button" class="btn-generate" onclick="processTimeline()">マイタイムラインを つくる</button>
+  </form>
+
+  <!-- ステップ2：AI用の魔法の文章（プロンプト）生成エリア -->
+  <div id="prompt-section" class="no-print">
+    <div style="font-weight: bold; color: var(--primary-color);">
+      ステップ 2：AIに 送る 魔法（まほう）の 文章（プロンプト）[cite: 1]
+    </div>
+    <p style="font-size: 0.9rem; margin: 6px 0;">
+      下の文章（ぶんしょう）を コピーして、ChatGPT や Gemini などの AI に はりつけると、より詳しい マイタイムラインが 作れます[cite: 1]。
+    </p>
+    <div class="prompt-box" id="generated-prompt"></div>
+    <button type="button" class="btn-copy" onclick="copyPrompt()">魔法の文章を コピーする</button>
+  </div>
+
+  <!-- ステップ3：自動生成結果・書き写し（印刷）エリア -->
+  <div id="timeline-result">
+    <div class="step-header" style="background: #2196F3; text-align: center;">
+      ステップ 3：完成（かんせい）した マイタイムライン[cite: 1]
+    </div>
+
+    <div style="background: #f9f9f9; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 0.9rem; border: 1px solid #ddd;">
+      <strong>【わが家の 前提条件（ぜんていじょうけん）】</strong>[cite: 1]<br>
+      ・① 家族構成：<span id="res-family"></span>[cite: 1]<br>
+      ・② 住環境：<span id="res-housing"></span>[cite: 1]<br>
+      ・③ 避難の基準：<span id="res-timing"></span>[cite: 1]<br>
+      ・④ 避難場所：<span id="res-place"></span>[cite: 1]
+    </div>
+
+    <!-- 3日前 -->
+    <div class="timeline-card level-3d">
+      <div class="time-title">
+        <span class="badge">3日（みっか）まえ</span>
+        <ruby>台風<rt>たいふう</rt></ruby>が 来るかもしれないとき
+      </div>
+      <ul id="list-3d"></ul>
+    </div>
+
+    <!-- 1日前 -->
+    <div class="timeline-card level-1d">
+      <div class="time-title">
+        <span class="badge" style="background:#ff9800;">1日（ついたち）まえ</span>
+        <ruby>風<rt>かぜ</rt></ruby>や <ruby>雨<rt>あめ</rt></ruby>が つよくなってきたとき
+      </div>
+      <ul id="list-1d"></ul>
+    </div>
+
+    <!-- 避難のタイミング（当日） -->
+    <div class="timeline-card level-alert">
+      <div class="time-title" style="color: var(--accent-color);">
+        <span class="badge" style="background:var(--accent-color);">にげる時（とき）</span>
+        <span id="res-timing-title">避難のタイミング</span>
+      </div>
+      <ul id="list-now"></ul>
+    </div>
+
+    <!-- 台風が去ったあと -->
+    <div class="timeline-card level-safe">
+      <div class="time-title">
+        <span class="badge" style="background:#4CAF50;">台風が 通りすぎたあと</span>
+        <ruby>安全<rt>あんぜん</rt></ruby>に なったら
+      </div>
+      <ul id="list-after"></ul>
+    </div>
+
+    <button type="button" class="btn-print no-print" onclick="window.print()">このマイタイムラインを 印刷（いんさつ）する / 保存する[cite: 1]</button>
+  </div>
+</div>
+
+<script>
+function processTimeline() {
+  const family = document.getElementById('family').value.trim();
+  const housing = document.getElementById('housing').value.trim();
+  const timing = document.getElementById('timing').value.trim();
+  const place = document.getElementById('place').value.trim();
+
+  if (!family || !housing || !timing || !place) {
+    alert("すべての 項目（こうもく）を 入力（にゅうりょく）してください。");
+    return;
+  }
+
+  // 1. 添付シート「ステップ2」そのままのプロンプト文面を自由入力値から動的に作成
+  const promptText = `あなたは防災の専門家です。以下の条件に合う、台風接近から通過までの「松戸市マイタイムライン」を、個人を特定できる情報を一切含めずに、時系列のリスト形式で具体的に作成してください。・家族構成:${family} ・住環境:${housing} ・避難の基準:${timing} ・避難場所:${place}`;
+
+  document.getElementById('generated-prompt').innerText = promptText;
+  document.getElementById('prompt-section').style.display = 'block';
+
+  // 2. 結果エリアの表示更新
+  document.getElementById('res-family').innerText = family;
+  document.getElementById('res-housing').innerText = housing;
+  document.getElementById('res-timing').innerText = timing;
+  document.getElementById('res-place').innerText = place;
+  document.getElementById('res-timing-title').innerText = timing;
+
+  // 3. アプリ単体で即時表示する時系列マイタイムラインリストの生成
+  const list3d = [
+    '天気予報（てんきよほう）や 松戸市（まつどし）の 防災情報（ぼうさいじょうほう）を チェックする。',
+    'スマホや モバイルバッテリーを 充電（じゅうでん）しておく。',
+    '非常用持ち出し袋（リュック）や 食べもの・水が あるか かくにんする。'
+  ];
+
+  const list1d = [
+    'ベランダや 庭（にわ）に ある 物（もの）を 家の なかに 入れる。',
+    '窓（まど）や シャッターを しっかり 閉める（しまる）。',
+    'お風呂（ふろ）の 水を ためておく（断水・トイレ対策）。'
+  ];
+
+  const listNow = [
+    '【避難場所（にげるばしょ）】：<strong>' + place + '</strong> へ 移動（いどう）する。',
+    'ガスの 元栓（もとせん）を しめて、電気の ブレーカーを 落とす（切る）。',
+    '動きやすい 服（ふく）と 運動靴（スニーカー）を はいて 外に出る。',
+    '（水があふれているとき）増水した道路や 水路（すいろ）には 近づかない。'
+  ];
+
+  const listAfter = [
+    '台風が 去っても、川の水が増えたり 土砂崩れ（どしゃくずれ）が 起きる 危険（きけん）があるので、すぐには 近づかない。',
+    '松戸市からの 安全な おしらせを確認（かくにん）してから 家に かえる。'
+  ];
+
+  // 自由入力された文字列に含まれるキーワードに応じたアドバイス（判定）
+  if (family.includes('ペット') || family.includes('犬') || family.includes('猫')) {
+    list3d.push('ペットのごはん、ケージ、フン用フクロの 準備（じゅんび）をする。');
+    listNow.push('ペットと一緒に 逃げる（同行避難）準備をする。');
+  }
+  if (family.includes('子') || family.includes('高齢者') || family.includes('シニア') || family.includes('祖父') || family.includes('祖母')) {
+    list3d.push('おむつ、持参品、いつもの お薬（くすり）を 多めに 準備する。');
+    listNow.push('明るい時間（昼間）のうちに、早めに 避難を開始する。');
+  }
+  if (housing.includes('1階') || housing.includes('浸水') || housing.includes('近く') || housing.includes('川')) {
+    list1d.push('大事なもの（通帳・パソコンなど）や 家電製品を 高い場所（2階以上など）へ うつす。');
+  }
+  if (housing.includes('高い階') || housing.includes('マンション') || housing.includes('アパート')) {
+    listNow.push('※外に出るのが 危ないときは、無理に出ず 自宅の（浸水しない高層階）で 安全を かくほする（垂直避難）。');
+  }
+
+  renderList('list-3d', list3d);
+  renderList('list-1d', list1d);
+  renderList('list-now', listNow);
+  renderList('list-after', listAfter);
+
+  document.getElementById('timeline-result').style.display = 'block';
+  document.getElementById('prompt-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function renderList(elementId, items) {
+  const ul = document.getElementById(elementId);
+  ul.innerHTML = '';
+  items.forEach(item => {
+    const li = document.createElement('li');
+    li.innerHTML = item;
+    ul.appendChild(li);
+  });
+}
+
+function copyPrompt() {
+  const text = document.getElementById('generated-prompt').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    alert("魔法の文章（プロンプト）を コピーしました！\nAI（ChatGPTやGeminiなど）に はりつけて 使ってください。");
+  });
+}
+</script>
+
+</body>
+</html>

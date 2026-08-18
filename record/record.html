@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    活動実績 | 岩瀬自治会 防災
+</title>
+
+
+<link
+    rel="stylesheet"
+    href="../style.css"
+>
+
+
+<style>
+
+/* ==================================================
+   活動実績ページ
+================================================== */
+
+.activity-page {
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ==================================================
+   活動実績メイン
+================================================== */
+
+.activity {
+
+    display: block;
+
+    width: 100%;
+
+    max-width: 900px;
+
+    margin: 0 auto;
+
+    padding: 30px 20px 50px;
+
+    box-sizing: border-box;
+
+    text-align: center;
+
+}
+
+
+/* ==================================================
+   タイトル
+================================================== */
+
+.activity h1 {
+
+    width: 100%;
+
+    margin: 0 0 35px;
+
+    padding: 0;
+
+    font-size: 32px;
+
+    line-height: 1.4;
+
+    text-align: center;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ==================================================
+   活動一覧
+================================================== */
+
+.activity-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    width: 100%;
+
+    max-width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+    gap: 35px;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ==================================================
+   活動カード
+================================================== */
+
+.activity-card {
+
+    display: block;
+
+    width: 100%;
+
+    max-width: 100%;
+
+    margin: 0;
+
+    padding: 25px;
+
+    background: #ffffff;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 4px 12px
+        rgba(0, 0, 0, 0.12);
+
+    text-align: left;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ==================================================
+   活動タイトル
+================================================== */
+
+.activity-title {
+
+    width: 100%;
+
+    margin: 0 0 8px;
+
+    padding: 0;
+
+    font-size: 24px;
+
+    line-height: 1.5;
+
+    color: #333333;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ==================================================
+   実施日
+================================================== */
+
+.activity-date {
+
+    width: 100%;
+
+    margin: 0 0 18px;
+
+    padding: 0;
+
+    color: #777777;
+
+    font-size: 14px;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ==================================================
+   活動内容
+================================================== */
+
+.activity-description {
+
+    width: 100%;
+
+    margin: 0 0 22px;
+
+    padding: 0;
+
+    line-height: 1.8;
+
+    white-space: pre-wrap;
+
+    overflow-wrap: break-word;
+
+    word-break: break-word;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ==================================================
+   写真ギャラリー
+================================================== */
+
+.activity-gallery {
+
+    display: flex;
+
+    flex-direction: column;
+
+    width: 100%;
+
+    max-width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+    gap: 20px;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ==================================================
+   活動写真
+================================================== */
+
+.activity-image {
+
+    display: block;
+
+    width: 100%;
+
+    max-width: 800px;
+
+    height: auto;
+
+    margin: 0 auto;
+
+    padding: 0;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 3px 10px
+        rgba(0, 0, 0, 0.15);
+
+    box-sizing: border-box;
+
+}
+
+
+/* ==================================================
+   読み込み中
+================================================== */
+
+.loading {
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 35px 20px;
+
+    text-align: center;
+
+    color: #777777;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ==================================================
+   活動実績なし
+================================================== */
+
+.empty {
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 35px 20px;
+
+    text-align: center;
+
+    color: #777777;
+
+    background: #eeeeee;
+
+    border-radius: 10px;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ==================================================
+   エラー
+================================================== */
+
+.error {
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 25px 20px;
+
+    text-align: center;
+
+    color: #b71c1c;
+
+    background: #ffebee;
+
+    border-radius: 10px;
+
+    line-height: 1.7;
+
+    overflow-wrap: break-word;
+
+    word-break: break-word;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ==================================================
+   戻るボタン
+================================================== */
+
+.back-button {
+
+    display: block;
+
+    width: fit-content;
+
+    margin: 35px auto 0;
+
+    padding: 15px 35px;
+
+    background-color: #1976d2;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    border-radius: 30px;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    text-align: center;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.15s ease;
+
+    box-sizing: border-box;
+
+}
+
+
+.back-button:hover {
+
+    background-color: #125ea8;
+
+    transform: translateY(-2px);
+
+}
+
+
+/* ==================================================
+   スマートフォン
+================================================== */
+
+@media (max-width: 600px) {
+
+    .activity {
+
+        width: 100%;
+
+        max-width: 100%;
+
+        margin: 0 auto;
+
+        padding: 25px 15px 40px;
+
+        box-sizing: border-box;
+
+    }
+
+
+    .activity h1 {
+
+        width: 100%;
+
+        margin: 0 0 25px;
+
+        font-size: 25px;
+
+        text-align: center;
+
+        box-sizing: border-box;
+
+    }
+
+
+    .activity-list {
+
+        width: 100%;
+
+        max-width: 100%;
+
+        margin: 0;
+
+        padding: 0;
+
+        gap: 25px;
+
+        box-sizing: border-box;
+
+    }
+
+
+    .activity-card {
+
+        width: 100%;
+
+        max-width: 100%;
+
+        margin: 0;
+
+        padding: 18px;
+
+        border-radius: 12px;
+
+        box-sizing: border-box;
+
+    }
+
+
+    .activity-title {
+
+        width: 100%;
+
+        font-size: 21px;
+
+        line-height: 1.5;
+
+    }
+
+
+    .activity-description {
+
+        width: 100%;
+
+        font-size: 15px;
+
+        line-height: 1.8;
+
+        overflow-wrap: break-word;
+
+        word-break: break-word;
+
+    }
+
+
+    .activity-gallery {
+
+        width: 100%;
+
+        max-width: 100%;
+
+        margin: 0;
+
+        padding: 0;
+
+        gap: 15px;
+
+        box-sizing: border-box;
+
+    }
+
+
+    .activity-image {
+
+        display: block;
+
+        width: 100%;
+
+        max-width: 100%;
+
+        height: auto;
+
+        margin: 0;
+
+        box-sizing: border-box;
+
+        border-radius: 9px;
+
+    }
+
+
+    .back-button {
+
+        width: 80%;
+
+        max-width: 300px;
+
+        margin: 30px auto 0;
+
+        padding: 14px 20px;
+
+        font-size: 16px;
+
+        box-sizing: border-box;
+
+    }
+
+}
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     活動実績ページ
+================================================== -->
+
+<main class="activity-page">
+
+
+<section class="activity">
+
+
+<!-- ==================================================
+     タイトル
+================================================== -->
+
+<h1>
+    📷 活動実績
+</h1>
+
+
+<!-- ==================================================
+     活動一覧
+================================================== -->
+
+<div
+    id="activityList"
+    class="activity-list"
+>
+
+    <div class="loading">
+        読み込み中...
+    </div>
+
+</div>
+
+
+<!-- ==================================================
+     戻るボタン
+================================================== -->
+
+<a
+    href="../index.html"
+    class="back-button"
+>
+    トップページへ戻る
+</a>
+
+
+</section>
+
+
+</main>
+
+
+<!-- ==================================================
+     Supabase
+================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+"use strict";
+
+
+/* ==================================================
+   Supabase設定
+================================================== */
+
+const SUPABASE_URL =
+    "https://zumbqukrojdpgfpfekjr.supabase.co";
+
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_8YXsMHOxLr7MOTEYShUM3w_LsZvR3Qn";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+/* ==================================================
+   活動実績読み込み
+================================================== */
+
+async function loadActivities() {
+
+    const container =
+        document.getElementById(
+            "activityList"
+        );
+
+
+    if (!container) {
+
+        console.error(
+            "activityList が見つかりません。"
+        );
+
+        return;
+
+    }
+
+
+    container.innerHTML = `
+        <div class="loading">
+            読み込み中...
+        </div>
+    `;
+
+
+    try {
+
+        /* ------------------------------------------
+           activitiesテーブル取得
+        ------------------------------------------ */
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+
+            .from("activities")
+
+            .select(
+                `
+                id,
+                title,
+                activity_date,
+                description,
+                image1_url,
+                image2_url,
+                image3_url,
+                is_published,
+                display_order
+                `
+            )
+
+            .eq(
+                "is_published",
+                true
+            )
+
+            .order(
+                "display_order",
+                {
+                    ascending: true,
+                    nullsFirst: false
+                }
+            )
+
+            .order(
+                "activity_date",
+                {
+                    ascending: false,
+                    nullsFirst: false
+                }
+            );
+
+
+        /* ------------------------------------------
+           Supabaseエラー
+        ------------------------------------------ */
+
+        if (error) {
+
+            console.error(
+                "活動実績取得エラー:",
+                error
+            );
+
+            throw error;
+
+        }
+
+
+        console.log(
+            "活動実績取得成功:",
+            data
+        );
+
+
+        container.innerHTML = "";
+
+
+        /* ------------------------------------------
+           データなし
+        ------------------------------------------ */
+
+        if (
+            !data ||
+            data.length === 0
+        ) {
+
+            container.innerHTML = `
+                <div class="empty">
+                    現在、公開されている活動実績はありません。
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        /* ------------------------------------------
+           活動カード生成
+        ------------------------------------------ */
+
+        data.forEach(
+            activity => {
+
+                createActivityCard(
+                    container,
+                    activity
+                );
+
+            }
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "loadActivities error:",
+            error
+        );
+
+
+        container.innerHTML = `
+            <div class="error">
+                活動実績を読み込めませんでした。<br>
+                しばらく時間をおいて再度お試しください。
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* ==================================================
+   活動カード生成
+================================================== */
+
+function createActivityCard(
+    container,
+    activity
+) {
+
+    const card =
+        document.createElement(
+            "article"
+        );
+
+
+    card.className =
+        "activity-card";
+
+
+    /* ------------------------------------------
+       タイトル
+    ------------------------------------------ */
+
+    const title =
+        document.createElement(
+            "h2"
+        );
+
+
+    title.className =
+        "activity-title";
+
+
+    title.textContent =
+        activity.title ||
+        "活動実績";
+
+
+    card.appendChild(
+        title
+    );
+
+
+    /* ------------------------------------------
+       実施日
+    ------------------------------------------ */
+
+    if (
+        activity.activity_date
+    ) {
+
+        const date =
+            document.createElement(
+                "div"
+            );
+
+
+        date.className =
+            "activity-date";
+
+
+        date.textContent =
+            formatDate(
+                activity.activity_date
+            );
+
+
+        card.appendChild(
+            date
+        );
+
+    }
+
+
+    /* ------------------------------------------
+       活動内容
+    ------------------------------------------ */
+
+    if (
+        activity.description
+    ) {
+
+        const description =
+            document.createElement(
+                "div"
+            );
+
+
+        description.className =
+            "activity-description";
+
+
+        description.textContent =
+            activity.description;
+
+
+        card.appendChild(
+            description
+        );
+
+    }
+
+
+    /* ------------------------------------------
+       写真
+    ------------------------------------------ */
+
+    const gallery =
+        document.createElement(
+            "div"
+        );
+
+
+    gallery.className =
+        "activity-gallery";
+
+
+    const imageUrls = [
+
+        activity.image1_url,
+
+        activity.image2_url,
+
+        activity.image3_url
+
+    ].filter(
+        url =>
+            url &&
+            String(url).trim() !== ""
+    );
+
+
+    imageUrls.forEach(
+        (
+            url,
+            index
+        ) => {
+
+            const img =
+                document.createElement(
+                    "img"
+                );
+
+
+            img.className =
+                "activity-image";
+
+
+            img.src =
+                String(url).trim();
+
+
+            img.alt =
+                (
+                    activity.title ||
+                    "活動実績"
+                ) +
+                " 写真" +
+                (
+                    index + 1
+                );
+
+
+            img.loading =
+                "lazy";
+
+
+            img.addEventListener(
+                "error",
+                () => {
+
+                    console.error(
+                        "活動写真読み込み失敗:",
+                        img.src
+                    );
+
+                    img.style.display =
+                        "none";
+
+                }
+            );
+
+
+            gallery.appendChild(
+                img
+            );
+
+        }
+    );
+
+
+    /* ------------------------------------------
+       写真がある場合だけ追加
+    ------------------------------------------ */
+
+    if (
+        imageUrls.length > 0
+    ) {
+
+        card.appendChild(
+            gallery
+        );
+
+    }
+
+
+    container.appendChild(
+        card
+    );
+
+}
+
+
+/* ==================================================
+   日付表示
+================================================== */
+
+function formatDate(
+    value
+) {
+
+    if (!value) {
+
+        return "";
+
+    }
+
+
+    const parts =
+        String(
+            value
+        ).split("-");
+
+
+    if (
+        parts.length !== 3
+    ) {
+
+        return String(
+            value
+        );
+
+    }
+
+
+    return (
+        Number(parts[0]) +
+        "年" +
+        Number(parts[1]) +
+        "月" +
+        Number(parts[2]) +
+        "日"
+    );
+
+}
+
+
+/* ==================================================
+   実行
+================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        loadActivities();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
