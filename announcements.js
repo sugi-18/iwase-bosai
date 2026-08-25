@@ -132,7 +132,20 @@ async function loadPublicAnnouncements() {
             );
 
 
-    if (error) {
+       if (error) {
+
+        // オフラインでキャッシュも無い場合は
+        // 古い情報を装わず、状態をそのまま伝える
+        if (!navigator.onLine) {
+
+            container.innerHTML =
+                '<p class="announcement-loading">' +
+                'オフラインのため、最新のお知らせを確認できません。' +
+                '</p>';
+
+            return;
+
+        }
 
         throw error;
 
