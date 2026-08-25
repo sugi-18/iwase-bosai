@@ -41,7 +41,7 @@ const RUNTIME_NAME = "iwase-runtime-" + SW_VERSION;
 ================================================== */
 
 const VAPID_PUBLIC_KEY =
-    "BMtWi-5cowrjbiuO2IXNKX673Ubz0hCpRa3G9T-yWQOVKK9xTh5-hJ2QXVpl8i8yXD1leAiRZl9O5YXG1aXKP-c";
+    "ここにVAPID公開鍵を貼る";
 
 const SUPABASE_URL =
     "https://zumbqukrojdpgfpfekjr.supabase.co";
@@ -94,15 +94,13 @@ const PRECACHE_PATHS = [
     "./stamp/supabase.js",
     "./stamp/stamp.html",
     "./stamp/stamp.css",
+    "./stamp/stamp.js",
     "./stamp/certificate.html",
     "./stamp/certificate.css",
+    "./stamp/certificate.js",
     "./stamp/training.html",
-　  "./stamp/stamp.js?v=20260818",
-    "./stamp/certificate.js?v=20260818",
-    "./stamp/training.js?v=20260814",
-    "./stamp/qr.html",
-    "./stamp/qr.js",
-   
+    "./stamp/training.js",
+
     "./login/login.html",
     "./login/login.css",
     "./login/login.js"
@@ -174,6 +172,20 @@ function isCacheableSupabase(url) {
     const table = url.pathname.replace("/rest/v1/", "").split("?")[0];
 
     return CACHEABLE_SUPABASE_TABLES.indexOf(table) !== -1;
+
+}
+
+
+/*
+ * 活動写真などの公開ファイル。
+ *
+ * 訓練の記録写真はオフラインでも見たいので
+ * キャッシュ対象にする。
+ */
+
+function isPublicStorage(url) {
+
+    return url.pathname.indexOf("/storage/v1/object/public/") === 0;
 
 }
 
@@ -307,7 +319,20 @@ self.addEventListener("message", (event) => {
    一定時間で見切ってキャッシュを返す。
 ================================================== */
 
-function networkFirst(request, cacheName, timeoutMs) {
+function networkFirst(request, cacheName, timeoutMs, ignoreSearch) {
+
+    /*
+     * ignoreSearch を true にすると、
+     * URLの ? 以降を無視してキャッシュを探す。
+     *
+     * お知らせの取得URLには現在時刻が入っていて
+     * 毎回変わるため、これが無いと
+     * オフラインで一度も一致しない。
+     */
+
+    const matchOptions = ignoreSearch === true
+        ? { ignoreSearch: true }
+        : undefined;
 
     return new Promise((resolve) => {
 
@@ -328,7 +353,7 @@ function networkFirst(request, cacheName, timeoutMs) {
 
         const timer = setTimeout(async () => {
 
-            const cached = await caches.match(request);
+            const cached = await caches.match(request, matchOptions);
 
             if (cached) {
 
@@ -368,7 +393,7 @@ function networkFirst(request, cacheName, timeoutMs) {
 
                 clearTimeout(timer);
 
-                const cached = await caches.match(request);
+                const cached = await caches.match(request, matchOptions);
 
                 if (cached) {
 
@@ -437,6 +462,50 @@ async function staleWhileRevalidate(request, cacheName) {
     const response = await fetching;
 
     return response || Response.error();
+
+}
+
+
+/* ==================================================
+   取得方法：キャッシュ優先
+
+   活動写真など、一度置かれたら
+   ほぼ変わらないファイル向け。
+
+   通信量を使わず、オフラインでも表示できる。
+================================================== */
+
+async function cacheFirst(request, cacheName) {
+
+    const cached = await caches.match(request);
+
+    if (cached) {
+        return cached;
+    }
+
+    try {
+
+        const response = await fetch(request);
+
+        if (response && response.ok && response.type !== "opaque") {
+
+            const cache = await caches.open(cacheName);
+
+            cache.put(request, response.clone()).catch(() => {});
+
+        }
+
+        return response;
+
+    }
+    catch (error) {
+
+        return new Response("", {
+            status: 504,
+            statusText: "オフラインです"
+        });
+
+    }
 
 }
 
@@ -545,21 +614,58 @@ self.addEventListener("fetch", (event) => {
 
     if (url.hostname.endsWith(".supabase.co")) {
 
+        /* ---------- 活動写真など ---------- */
+
+        if (isPublicStorage(url)) {
+
+            event.respondWith(
+                cacheFirst(request, RUNTIME_NAME)
+            );
+
+            return;
+
+        }
+
+
+        /* ---------- お知らせ・警報など ---------- */
+
         if (isCacheableSupabase(url)) {
 
             event.respondWith((async () => {
 
-                const response =
-                    await networkFirst(request, RUNTIME_NAME, 5000);
+                /*
+                 * 第4引数 true で ? 以降を無視して照合する。
+                 *
+                 * お知らせの取得URLには現在時刻が入るため、
+                 * 完全一致では二度と見つからない。
+                 */
+
+                const response = await networkFirst(
+                    request,
+                    RUNTIME_NAME,
+                    5000,
+                    true
+                );
 
                 if (response) {
                     return response;
                 }
 
+                /*
+                 * ここへ来るのは
+                 * 「通信できず、キャッシュも無い」場合のみ。
+                 *
+                 * 以前は [] を返していたが、
+                 * それだと「お知らせ0件」と誤表示されるため、
+                 * エラーとして扱わせる。
+                 */
+
                 return new Response(
-                    "[]",
+                    JSON.stringify({
+                        message: "オフラインのため取得できません。"
+                    }),
                     {
-                        status: 200,
+                        status: 503,
                         headers: {
                             "Content-Type": "application/json"
                         }
