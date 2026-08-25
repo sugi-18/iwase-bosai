@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+<title>
+いわぽん防災マイスター認定証
+</title>
+<link rel="stylesheet"
+      href="certificate.css">
+<!-- html2canvas -->
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
+</script>
+<!-- jsPDF -->
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+</script>
+</head>
+<body>
+<!-- =====================================================
+     認定証
+
+     class="certificate" は PDF 生成時の複製にも
+     同じスタイルを当てるために必要。
+     （複製は id が certificate-pdf に変わるため、
+       #certificate で書いたCSSは複製に効かない）
+===================================================== -->
+<div id="certificate" class="certificate">
+    <h1>
+        認定証
+    </h1>
+    <p class="message">
+        あなたは防災訓練・講座に積極的に参加し、
+        <br>
+        地域防災力向上に貢献しました。
+    </p>
+    <h2 id="rank-title">
+        いわぽん防災マイスター
+    </h2>
+    <p class="certification">
+        として認定します。
+    </p>
+    <div class="info">
+        <p>
+            <span class="label">氏名</span>
+            <span class="colon">：</span>
+            <span class="value" id="name"></span>
+        </p>
+        <p>
+            <span class="label">認定日</span>
+            <span class="colon">：</span>
+            <span class="value" id="date"></span>
+        </p>
+        <p>
+            <span class="label">認定番号</span>
+            <span class="colon">：</span>
+            <span class="value" id="number"></span>
+        </p>
+    </div>
+    <p class="organization">
+        岩瀬自治会
+    </p>
+</div>
+<!-- =====================================================
+     PDFボタン
+===================================================== -->
+<button
+    type="button"
+    id="pdf-button">
+    認定証PDFを見る
+</button>
+<!-- =====================================================
+     Supabase
+
+     認定証にも最新の氏名を反映させるために必要。
+===================================================== -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- =====================================================
+     利用者情報
+===================================================== -->
+<script src="../common/iwase-identity.js"></script>
+<!-- =====================================================
+     認定証
+===================================================== -->
+<script src="certificate.js?v=20260818"></script>
+
+<script src="../common/pwa.js"></script>
+      
+</body>
+</html>

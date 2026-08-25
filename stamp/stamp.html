@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+<title>
+    いわぽん防災マイスター
+    スタンプカード
+</title>
+<link
+    rel="stylesheet"
+    href="stamp.css"
+>
+</head>
+<body>
+<div class="stamp-container">
+<h1>
+    ⭐️ いわぽん防災マイスター<br>
+    スタンプカード
+</h1>
+<!-- ==================================================
+     カード画面
+================================================== -->
+<section
+    id="card-area"
+    style="display:none;"
+>
+<h2>
+    防災参加カード
+</h2>
+<p id="user-name"></p>
+<!-- ==================================================
+     個人QR
+================================================== -->
+<div class="qr-area">
+    <h3>
+        参加者ID
+    </h3>
+    <div id="qrcode"></div>
+    <p id="user-id"></p>
+</div>
+<!-- ==================================================
+     スタンプカード
+================================================== -->
+<div class="stamp-card">
+    <h3>
+        参加スタンプ
+    </h3>
+    <div id="stamp-icons"></div>
+    <p>
+        <span id="stamp-count">
+            0
+        </span>
+        <span id="stamp-total">
+            /10個
+        </span>
+    </p>
+</div>
+<p id="message"></p>
+<!-- ==================================================
+     管理者登録済み訓練
+================================================== -->
+<div class="training-list-area">
+    <h3>
+        防災訓練・講座
+    </h3>
+    <p>
+        あなたが参加した訓練・講座が表示されます。
+    </p>
+    <div id="training-list">
+        <p>
+            参加した訓練を読み込んでいます……
+        </p>
+    </div>
+</div>
+</div>
+<!-- ==================================================
+     認定証
+================================================== -->
+<div
+    id="certificate-area"
+    style="display:none;"
+>
+    <a href="certificate.html">
+        <button type="button">
+            認定証を見る
+        </button>
+    </a>
+</div>
+<!-- ==================================================
+     データ削除
+================================================== -->
+<div id="delete-area">
+    <button
+        type="button"
+        onclick="clearData()"
+        class="delete-button"
+    >
+        データ削除
+    </button>
+</div>
+<!-- ==================================================
+     トップページへ戻る
+================================================== -->
+<div id="back-area">
+    <a
+        href="../index.html"
+        class="back-button"
+    >
+        トップページへ戻る
+    </a>
+</div>
+</section>
+</div>
+<!-- ==================================================
+     QRコードライブラリ
+================================================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<!-- ==================================================
+     Supabase
+================================================== -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<!-- ==================================================
+     スタンプカード
+================================================== -->
+
+<script src="../common/iwase-identity.js"></script>
+
+<script src="stamp.js?v=20260818"></script>
+
+<script src="../common/pwa.js"></script>
+
+</body>
+</html>
