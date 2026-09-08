@@ -156,6 +156,39 @@ async function checkLogin() {
 
 
 // ==================================================
+// 関数が未作成かどうかの判定
+//
+// PostgRESTは、存在しない関数を呼ぶと
+// 404（PGRST202）を返す。
+// ==================================================
+
+function isMissingFunctionError(error) {
+
+    if (!error) {
+
+        return false;
+
+    }
+
+
+    const code =
+        String(error.code || "");
+
+    const message =
+        String(error.message || "");
+
+
+    return (
+        code === "PGRST202" ||
+        code === "42883" ||
+        message.indexOf("Could not find the function") !== -1 ||
+        message.indexOf("does not exist") !== -1
+    );
+
+}
+
+
+// ==================================================
 // 登録 ／ 再ログイン
 // ==================================================
 
@@ -256,12 +289,24 @@ async function login(forceNew) {
         // 重複したアカウントは作られない。
         // ----------------------------------------------
 
-        const {
+        /*
+         * 会員用と会員外用で自治会コードが分かれたため、
+         * まず v2 を呼ぶ。
+         *
+         * v2 は自治会コードから会員区分を判定し、
+         * 従来の登録処理を呼び出したうえで
+         * member_type を返す。
+         *
+         * まだ sql/05 を実行していない環境でも
+         * 使えるように、v2 が無ければ従来のものを呼ぶ。
+         */
+
+        let {
             data,
             error
         } =
         await supabaseClient.rpc(
-            "register_or_login_participant",
+            "register_or_login_participant_v2",
             {
                 p_code:      code,
                 p_name:      name,
@@ -269,6 +314,36 @@ async function login(forceNew) {
                 p_force_new: forceNew === true
             }
         );
+
+
+        if (
+            error &&
+            isMissingFunctionError(error)
+        ) {
+
+            console.warn(
+                "register_or_login_participant_v2 が未作成のため、" +
+                "従来の処理を使用します。"
+            );
+
+
+            const fallback =
+                await supabaseClient.rpc(
+                    "register_or_login_participant",
+                    {
+                        p_code:      code,
+                        p_name:      name,
+                        p_pin:       pin,
+                        p_force_new: forceNew === true
+                    }
+                );
+
+
+            data  = fallback.data;
+
+            error = fallback.error;
+
+        }
 
 
         if (error) {
@@ -334,6 +409,18 @@ async function login(forceNew) {
             await IwaseIdentity.save({
                 id:     data.participant_id,
                 name:   data.name,
+
+                /*
+                 * 会員区分。
+                 * v2 が無い環境では返ってこないので、
+                 * その場合は会員として扱う。
+                 */
+
+                memberType:
+                    data.member_type === "guest"
+                        ? "guest"
+                        : "member",
+
                 stamps: stamps
             });
 

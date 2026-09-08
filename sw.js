@@ -25,7 +25,7 @@
    古いキャッシュは activate で削除される。
 ================================================== */
 
-const SW_VERSION = "2026-08-25-02";
+const SW_VERSION = "2026-09-08-04";
 
 const PRECACHE_NAME = "iwase-precache-" + SW_VERSION;
 
@@ -73,6 +73,9 @@ const PRECACHE_PATHS = [
     "./common/pwa.js",
     "./common/push.js",
     "./common/alerts.js",
+    "./common/appearance.js",
+    "./common/community.js",
+    "./common/community.css",
 
     "./images/bosai-iwapon.png",
     "./images/iwase-logo.png",
@@ -82,6 +85,17 @@ const PRECACHE_PATHS = [
 
     "./water-timeline/",
     "./earthquake-timeline/",
+    "./timeline/",
+
+    "./plan/plan.html",
+
+    "./tools/tools.html",
+    "./tools/survey.html",
+    "./tools/survey.js",
+    "./tools/board.html",
+    "./tools/board.js",
+
+    "./settings/settings.html",
 
     "./checklist/",
     "./checklist/style.css",
@@ -123,7 +137,20 @@ const CACHEABLE_SUPABASE_TABLES = [
     "site_contents",
     "activities",
     "trainings",
-    "alerts"
+    "alerts",
+
+    /*
+     * 掲示板とオリジナルコンテンツも
+     * 直前の内容を見せたいので許可する。
+     *
+     * アンケートの回答（survey_responses）は
+     * 個人の回答なので入れない。
+     */
+    "custom_contents",
+    "board_posts",
+    "board_comments",
+    "surveys",
+    "survey_questions"
 
 ];
 

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    自治会掲示板 | 岩瀬自治会 防災
+</title>
+
+<meta
+    name="description"
+    content="岩瀬自治会の掲示板。ふだんの交流や災害時の被害報告に使えます。"
+>
+
+<link
+    rel="stylesheet"
+    href="../style.css"
+>
+
+<link
+    rel="stylesheet"
+    href="../common/community.css"
+>
+
+<script src="../common/appearance.js"></script>
+
+</head>
+
+
+<body>
+
+
+<div class="title-area">
+
+    <div class="title-main">
+
+        <img
+            src="../images/bosai-iwapon.png"
+            class="character"
+            alt="防災キャラクター"
+        >
+
+        <h1>
+            💬 自治会掲示板
+        </h1>
+
+    </div>
+
+    <p>
+        ふだんの交流や、災害時の被害報告にお使いください
+    </p>
+
+</div>
+
+
+<main class="tool-page">
+
+
+    <!-- ==================================================
+         投稿する
+    ================================================== -->
+
+    <div class="tool-card">
+
+        <h2>
+            投稿する
+        </h2>
+
+
+        <label class="tool-label" for="boardName">
+            投稿名（自由に決められます）
+        </label>
+
+        <input
+            type="text"
+            id="boardName"
+            class="tool-input"
+            maxlength="40"
+            placeholder="例：岩瀬 太郎 ／ 3丁目の住人"
+        >
+
+
+        <label class="tool-label" for="boardCategory">
+            種類
+        </label>
+
+        <select
+            id="boardCategory"
+            class="tool-select"
+        >
+
+            <option value="normal">
+                ふだんの交流
+            </option>
+
+            <option value="info">
+                おしらせ・情報共有
+            </option>
+
+            <option value="damage">
+                災害時の被害報告
+            </option>
+
+        </select>
+
+
+        <label class="tool-label" for="boardBody">
+            内容
+        </label>
+
+        <textarea
+            id="boardBody"
+            class="tool-textarea"
+            maxlength="2000"
+            placeholder="例：○○公園のブロック塀にひびが入っています。"
+        ></textarea>
+
+
+        <div id="boardMessage"></div>
+
+
+        <button
+            type="button"
+            id="boardSubmitButton"
+            class="tool-button"
+        >
+            投稿する
+        </button>
+
+
+        <p style="
+            margin: 0;
+            font-size: 13px;
+            color: #777;
+            line-height: 1.7;
+        ">
+            投稿は自治会の会員が見られます。<br>
+            緊急の通報は119番・110番へお願いします。
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         絞り込み
+    ================================================== -->
+
+    <div class="tool-card">
+
+        <h3>
+            表示する種類
+        </h3>
+
+        <select
+            id="boardFilter"
+            class="tool-select"
+            style="margin-bottom:0;"
+        >
+
+            <option value="all">
+                すべて
+            </option>
+
+            <option value="normal">
+                ふだんの交流
+            </option>
+
+            <option value="info">
+                おしらせ・情報共有
+            </option>
+
+            <option value="damage">
+                災害時の被害報告
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- ==================================================
+         投稿一覧
+    ================================================== -->
+
+    <div
+        id="boardList"
+        class="tool-list"
+    >
+
+        <div class="tool-loading">
+            読み込み中...
+        </div>
+
+    </div>
+
+
+    <a
+        href="./tools.html"
+        class="back-button"
+    >
+        🧰 岩瀬自治会ツールへ戻る
+    </a>
+
+
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="../stamp/supabase.js"></script>
+
+<script src="../common/iwase-identity.js"></script>
+
+<script src="../common/community.js"></script>
+
+<script src="./board.js"></script>
+
+<script src="../common/pwa.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    設定 | 岩瀬自治会 防災
+</title>
+
+<meta
+    name="description"
+    content="通知設定・文字の大きさ・ログアウトができます。"
+>
+
+<link
+    rel="stylesheet"
+    href="../style.css"
+>
+
+<link
+    rel="stylesheet"
+    href="../common/community.css"
+>
+
+<script src="../common/appearance.js"></script>
+
+
+<style>
+
+/* ==================================================
+   文字の大きさを選ぶボタン
+================================================== */
+
+.font-size-buttons {
+
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+}
+
+
+.font-size-button {
+
+    flex: 1 1 30%;
+
+    min-width: 90px;
+
+    padding: 16px 10px;
+
+    font-family: inherit;
+
+    font-weight: bold;
+
+    color: #1f77b4;
+
+    background: #ffffff;
+
+    border: 2px solid #1f77b4;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+}
+
+
+.font-size-button.selected {
+
+    color: #ffffff;
+
+    background: #1f77b4;
+
+}
+
+
+.font-size-button .sample-normal {
+    font-size: 15px;
+}
+
+.font-size-button .sample-large {
+    font-size: 18px;
+}
+
+.font-size-button .sample-xlarge {
+    font-size: 21px;
+}
+
+
+.settings-user {
+
+    padding: 14px;
+
+    background: #f2f7fb;
+
+    border-radius: 10px;
+
+    line-height: 1.8;
+
+    font-size: 15px;
+
+    color: #333333;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="title-area">
+
+    <div class="title-main">
+
+        <img
+            src="../images/bosai-iwapon.png"
+            class="character"
+            alt="防災キャラクター"
+        >
+
+        <h1>
+            ⚙ 設定
+        </h1>
+
+    </div>
+
+    <p>
+        通知・文字の大きさ・ログアウト
+    </p>
+
+</div>
+
+
+<main class="tool-page">
+
+
+    <!-- ==================================================
+         利用者
+    ================================================== -->
+
+    <div class="tool-card">
+
+        <h2>
+            ご利用中のアカウント
+        </h2>
+
+        <div
+            id="settingsUser"
+            class="settings-user"
+        >
+            確認中...
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         通知設定
+
+         common/push.js がこの中へ描画する。
+    ================================================== -->
+
+    <div id="pushSettings"></div>
+
+
+    <!-- ==================================================
+         文字の大きさ
+    ================================================== -->
+
+    <div class="tool-card">
+
+        <h2>
+            🔠 文字の大きさ
+        </h2>
+
+        <p>
+            見づらいときは大きくしてください。<br>
+            この設定はアプリ全体に反映されます。
+        </p>
+
+        <div
+            id="fontSizeButtons"
+            class="font-size-buttons"
+        ></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         ログアウト
+    ================================================== -->
+
+    <div class="tool-card">
+
+        <h2>
+            🚪 ログアウト
+        </h2>
+
+        <p>
+            この端末から利用者情報を消します。<br>
+            もう一度使うときは、
+            <strong>お名前と暗証番号（4けた）</strong>
+            で再開できます。
+        </p>
+
+        <p style="color:#b71c1c;">
+            暗証番号を忘れると再開できません。ご注意ください。
+        </p>
+
+        <button
+            type="button"
+            id="logoutButton"
+            class="tool-button tool-button-danger"
+        >
+            ログアウトする
+        </button>
+
+    </div>
+
+
+    <a
+        href="../index.html"
+        class="back-button"
+    >
+        🏠 トップページへ戻る
+    </a>
+
+
+</main>
+
+
+<!-- ==================================================
+     Supabase
+================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="../stamp/supabase.js"></script>
+
+<script src="../common/iwase-identity.js"></script>
+
+
+<script>
+
+"use strict";
+
+
+/* ==================================================
+   利用者の表示
+================================================== */
+
+async function showUser() {
+
+    var area = document.getElementById("settingsUser");
+
+    try {
+
+        var user = await window.IwaseIdentity.load();
+
+        if (!user) {
+
+            area.innerHTML =
+                'ログインしていません。<br>' +
+                '<a href="../login/login.html">' +
+                'ログイン画面へ' +
+                '</a>';
+
+            return;
+
+        }
+
+        var isGuest =
+            user.memberType === "guest";
+
+
+        area.innerHTML =
+            'お名前：<strong>' +
+            (user.name || "（未設定）") +
+            '</strong><br>' +
+            '区分：<strong>' +
+            (isGuest ? "自治会員以外" : "自治会員") +
+            '</strong><br>' +
+            '利用者ID：' +
+            '<span style="font-size:13px;color:#666;">' +
+            (user.id || "") +
+            '</span>' +
+            (
+                isGuest
+                    ? '<br><span style="font-size:14px;">' +
+                      '岩瀬地区防災計画と岩瀬自治会ツールは、' +
+                      '自治会員の方向けの機能です。' +
+                      '会員用の自治会コードをお持ちの方は、' +
+                      '一度ログアウトして入力し直してください。' +
+                      '</span>'
+                    : ''
+            );
+
+    }
+    catch (error) {
+
+        console.error("利用者情報の取得エラー:", error);
+
+        area.textContent =
+            "利用者情報を読み込めませんでした。";
+
+    }
+
+}
+
+
+/* ==================================================
+   文字の大きさ
+================================================== */
+
+function renderFontSizeButtons() {
+
+    var container =
+        document.getElementById("fontSizeButtons");
+
+    var levels = window.IwaseAppearance.LEVELS;
+
+    var current = window.IwaseAppearance.get();
+
+
+    container.innerHTML = "";
+
+
+    levels.forEach(function (level) {
+
+        var button = document.createElement("button");
+
+        button.type = "button";
+
+        button.className =
+            "font-size-button" +
+            (level.key === current ? " selected" : "");
+
+        button.innerHTML =
+            '<span class="sample-' + level.key + '">' +
+            level.label +
+            '</span>';
+
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                window.IwaseAppearance.set(level.key);
+
+                renderFontSizeButtons();
+
+            }
+        );
+
+
+        container.appendChild(button);
+
+    });
+
+}
+
+
+/* ==================================================
+   ログアウト
+
+   利用者情報を消すのはここだけにする。
+   通信エラーなどで勝手に消さない方針のため。
+================================================== */
+
+async function logout() {
+
+    var ok = window.confirm(
+        "ログアウトします。\n\n" +
+        "この端末から利用者情報を消します。\n" +
+        "お名前と暗証番号（4けた）があれば、\n" +
+        "いつでも再開できます。\n\n" +
+        "よろしいですか？"
+    );
+
+    if (!ok) {
+        return;
+    }
+
+
+    try {
+
+        await window.IwaseIdentity.clear();
+
+    }
+    catch (error) {
+
+        console.error("ログアウトエラー:", error);
+
+    }
+
+
+    /* 掲示板の投稿名なども消しておく */
+
+    try {
+
+        localStorage.removeItem("iwaseBoardName");
+
+    }
+    catch (error) {
+
+        console.warn("投稿名の削除に失敗:", error);
+
+    }
+
+
+    location.href = "../login/login.html";
+
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        showUser();
+
+        renderFontSizeButtons();
+
+        document
+            .getElementById("logoutButton")
+            .addEventListener("click", logout);
+
+    }
+);
+
+</script>
+
+
+<!-- ==================================================
+     通知設定
+
+     pwa.js → push.js の順に読み込む。
+================================================== -->
+
+<script src="../common/pwa.js"></script>
+
+<script src="../common/push.js"></script>
+
+</body>
+
+</html>

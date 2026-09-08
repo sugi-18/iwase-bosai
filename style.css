@@ -1306,3 +1306,59 @@ body.announcement-modal-open {
     }
 
 }
+
+/* =========================================
+   設定カード
+
+   トップページの一番下に置く入口。
+   ほかのカードと役割が違うことが
+   ひと目で分かるよう、少し色を落としている。
+========================================= */
+
+.settings-card{
+
+    background:#fbfcfd;
+
+    border:1px solid #e3e8ee;
+
+}
+
+.settings-card h2{
+
+    color:#37474f;
+
+}
+
+.settings-card a{
+
+    background:#546e7a;
+
+}
+
+.settings-card a:hover{
+
+    background:#41545e;
+
+}
+
+/* =========================================
+   自治会員外利用モードの表示
+
+   お知らせとキャラクターの間に置く。
+   「会員向けの機能について」と同じ
+   文字の大きさ・色にそろえている。
+========================================= */
+
+.guest-mode-label{
+
+    margin:10px auto 0;
+
+    color:#1f4e79;
+
+    font-size:22px;
+
+    line-height:1.4;
+
+    text-align:center;
+
+}

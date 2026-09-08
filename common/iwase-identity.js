@@ -70,6 +70,22 @@
 
             name: String(data.name).trim(),
 
+            /*
+             * 会員区分
+             *
+             *   member … 岩瀬自治会の会員
+             *   guest  … 会員以外
+             *
+             * 値が入っていない場合は member として扱う。
+             * この仕組みを入れる前に登録した人は、
+             * 全員が会員用の自治会コードで登録しているため。
+             */
+
+            memberType:
+                data.memberType === "guest"
+                    ? "guest"
+                    : "member",
+
             stamps: Array.isArray(data.stamps)
                 ? data.stamps
                 : []
@@ -175,7 +191,8 @@
             var value = encodeURIComponent(
                 JSON.stringify({
                     id: data.id,
-                    name: data.name
+                    name: data.name,
+                    memberType: data.memberType
                 })
             );
 
@@ -320,7 +337,8 @@
                     tx.objectStore(STORE_NAME).put(
                         {
                             id: data.id,
-                            name: data.name
+                            name: data.name,
+                            memberType: data.memberType
                         },
                         RECORD_KEY
                     );

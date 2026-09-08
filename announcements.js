@@ -61,6 +61,22 @@ document.addEventListener(
             createAnnouncementModal();
 
 
+            /*
+             * 会員区分を確定させてから読み込む。
+             * 先に読み込むと、会員以外に
+             * 会員向けのお知らせが一瞬見えてしまう。
+             */
+
+            if (
+                window.IwaseIdentity &&
+                typeof window.IwaseIdentity.load === "function"
+            ) {
+
+                await window.IwaseIdentity.load();
+
+            }
+
+
             await loadPublicAnnouncements();
 
 
@@ -77,6 +93,50 @@ document.addEventListener(
 
     }
 );
+
+
+/* ==================================================
+   会員区分
+
+   IwaseIdentity が読み込まれていない画面でも
+   エラーにならないようにしておく。
+================================================== */
+
+function getAnnouncementMemberType() {
+
+    try {
+
+        if (
+            window.IwaseIdentity &&
+            typeof window.IwaseIdentity.read === "function"
+        ) {
+
+            const user =
+                window.IwaseIdentity.read();
+
+
+            if (user && user.memberType === "guest") {
+
+                return "guest";
+
+            }
+
+        }
+
+    }
+    catch (error) {
+
+        console.warn(
+            "会員区分の判定に失敗:",
+            error
+        );
+
+    }
+
+
+    return "member";
+
+}
 
 
 /* ==================================================
@@ -102,6 +162,21 @@ async function loadPublicAnnouncements() {
         new Date().toISOString();
 
 
+    /*
+     * 自治会コードによって、見えるお知らせが変わる。
+     *
+     *   all    … 全員
+     *   member … 自治会員のみ
+     *   guest  … 自治会員以外のみ
+     *
+     * audience 列がまだ無い環境でも動くように、
+     * null も表示対象に含めている。
+     */
+
+    const memberType =
+        getAnnouncementMemberType();
+
+
     const {
         data,
         error
@@ -111,11 +186,15 @@ async function loadPublicAnnouncements() {
                 "announcements"
             )
             .select(
-                "id,title,body,type,published_at,expires_at"
+                "id,title,body,type,published_at,expires_at,audience"
             )
             .eq(
                 "is_published",
                 true
+            )
+            .or(
+                "audience.is.null,audience.eq.all,audience.eq." +
+                memberType
             )
             .or(
                 "expires_at.is.null,expires_at.gt." +

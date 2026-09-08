@@ -10,6 +10,10 @@
 
 <link rel="stylesheet" href="style.css">
 
+<link rel="stylesheet" href="./common/community.css">
+
+<script src="./common/appearance.js"></script>
+
 </head>
 
 <body>
@@ -79,6 +83,30 @@ target="_blank">
 📘 岩瀬自治会 Facebook
 
 </a>
+
+
+
+<!-- ==================================================
+     オリジナルコンテンツ
+
+     管理者画面から登録した写真・PDF・
+     Googleドライブなどのリンクを表示する。
+     ここは custom_contents テーブルの
+     category = 'original' を読んでいる。
+================================================== -->
+
+<div id="originalSection">
+
+<h2>📁 オリジナルコンテンツ</h2>
+
+
+<div id="originalContents">
+
+<p style="color:#777;">読み込み中...</p>
+
+</div>
+
+</div>
 
 
 
@@ -202,7 +230,152 @@ class="back-button">
 
 </div>
 
-<script src="../common/pwa.js"></script>
+<!-- ==================================================
+     Supabase
+================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="./stamp/supabase.js"></script>
+
+<script src="./common/iwase-identity.js"></script>
+
+<script src="./common/community.js"></script>
+
+
+<script>
+
+"use strict";
+
+
+/* ==================================================
+   オリジナルコンテンツの読み込み
+================================================== */
+
+async function loadOriginalContents() {
+
+    const container =
+        document.getElementById("originalContents");
+
+    if (!container) {
+        return;
+    }
+
+
+    try {
+
+        const { data, error } =
+            await supabaseClient
+                .from("custom_contents")
+                .select("id, title, description, url, icon")
+                .eq("category", "original")
+                .eq("is_published", true)
+                .order("display_order", { ascending: true })
+                .order("created_at", { ascending: true });
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        if (!data || data.length === 0) {
+
+            container.innerHTML =
+                '<p style="color:#777;">' +
+                'まだ登録されていません。' +
+                '</p>';
+
+            return;
+
+        }
+
+
+        const escape = window.IwaseCommunity.escapeHtml;
+
+
+        container.innerHTML =
+            data.map(
+                item => `
+                    <a class="link-button"
+                       href="${escape(item.url || "#")}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        ${escape(item.icon || "📄")}
+                        ${escape(item.title)}
+                    </a>
+                    ${
+                        item.description
+                            ? `<p style="
+                                   margin:-8px 0 14px;
+                                   color:#666;
+                                   font-size:14px;
+                                   line-height:1.7;
+                               ">${escape(item.description)}</p>`
+                            : ""
+                    }
+                `
+            ).join("");
+
+
+    }
+    catch (error) {
+
+        console.error("オリジナルコンテンツ取得エラー:", error);
+
+        container.innerHTML =
+            '<p style="color:#b71c1c;">' +
+            '読み込めませんでした。' +
+            '</p>';
+
+    }
+
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async () => {
+
+        await window.IwaseIdentity.load();
+
+
+        /*
+         * オリジナルコンテンツは自治会員向け。
+         * 会員以外には一覧を出さず、
+         * 理由だけを短く伝える。
+         */
+
+        if (!window.IwaseCommunity.isMember()) {
+
+            const section =
+                document.getElementById("originalSection");
+
+            if (section) {
+
+                section.innerHTML =
+                    '<h2>📁 オリジナルコンテンツ</h2>' +
+                    '<p style="color:#777;line-height:1.8;">' +
+                    'オリジナルコンテンツは、' +
+                    '岩瀬自治会の会員の方がご覧いただけます。' +
+                    '</p>';
+
+            }
+
+            return;
+
+        }
+
+
+        loadOriginalContents();
+
+    }
+);
+
+</script>
+
+
+<script src="./common/pwa.js"></script>
 
 </body>
 

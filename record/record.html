@@ -14,532 +14,83 @@
     活動実績 | 岩瀬自治会 防災
 </title>
 
+<meta
+    name="description"
+    content="岩瀬自治会の防災活動の実績を、実施回ごとに確認できます。"
+>
 
 <link
     rel="stylesheet"
     href="../style.css"
 >
 
+<link
+    rel="stylesheet"
+    href="../common/community.css"
+>
+
+<script src="../common/appearance.js"></script>
+
 
 <style>
 
 /* ==================================================
    活動実績ページ
+
+   活動が増えてきたため、
+   1回分ずつ見出しだけを並べ、
+   押したときに内容と写真が開くようにした。
+
+   すべて開いたまま並べると、
+   古い活動にたどり着くまでに
+   画面を何度もスクロールすることになるため。
 ================================================== */
 
-.activity-page {
+.record-year {
 
-    width: 100%;
+    margin: 26px 0 12px;
 
-    margin: 0;
-
-    padding: 0;
-
-    box-sizing: border-box;
-
-}
-
-
-/* ==================================================
-   活動実績メイン
-================================================== */
-
-.activity {
-
-    display: block;
-
-    width: 100%;
-
-    max-width: 900px;
-
-    margin: 0 auto;
-
-    padding: 30px 20px 50px;
-
-    box-sizing: border-box;
-
-    text-align: center;
-
-}
-
-
-/* ==================================================
-   タイトル
-================================================== */
-
-.activity h1 {
-
-    width: 100%;
-
-    margin: 0 0 35px;
-
-    padding: 0;
-
-    font-size: 32px;
-
-    line-height: 1.4;
-
-    text-align: center;
-
-    box-sizing: border-box;
-
-}
-
-
-/* ==================================================
-   活動一覧
-================================================== */
-
-.activity-list {
-
-    display: flex;
-
-    flex-direction: column;
-
-    width: 100%;
-
-    max-width: 100%;
-
-    margin: 0;
-
-    padding: 0;
-
-    gap: 35px;
-
-    box-sizing: border-box;
-
-}
-
-
-/* ==================================================
-   活動カード
-================================================== */
-
-.activity-card {
-
-    display: block;
-
-    width: 100%;
-
-    max-width: 100%;
-
-    margin: 0;
-
-    padding: 25px;
-
-    background: #ffffff;
-
-    border-radius: 15px;
-
-    box-shadow:
-        0 4px 12px
-        rgba(0, 0, 0, 0.12);
-
-    text-align: left;
-
-    box-sizing: border-box;
-
-}
-
-
-/* ==================================================
-   活動タイトル
-================================================== */
-
-.activity-title {
-
-    width: 100%;
-
-    margin: 0 0 8px;
-
-    padding: 0;
-
-    font-size: 24px;
-
-    line-height: 1.5;
-
-    color: #333333;
-
-    box-sizing: border-box;
-
-}
-
-
-/* ==================================================
-   実施日
-================================================== */
-
-.activity-date {
-
-    width: 100%;
-
-    margin: 0 0 18px;
-
-    padding: 0;
-
-    color: #777777;
-
-    font-size: 14px;
-
-    box-sizing: border-box;
-
-}
-
-
-/* ==================================================
-   活動内容
-================================================== */
-
-.activity-description {
-
-    width: 100%;
-
-    margin: 0 0 22px;
-
-    padding: 0;
-
-    line-height: 1.8;
-
-    white-space: pre-wrap;
-
-    overflow-wrap: break-word;
-
-    word-break: break-word;
-
-    box-sizing: border-box;
-
-}
-
-
-/* ==================================================
-   写真ギャラリー
-================================================== */
-
-.activity-gallery {
-
-    display: flex;
-
-    flex-direction: column;
-
-    width: 100%;
-
-    max-width: 100%;
-
-    margin: 0;
-
-    padding: 0;
-
-    gap: 20px;
-
-    box-sizing: border-box;
-
-}
-
-
-/* ==================================================
-   活動写真
-================================================== */
-
-.activity-image {
-
-    display: block;
-
-    width: 100%;
-
-    max-width: 800px;
-
-    height: auto;
-
-    margin: 0 auto;
-
-    padding: 0;
-
-    border-radius: 12px;
-
-    box-shadow:
-        0 3px 10px
-        rgba(0, 0, 0, 0.15);
-
-    box-sizing: border-box;
-
-}
-
-
-/* ==================================================
-   読み込み中
-================================================== */
-
-.loading {
-
-    width: 100%;
-
-    margin: 0;
-
-    padding: 35px 20px;
-
-    text-align: center;
-
-    color: #777777;
-
-    box-sizing: border-box;
-
-}
-
-
-/* ==================================================
-   活動実績なし
-================================================== */
-
-.empty {
-
-    width: 100%;
-
-    margin: 0;
-
-    padding: 35px 20px;
-
-    text-align: center;
-
-    color: #777777;
-
-    background: #eeeeee;
-
-    border-radius: 10px;
-
-    box-sizing: border-box;
-
-}
-
-
-/* ==================================================
-   エラー
-================================================== */
-
-.error {
-
-    width: 100%;
-
-    margin: 0;
-
-    padding: 25px 20px;
-
-    text-align: center;
-
-    color: #b71c1c;
-
-    background: #ffebee;
-
-    border-radius: 10px;
-
-    line-height: 1.7;
-
-    overflow-wrap: break-word;
-
-    word-break: break-word;
-
-    box-sizing: border-box;
-
-}
-
-
-/* ==================================================
-   戻るボタン
-================================================== */
-
-.back-button {
-
-    display: block;
-
-    width: fit-content;
-
-    margin: 35px auto 0;
-
-    padding: 15px 35px;
-
-    background-color: #1976d2;
-
-    color: #ffffff;
-
-    text-decoration: none;
-
-    border-radius: 30px;
+    padding: 0 4px;
 
     font-size: 18px;
 
     font-weight: bold;
 
+    color: #1f4e79;
+
+    text-align: left;
+
+}
+
+
+.record-count {
+
+    margin: 0 0 18px;
+
+    font-size: 14px;
+
+    color: #777777;
+
     text-align: center;
 
-    transition:
-        background-color 0.2s ease,
-        transform 0.15s ease;
-
-    box-sizing: border-box;
-
 }
 
 
-.back-button:hover {
+.record-date {
 
-    background-color: #125ea8;
+    display: block;
 
-    transform: translateY(-2px);
+    margin-top: 4px;
 
-}
+    font-size: 15px;
 
+    font-weight: normal;
 
-/* ==================================================
-   スマートフォン
-================================================== */
-
-@media (max-width: 600px) {
-
-    .activity {
-
-        width: 100%;
-
-        max-width: 100%;
-
-        margin: 0 auto;
-
-        padding: 25px 15px 40px;
-
-        box-sizing: border-box;
-
-    }
-
-
-    .activity h1 {
-
-        width: 100%;
-
-        margin: 0 0 25px;
-
-        font-size: 25px;
-
-        text-align: center;
-
-        box-sizing: border-box;
-
-    }
-
-
-    .activity-list {
-
-        width: 100%;
-
-        max-width: 100%;
-
-        margin: 0;
-
-        padding: 0;
-
-        gap: 25px;
-
-        box-sizing: border-box;
-
-    }
-
-
-    .activity-card {
-
-        width: 100%;
-
-        max-width: 100%;
-
-        margin: 0;
-
-        padding: 18px;
-
-        border-radius: 12px;
-
-        box-sizing: border-box;
-
-    }
-
-
-    .activity-title {
-
-        width: 100%;
-
-        font-size: 21px;
-
-        line-height: 1.5;
-
-    }
-
-
-    .activity-description {
-
-        width: 100%;
-
-        font-size: 15px;
-
-        line-height: 1.8;
-
-        overflow-wrap: break-word;
-
-        word-break: break-word;
-
-    }
-
-
-    .activity-gallery {
-
-        width: 100%;
-
-        max-width: 100%;
-
-        margin: 0;
-
-        padding: 0;
-
-        gap: 15px;
-
-        box-sizing: border-box;
-
-    }
-
-
-    .activity-image {
-
-        display: block;
-
-        width: 100%;
-
-        max-width: 100%;
-
-        height: auto;
-
-        margin: 0;
-
-        box-sizing: border-box;
-
-        border-radius: 9px;
-
-    }
-
-
-    .back-button {
-
-        width: 80%;
-
-        max-width: 300px;
-
-        margin: 30px auto 0;
-
-        padding: 14px 20px;
-
-        font-size: 16px;
-
-        box-sizing: border-box;
-
-    }
+    color: #666666;
 
 }
 
 </style>
-
 
 </head>
 
@@ -547,54 +98,56 @@
 <body>
 
 
-<!-- ==================================================
-     活動実績ページ
-================================================== -->
+<div class="title-area">
 
-<main class="activity-page">
+    <div class="title-main">
 
+        <img
+            src="../images/bosai-iwapon.png"
+            class="character"
+            alt="防災キャラクター"
+        >
 
-<section class="activity">
+        <h1>
+            📷 活動実績
+        </h1>
 
-
-<!-- ==================================================
-     タイトル
-================================================== -->
-
-<h1>
-    📷 活動実績
-</h1>
-
-
-<!-- ==================================================
-     活動一覧
-================================================== -->
-
-<div
-    id="activityList"
-    class="activity-list"
->
-
-    <div class="loading">
-        読み込み中...
     </div>
+
+    <p>
+        見たい回を押すと、内容と写真が開きます
+    </p>
 
 </div>
 
 
-<!-- ==================================================
-     戻るボタン
-================================================== -->
-
-<a
-    href="../index.html"
-    class="back-button"
->
-    トップページへ戻る
-</a>
+<main class="tool-page">
 
 
-</section>
+    <p
+        id="recordCount"
+        class="record-count"
+    ></p>
+
+
+    <div
+        id="activityList"
+        class="tool-list"
+    >
+
+        <div class="tool-loading">
+            読み込み中...
+        </div>
+
+    </div>
+
+
+    <a
+        href="../index.html"
+        class="back-button"
+    >
+        🏠 トップページへ戻る
+    </a>
 
 
 </main>
@@ -606,6 +159,12 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script src="../stamp/supabase.js"></script>
+
+<script src="../common/iwase-identity.js"></script>
+
+<script src="../common/community.js"></script>
+
 
 <script>
 
@@ -613,41 +172,21 @@
 
 
 /* ==================================================
-   Supabase設定
-================================================== */
-
-const SUPABASE_URL =
-    "https://zumbqukrojdpgfpfekjr.supabase.co";
-
-
-const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_8YXsMHOxLr7MOTEYShUM3w_LsZvR3Qn";
-
-
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
-    );
-
-
-/* ==================================================
-   活動実績読み込み
+   活動実績の読み込み
 ================================================== */
 
 async function loadActivities() {
 
     const container =
-        document.getElementById(
-            "activityList"
-        );
+        document.getElementById("activityList");
+
+    const countArea =
+        document.getElementById("recordCount");
 
 
     if (!container) {
 
-        console.error(
-            "activityList が見つかりません。"
-        );
+        console.error("activityList が見つかりません。");
 
         return;
 
@@ -655,7 +194,7 @@ async function loadActivities() {
 
 
     container.innerHTML = `
-        <div class="loading">
+        <div class="tool-loading">
             読み込み中...
         </div>
     `;
@@ -663,125 +202,120 @@ async function loadActivities() {
 
     try {
 
-        /* ------------------------------------------
-           activitiesテーブル取得
-        ------------------------------------------ */
+        const { data, error } =
+            await supabaseClient
 
-        const {
-            data,
-            error
-        } =
-        await supabaseClient
+                .from("activities")
 
-            .from("activities")
+                .select(
+                    `
+                    id,
+                    title,
+                    activity_date,
+                    description,
+                    image1_url,
+                    image2_url,
+                    image3_url,
+                    is_published,
+                    display_order
+                    `
+                )
 
-            .select(
-                `
-                id,
-                title,
-                activity_date,
-                description,
-                image1_url,
-                image2_url,
-                image3_url,
-                is_published,
-                display_order
-                `
-            )
+                .eq("is_published", true)
 
-            .eq(
-                "is_published",
-                true
-            )
+                .order(
+                    "activity_date",
+                    {
+                        ascending: false,
+                        nullsFirst: false
+                    }
+                )
 
-            .order(
-                "display_order",
-                {
-                    ascending: true,
-                    nullsFirst: false
-                }
-            )
+                .order(
+                    "display_order",
+                    {
+                        ascending: true,
+                        nullsFirst: false
+                    }
+                );
 
-            .order(
-                "activity_date",
-                {
-                    ascending: false,
-                    nullsFirst: false
-                }
-            );
-
-
-        /* ------------------------------------------
-           Supabaseエラー
-        ------------------------------------------ */
 
         if (error) {
 
-            console.error(
-                "活動実績取得エラー:",
-                error
-            );
+            console.error("活動実績取得エラー:", error);
 
             throw error;
 
         }
 
 
-        console.log(
-            "活動実績取得成功:",
-            data
-        );
-
-
         container.innerHTML = "";
 
 
-        /* ------------------------------------------
-           データなし
-        ------------------------------------------ */
-
-        if (
-            !data ||
-            data.length === 0
-        ) {
+        if (!data || data.length === 0) {
 
             container.innerHTML = `
-                <div class="empty">
+                <div class="tool-empty">
                     現在、公開されている活動実績はありません。
                 </div>
             `;
+
+            countArea.textContent = "";
 
             return;
 
         }
 
 
+        countArea.textContent =
+            "これまでの活動 " + data.length + "回";
+
+
         /* ------------------------------------------
-           活動カード生成
+           年ごとに区切って並べる
         ------------------------------------------ */
 
-        data.forEach(
-            activity => {
+        let lastYear = null;
 
-                createActivityCard(
-                    container,
-                    activity
-                );
+
+        data.forEach((activity, index) => {
+
+            const year =
+                activity.activity_date
+                    ? String(activity.activity_date).slice(0, 4)
+                    : null;
+
+
+            if (year && year !== lastYear) {
+
+                const heading =
+                    document.createElement("div");
+
+                heading.className = "record-year";
+
+                heading.textContent = year + "年";
+
+                container.appendChild(heading);
+
+                lastYear = year;
 
             }
-        );
 
 
-    } catch (error) {
+            container.appendChild(
+                createActivityItem(activity, index)
+            );
 
-        console.error(
-            "loadActivities error:",
-            error
-        );
+        });
 
+
+    }
+    catch (error) {
+
+        console.error("loadActivities error:", error);
 
         container.innerHTML = `
-            <div class="error">
+            <div class="tool-error">
                 活動実績を読み込めませんでした。<br>
                 しばらく時間をおいて再度お試しください。
             </div>
@@ -793,171 +327,120 @@ async function loadActivities() {
 
 
 /* ==================================================
-   活動カード生成
+   1回分の要素
+
+   見出しを押すと本文が開く。
 ================================================== */
 
-function createActivityCard(
-    container,
-    activity
-) {
+function createActivityItem(activity, index) {
 
-    const card =
-        document.createElement(
-            "article"
-        );
+    const escape = window.IwaseCommunity.escapeHtml;
+
+    const item = document.createElement("div");
+
+    item.className = "record-item";
 
 
-    card.className =
-        "activity-card";
+    /* ---------- 見出し ---------- */
+
+    const toggle = document.createElement("button");
+
+    toggle.type = "button";
+
+    toggle.className = "record-toggle";
+
+    toggle.setAttribute("aria-expanded", "false");
 
 
-    /* ------------------------------------------
-       タイトル
-    ------------------------------------------ */
-
-    const title =
-        document.createElement(
-            "h2"
-        );
-
-
-    title.className =
-        "activity-title";
-
-
-    title.textContent =
-        activity.title ||
-        "活動実績";
-
-
-    card.appendChild(
-        title
-    );
-
-
-    /* ------------------------------------------
-       実施日
-    ------------------------------------------ */
-
-    if (
+    const dateText =
         activity.activity_date
-    ) {
-
-        const date =
-            document.createElement(
-                "div"
-            );
+            ? window.IwaseCommunity.formatDate(
+                  activity.activity_date
+              )
+            : "";
 
 
-        date.className =
-            "activity-date";
+    toggle.innerHTML =
+        '<span>' +
+        escape(activity.title || "活動実績") +
+        (
+            dateText
+                ? '<span class="record-date">' +
+                  escape(dateText) +
+                  '</span>'
+                : ''
+        ) +
+        '</span>' +
+        '<span class="record-toggle-mark">▼ 開く</span>';
 
 
-        date.textContent =
-            formatDate(
-                activity.activity_date
-            );
+    /* ---------- 本文 ---------- */
+
+    const body = document.createElement("div");
+
+    body.className = "record-body hidden";
 
 
-        card.appendChild(
-            date
-        );
-
-    }
-
-
-    /* ------------------------------------------
-       活動内容
-    ------------------------------------------ */
-
-    if (
-        activity.description
-    ) {
+    if (activity.description) {
 
         const description =
-            document.createElement(
-                "div"
-            );
+            document.createElement("div");
 
+        description.className = "record-description";
 
-        description.className =
-            "activity-description";
+        description.textContent = activity.description;
 
-
-        description.textContent =
-            activity.description;
-
-
-        card.appendChild(
-            description
-        );
+        body.appendChild(description);
 
     }
 
 
-    /* ------------------------------------------
-       写真
-    ------------------------------------------ */
+    /*
+     * 写真は自治会員のみ表示する。
+     *
+     * 会員以外は内容の文章だけを見られるようにし、
+     * 参加者が写っている写真は出さない。
+     */
 
-    const gallery =
-        document.createElement(
-            "div"
-        );
-
-
-    gallery.className =
-        "activity-gallery";
+    const showPhotos =
+        window.IwaseCommunity.isMember();
 
 
-    const imageUrls = [
+    const imageUrls =
+        showPhotos
+            ? [
 
-        activity.image1_url,
+                activity.image1_url,
 
-        activity.image2_url,
+                activity.image2_url,
 
-        activity.image3_url
+                activity.image3_url
 
-    ].filter(
-        url =>
-            url &&
-            String(url).trim() !== ""
-    );
-
-
-    imageUrls.forEach(
-        (
-            url,
-            index
-        ) => {
-
-            const img =
-                document.createElement(
-                    "img"
-                );
+              ].filter(
+                  url => url && String(url).trim() !== ""
+              )
+            : [];
 
 
-            img.className =
-                "activity-image";
+    if (imageUrls.length > 0) {
+
+        const gallery = document.createElement("div");
+
+        gallery.className = "record-gallery";
 
 
-            img.src =
-                String(url).trim();
+        imageUrls.forEach((url, imageIndex) => {
 
+            const img = document.createElement("img");
+
+            img.src = String(url).trim();
 
             img.alt =
-                (
-                    activity.title ||
-                    "活動実績"
-                ) +
+                (activity.title || "活動実績") +
                 " 写真" +
-                (
-                    index + 1
-                );
+                (imageIndex + 1);
 
-
-            img.loading =
-                "lazy";
-
+            img.loading = "lazy";
 
             img.addEventListener(
                 "error",
@@ -968,94 +451,121 @@ function createActivityCard(
                         img.src
                     );
 
-                    img.style.display =
-                        "none";
+                    img.style.display = "none";
 
                 }
             );
 
+            gallery.appendChild(img);
 
-            gallery.appendChild(
-                img
-            );
+        });
+
+
+        body.appendChild(gallery);
+
+    }
+
+
+    if (
+        !activity.description &&
+        imageUrls.length === 0
+    ) {
+
+        const empty = document.createElement("p");
+
+        empty.style.color = "#777";
+
+        empty.textContent =
+            "内容は登録されていません。";
+
+        body.appendChild(empty);
+
+    }
+
+
+    if (!showPhotos) {
+
+        const note = document.createElement("p");
+
+        note.style.color = "#777";
+
+        note.style.fontSize = "14px";
+
+        note.textContent =
+            "写真は岩瀬自治会の会員の方のみご覧いただけます。";
+
+        body.appendChild(note);
+
+    }
+
+
+    /* ---------- 開閉 ---------- */
+
+    toggle.addEventListener(
+        "click",
+        () => {
+
+            const isHidden =
+                body.classList.contains("hidden");
+
+
+            if (isHidden) {
+
+                body.classList.remove("hidden");
+
+                toggle.setAttribute("aria-expanded", "true");
+
+                toggle.querySelector(
+                    ".record-toggle-mark"
+                ).textContent = "▲ 閉じる";
+
+            }
+            else {
+
+                body.classList.add("hidden");
+
+                toggle.setAttribute("aria-expanded", "false");
+
+                toggle.querySelector(
+                    ".record-toggle-mark"
+                ).textContent = "▼ 開く";
+
+            }
 
         }
     );
 
 
-    /* ------------------------------------------
-       写真がある場合だけ追加
-    ------------------------------------------ */
+    item.appendChild(toggle);
 
-    if (
-        imageUrls.length > 0
-    ) {
+    item.appendChild(body);
 
-        card.appendChild(
-            gallery
-        );
+
+    /* 一番新しい活動だけ最初から開いておく */
+
+    if (index === 0) {
+
+        toggle.click();
 
     }
 
 
-    container.appendChild(
-        card
-    );
+    return item;
 
 }
 
-
-/* ==================================================
-   日付表示
-================================================== */
-
-function formatDate(
-    value
-) {
-
-    if (!value) {
-
-        return "";
-
-    }
-
-
-    const parts =
-        String(
-            value
-        ).split("-");
-
-
-    if (
-        parts.length !== 3
-    ) {
-
-        return String(
-            value
-        );
-
-    }
-
-
-    return (
-        Number(parts[0]) +
-        "年" +
-        Number(parts[1]) +
-        "月" +
-        Number(parts[2]) +
-        "日"
-    );
-
-}
-
-
-/* ==================================================
-   実行
-================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
-    () => {
+    async () => {
+
+        /*
+         * 会員区分を確定させてから描画する。
+         * 先に描いてしまうと、
+         * 一瞬だけ写真が見えることがある。
+         */
+
+        await window.IwaseIdentity.load();
 
         loadActivities();
 
@@ -1063,6 +573,7 @@ document.addEventListener(
 );
 
 </script>
+
 
 <script src="../common/pwa.js"></script>
 

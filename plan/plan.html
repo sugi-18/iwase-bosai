@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    岩瀬地区防災計画 | 岩瀬自治会 防災
+</title>
+
+<meta
+    name="description"
+    content="岩瀬地区の地区防災計画を確認できます。"
+>
+
+<link
+    rel="stylesheet"
+    href="../style.css"
+>
+
+<link
+    rel="stylesheet"
+    href="../common/community.css"
+>
+
+<script src="../common/appearance.js"></script>
+
+</head>
+
+
+<body>
+
+
+<div class="title-area">
+
+    <div class="title-main">
+
+        <img
+            src="../images/bosai-iwapon.png"
+            class="character"
+            alt="防災キャラクター"
+        >
+
+        <h1>
+            📘 岩瀬地区防災計画
+        </h1>
+
+    </div>
+
+    <p>
+        岩瀬自治会が作成した防災計画を確認できます
+    </p>
+
+</div>
+
+
+<main class="tool-page">
+
+
+    <!-- ==================================================
+         地区防災計画とは
+    ================================================== -->
+
+    <div class="tool-card">
+
+        <h2>
+            地区防災計画とは
+        </h2>
+
+        <p>
+            地域に住む人たちが自分たちで作り、運用していく計画です。<br>
+            災害発生時にどのような方針で避難や防災活動を実施していくのかなどを、岩瀬自治会の実情に合わせて決めています。
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         計画本文（画像）
+    ================================================== -->
+
+    <div class="tool-card">
+
+        <h2>
+            計画の内容
+        </h2>
+
+        <div id="planImages">
+
+            <div class="tool-loading">
+                読み込み中...
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         関連資料
+    ================================================== -->
+
+    <div class="tool-card">
+
+        <h2>
+            関連資料
+        </h2>
+
+        <div id="planDocuments">
+
+            <div class="tool-loading">
+                読み込み中...
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <a
+        href="../index.html"
+        class="back-button"
+    >
+        🏠 トップページへ戻る
+    </a>
+
+
+</main>
+
+
+<!-- ==================================================
+     Supabase
+================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="../stamp/supabase.js"></script>
+
+<script src="../common/iwase-identity.js"></script>
+
+<script src="../common/community.js"></script>
+
+
+<script>
+
+"use strict";
+
+
+/* ==================================================
+   計画の画像
+
+   site_contents の content_type = 'district_plan' に
+   最大3枚まで登録できる。
+   管理者画面から差し替える。
+================================================== */
+
+async function loadPlanImages() {
+
+    const container =
+        document.getElementById("planImages");
+
+    if (!container) {
+        return;
+    }
+
+
+    try {
+
+        const { data, error } =
+            await supabaseClient
+                .from("site_contents")
+                .select("image1_url, image2_url, image3_url")
+                .eq("content_type", "district_plan")
+                .maybeSingle();
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        const urls = [
+            data?.image1_url,
+            data?.image2_url,
+            data?.image3_url
+        ].filter(
+            url => url && String(url).trim() !== ""
+        );
+
+
+        if (urls.length === 0) {
+
+            container.innerHTML = `
+                <div class="tool-empty">
+                    計画はまだ掲載されていません。
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML = "";
+
+
+        urls.forEach(
+            (url, index) => {
+
+                const img = document.createElement("img");
+
+                img.className = "plan-image";
+
+                img.src = String(url).trim();
+
+                img.alt = "岩瀬地区防災計画 " + (index + 1);
+
+                img.loading = "lazy";
+
+                img.addEventListener(
+                    "error",
+                    () => {
+                        img.style.display = "none";
+                    }
+                );
+
+                container.appendChild(img);
+
+            }
+        );
+
+
+    }
+    catch (error) {
+
+        console.error("地区防災計画の取得エラー:", error);
+
+        container.innerHTML = `
+            <div class="tool-error">
+                計画を読み込めませんでした。<br>
+                しばらく時間をおいて再度お試しください。
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* ==================================================
+   関連資料
+
+   custom_contents の category = 'district_plan'
+================================================== */
+
+async function loadPlanDocuments() {
+
+    const container =
+        document.getElementById("planDocuments");
+
+    if (!container) {
+        return;
+    }
+
+
+    try {
+
+        const { data, error } =
+            await supabaseClient
+                .from("custom_contents")
+                .select("id, title, description, url, icon")
+                .eq("category", "district_plan")
+                .eq("is_published", true)
+                .order("display_order", { ascending: true })
+                .order("created_at", { ascending: true });
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        if (!data || data.length === 0) {
+
+            container.innerHTML = `
+                <div class="tool-empty">
+                    関連資料はまだ登録されていません。
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        const escape = window.IwaseCommunity.escapeHtml;
+
+
+        container.innerHTML =
+            data.map(
+                item => `
+                    <a
+                        class="link-button"
+                        href="${escape(item.url || "#")}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        ${escape(item.icon || "📄")}
+                        ${escape(item.title)}
+                    </a>
+                    ${
+                        item.description
+                            ? `<p style="
+                                    margin:-6px 0 16px;
+                                    color:#666;
+                                    font-size:14px;
+                                    line-height:1.7;
+                               ">${escape(item.description)}</p>`
+                            : ""
+                    }
+                `
+            ).join("");
+
+
+    }
+    catch (error) {
+
+        console.error("関連資料の取得エラー:", error);
+
+        container.innerHTML = `
+            <div class="tool-error">
+                関連資料を読み込めませんでした。
+            </div>
+        `;
+
+    }
+
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async () => {
+
+        /*
+         * 会員向けの機能。
+         * 会員以外には案内を出して終わる。
+         */
+
+        await window.IwaseIdentity.load();
+
+        if (!window.IwaseCommunity.requireMember()) {
+
+            return;
+
+        }
+
+
+        loadPlanImages();
+
+        loadPlanDocuments();
+
+    }
+);
+
+</script>
+
+
+<script src="../common/pwa.js"></script>
+
+</body>
+
+</html>

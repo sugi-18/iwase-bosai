@@ -36,6 +36,11 @@ function diagnose(){
     let advice = [];
 
 
+    // 保存用の回答内容
+
+    let answers = [];
+
+
     checks.forEach(check => {
 
         let category =
@@ -43,6 +48,23 @@ function diagnose(){
 
 
         totals[category]++;
+
+
+        answers.push({
+
+            key:
+                check.dataset.key || check.dataset.text,
+
+            category:
+                category,
+
+            text:
+                check.dataset.text,
+
+            checked:
+                check.checked === true
+
+        });
 
 
         if(check.checked){
@@ -236,6 +258,137 @@ function diagnose(){
 
     });
 
+
+    // =========================
+    // 結果を保存
+    //
+    // 自治会側で集計するために送る。
+    // 通信できなくても診断結果は
+    // 画面に出たままにする。
+    // =========================
+
+    saveResult(
+        totalScore,
+        categoryScore,
+        answers
+    );
+
+}
+
+
+// =========================
+// 診断結果の保存
+//
+// 同じ人が何度実施しても記録は残す。
+// 集計側で最新の1件だけを使う。
+// =========================
+
+async function saveResult(
+    totalScore,
+    categoryScore,
+    answers
+){
+
+    const status =
+        document.getElementById("saveStatus");
+
+
+    if(status){
+
+        status.className = "save-status";
+
+        status.textContent =
+            "回答内容を保存しています...";
+
+    }
+
+
+    try{
+
+        if(
+            !window.supabaseClient ||
+            !window.IwaseCommunity
+        ){
+
+            throw new Error(
+                "保存の準備ができていません。"
+            );
+
+        }
+
+
+        await window.IwaseIdentity.load();
+
+
+        const user =
+            window.IwaseCommunity.currentUser();
+
+
+        const { error } =
+            await window.supabaseClient.rpc(
+                "submit_checklist_result",
+                {
+                    p_participant_id:
+                        (user && user.id) ? user.id : null,
+
+                    p_name:
+                        (user && user.name) ? user.name : null,
+
+                    p_member_type:
+                        window.IwaseCommunity.memberType(),
+
+                    p_client_key:
+                        window.IwaseCommunity.clientKey(),
+
+                    p_total_score:
+                        totalScore,
+
+                    p_scores:
+                        categoryScore,
+
+                    p_answers:
+                        answers
+                }
+            );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        if(status){
+
+            status.className = "save-status ok";
+
+            status.textContent =
+                "回答内容を保存しました";
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "診断結果の保存エラー:",
+            error
+        );
+
+
+        if(status){
+
+            status.className = "save-status ng";
+
+            status.textContent =
+                "回答内容を保存できませんでした。" +
+                "通信状態をご確認ください。";
+
+        }
+
+    }
+
 }
 
 
@@ -399,6 +552,35 @@ async function savePDF(){
 
         pdfButton.style.display =
             "none";
+
+    }
+
+
+    /*
+     * 保存状態の表示はPDFに残さない。
+     *
+     * 「回答内容を保存しました」は画面上の案内であって、
+     * 印刷して手元に置く内容ではないため。
+     */
+
+    const statusLine =
+        document.getElementById("saveStatus");
+
+
+    const restoreLine =
+        document.getElementById("restoreNotice");
+
+
+    if(statusLine){
+
+        statusLine.style.display = "none";
+
+    }
+
+
+    if(restoreLine){
+
+        restoreLine.style.display = "none";
 
     }
 
@@ -583,6 +765,172 @@ async function savePDF(){
 
         }
 
+
+        if(statusLine){
+
+            statusLine.style.display = "";
+
+        }
+
+
+        if(restoreLine && restoreLine.textContent.trim() !== ""){
+
+            restoreLine.style.display = "block";
+
+        }
+
     }
 
 }
+
+
+// =========================
+// 前回の回答を復元
+//
+// 2回目以降に開いたときは、
+// 前回の選択状態を出しておく。
+//
+// 毎回すべて付け直すのは負担が大きい。
+// 変わったところだけ直せるようにする。
+// =========================
+
+async function restorePreviousAnswers(){
+
+    const notice =
+        document.getElementById("restoreNotice");
+
+
+    try{
+
+        if(
+            !window.supabaseClient ||
+            !window.IwaseCommunity
+        ){
+
+            return;
+
+        }
+
+
+        await window.IwaseIdentity.load();
+
+
+        const user =
+            window.IwaseCommunity.currentUser();
+
+
+        const { data, error } =
+            await window.supabaseClient.rpc(
+                "get_my_checklist_result",
+                {
+                    p_participant_id:
+                        (user && user.id) ? user.id : null,
+
+                    p_client_key:
+                        window.IwaseCommunity.clientKey()
+                }
+            );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        if(!data || !data.answers){
+
+            return;
+
+        }
+
+
+        // 前回の回答を key で引けるようにする
+
+        const previous = {};
+
+
+        (Array.isArray(data.answers) ? data.answers : [])
+            .forEach(answer => {
+
+                const key =
+                    answer.key || answer.text;
+
+
+                if(key){
+
+                    previous[key] =
+                        answer.checked === true;
+
+                }
+
+            });
+
+
+        const checks =
+            document.querySelectorAll(
+                'input[type="checkbox"]'
+            );
+
+
+        let restored = 0;
+
+
+        checks.forEach(check => {
+
+            const key =
+                check.dataset.key || check.dataset.text;
+
+
+            if(previous[key] === true){
+
+                check.checked = true;
+
+                restored++;
+
+            }
+
+        });
+
+
+        if(notice){
+
+            notice.style.display = "block";
+
+            notice.textContent =
+                "前回（" +
+                window.IwaseCommunity.formatDateTime(
+                    data.created_at
+                ) +
+                "）の回答を表示しています。変わったところを直して、もう一度診断してください。";
+
+        }
+
+
+        console.log(
+            "前回の回答を復元しました:",
+            restored + "件"
+        );
+
+    }
+    catch(error){
+
+        console.warn(
+            "前回の回答を復元できませんでした:",
+            error
+        );
+
+    }
+
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        restorePreviousAnswers();
+
+    }
+);
