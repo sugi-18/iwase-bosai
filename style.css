@@ -1362,3 +1362,382 @@ body.announcement-modal-open {
     text-align:center;
 
 }
+
+/* =========================================
+   ホーム画面（タイル配置）
+
+   機能が増えて縦に長くなり、
+   一番下のものが見つけられなくなっていた。
+
+   1画面で全部見えることを優先し、
+   2列のタイルに変えている。
+========================================= */
+
+/*
+ * 白い枠に影を付けていたが、
+ * カードやボタンと同じ見た目になり
+ * 「押せるもの」と誤解されやすかった。
+ *
+ * 背景も枠も付けず、
+ * 見出しであることが分かる形にする。
+ */
+
+.home-header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    width:100%;
+
+    max-width:600px;
+
+    margin:0 auto 18px;
+
+    padding:4px 4px 14px;
+
+    background:transparent;
+
+    border:none;
+
+    border-bottom:1px solid #dfe5ec;
+
+    box-shadow:none;
+
+    box-sizing:border-box;
+
+    text-align:left;
+
+}
+
+.home-character{
+
+    width:52px;
+
+    height:auto;
+
+    flex-shrink:0;
+
+}
+
+.home-header-text{
+
+    flex:1;
+
+    min-width:0;
+
+}
+
+/*
+ * タイトルは画面の幅いっぱいまで使う。
+ *
+ * clamp() で、狭い端末では22px、
+ * 広い端末では30pxまで自動で大きくなる。
+ * 折り返さずに収めるための書き方。
+ */
+
+.home-header-text h1{
+
+    margin:0 0 4px;
+
+    font-size:clamp(22px, 6.4vw, 30px);
+
+    line-height:1.25;
+
+    letter-spacing:-0.01em;
+
+    white-space:nowrap;
+
+    color:#1f4e79;
+
+}
+
+.home-header-text p{
+
+    margin:0;
+
+    font-size:13px;
+
+    line-height:1.6;
+
+    color:#666666;
+
+}
+
+
+/* -----------------------------------------
+   タイル
+----------------------------------------- */
+
+.tile-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:14px;
+
+    width:100%;
+
+    max-width:600px;
+
+    margin:0 auto 20px;
+
+}
+
+.tile{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:flex-start;
+
+    gap:6px;
+
+    min-height:132px;
+
+    padding:18px 10px;
+
+    background:#ffffff;
+
+    border:1px solid #e3e8ee;
+
+    border-radius:14px;
+
+    box-shadow:0 3px 10px rgba(0,0,0,0.10);
+
+    text-decoration:none;
+
+    color:#1f4e79;
+
+    transition:background 0.2s ease;
+
+}
+
+.tile:hover,
+.tile:active{
+
+    background:#eaf3fa;
+
+}
+
+.tile-icon{
+
+    font-size:34px;
+
+    line-height:1.1;
+
+}
+
+.tile-label{
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    line-height:1.4;
+
+    text-align:center;
+
+}
+
+.tile-sub{
+
+    font-size:12px;
+
+    line-height:1.5;
+
+    color:#777777;
+
+    text-align:center;
+
+}
+
+
+/* -----------------------------------------
+   災害時パネル
+
+   警報が出ている間だけ表示する。
+----------------------------------------- */
+
+.emergency-panel{
+
+    width:100%;
+
+    max-width:600px;
+
+    margin:0 auto 20px;
+
+    padding:16px;
+
+    background:#fff5f5;
+
+    border:2px solid #c2402d;
+
+    border-radius:14px;
+
+    box-sizing:border-box;
+
+}
+
+.emergency-panel h2{
+
+    margin:0 0 12px;
+
+    font-size:19px;
+
+    line-height:1.4;
+
+    color:#a3271a;
+
+    text-align:center;
+
+}
+
+.emergency-tiles{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:10px;
+
+}
+
+.emergency-tile{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:6px;
+
+    padding:14px 6px;
+
+    background:#ffffff;
+
+    border:1px solid #f0c4bc;
+
+    border-radius:10px;
+
+    text-decoration:none;
+
+    color:#a3271a;
+
+}
+
+.emergency-tile:hover,
+.emergency-tile:active{
+
+    background:#ffecea;
+
+}
+
+.emergency-tile .tile-icon{
+
+    font-size:28px;
+
+}
+
+.emergency-tile .tile-label{
+
+    font-size:14px;
+
+}
+
+
+/* -----------------------------------------
+   画面の狭い端末
+----------------------------------------- */
+
+@media (max-width:360px){
+
+    .tile{
+
+        min-height:120px;
+
+        padding:14px 8px;
+
+    }
+
+    .tile-label{
+
+        font-size:15px;
+
+    }
+
+    .tile-sub{
+
+        display:none;
+
+    }
+
+}
+
+
+/* =========================================
+   設定ボタン
+
+   タイルは2列だが、ここだけ横一列にして
+   全体の収まりをよくしている。
+   使う頻度が高いものではないので、
+   高さは低めにしている。
+========================================= */
+
+.settings-bar{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    width:100%;
+
+    max-width:600px;
+
+    margin:0 auto 20px;
+
+    padding:14px 16px;
+
+    background:#ffffff;
+
+    border:1px solid #e3e8ee;
+
+    border-radius:14px;
+
+    box-shadow:0 3px 10px rgba(0,0,0,0.10);
+
+    box-sizing:border-box;
+
+    color:#546e7a;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    text-decoration:none;
+
+}
+
+.settings-bar:hover,
+.settings-bar:active{
+
+    background:#f2f7fb;
+
+}
+
+.settings-bar .tile-icon{
+
+    font-size:22px;
+
+}

@@ -25,7 +25,7 @@
    古いキャッシュは activate で削除される。
 ================================================== */
 
-const SW_VERSION = "2026-09-08-04";
+const SW_VERSION = "2026-09-09-04";
 
 const PRECACHE_NAME = "iwase-precache-" + SW_VERSION;
 
@@ -76,6 +76,7 @@ const PRECACHE_PATHS = [
     "./common/appearance.js",
     "./common/community.js",
     "./common/community.css",
+    "./common/tracking.js",
 
     "./images/bosai-iwapon.png",
     "./images/iwase-logo.png",
@@ -87,6 +88,9 @@ const PRECACHE_PATHS = [
     "./earthquake-timeline/",
     "./timeline/",
 
+    "./prepare/prepare.html",
+    "./training/training.html",
+
     "./plan/plan.html",
 
     "./tools/tools.html",
@@ -96,6 +100,9 @@ const PRECACHE_PATHS = [
     "./tools/board.js",
 
     "./settings/settings.html",
+
+    "./stamp/scan.html",
+    "./stamp/scan.js",
 
     "./checklist/",
     "./checklist/style.css",

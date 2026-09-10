@@ -873,72 +873,40 @@ async function registerParticipation(
 
     // ==================================================
     // 利用者情報取得
-    // stamp.jsと同じlocalStorage
+    //
+    // 以前は localStorage だけを見ていた。
+    //
+    // それだと次の場合に読み取れず、
+    // 「先にスタンプカード登録をしてください」と
+    // 出て止まっていた。
+    //
+    //   ・iPhoneの標準QRリーダーで読み取ると、
+    //     ホーム画面のアプリではなくSafariで開く。
+    //     iOSではこの2つは別々の保存領域を使う。
+    //
+    //   ・プライベートブラウズでは
+    //     localStorage が残らない。
+    //
+    //   ・iOSは7日間使わないと
+    //     保存内容を消すことがある。
+    //
+    // まず IwaseIdentity で
+    // localStorage・Cookie・IndexedDBの
+    // 3か所から復元を試みる。
+    //
+    // それでも見つからない場合は、
+    // 行き止まりにせずログイン画面へ送る。
+    // 氏名と暗証番号を入れれば、
+    // この訓練の登録画面へ戻ってくる。
     // ==================================================
 
-    const saved =
-        localStorage.getItem(
-            STORAGE_KEY
-        );
+    const participant =
+        await resolveTrainingParticipant();
 
 
-    if (!saved) {
+    if (!participant) {
 
-        alert(
-            "先にスタンプカード登録をしてください。"
-        );
-
-        return;
-
-    }
-
-
-    let participant;
-
-
-    try {
-
-        participant =
-            JSON.parse(
-                saved
-            );
-
-    } catch (error) {
-
-        console.error(
-            "利用者情報解析エラー:",
-            error
-        );
-
-        alert(
-            "利用者情報を読み込めませんでした。\n\n" +
-            "スタンプカードを再登録してください。"
-        );
-
-        return;
-
-    }
-
-
-    // ==================================================
-    // 利用者情報確認
-    // ==================================================
-
-    if (
-        !participant ||
-        !participant.id ||
-        !participant.name
-    ) {
-
-        console.error(
-            "利用者情報不正:",
-            participant
-        );
-
-        alert(
-            "利用者情報を確認できませんでした。\n\n" +
-            "スタンプカードを再登録してください。"
-        );
+        goToLoginForTraining();
 
         return;
 
@@ -1126,7 +1094,8 @@ async function registerParticipation(
 
 
                 showResult(
-                    "この訓練はすでに参加登録されています。"
+                    "この訓練はすでに参加登録されています。\n\n" +
+                    "スタンプカードへ移動します..."
                 );
 
 
@@ -1136,6 +1105,9 @@ async function registerParticipation(
                         "登録済み";
 
                 }
+
+
+                setTimeout(goToStampCard, 1500);
 
 
                 return;
@@ -1220,7 +1192,8 @@ async function registerParticipation(
 
 
         showResult(
-            "✅ 参加登録が完了しました！"
+            "✅ 参加登録が完了しました！\n\n" +
+            "スタンプカードへ移動します..."
         );
 
 
@@ -1230,6 +1203,9 @@ async function registerParticipation(
                 "登録済み";
 
         }
+
+
+        setTimeout(goToStampCard, 1500);
 
 
         console.log(
@@ -1272,6 +1248,177 @@ async function registerParticipation(
         }
 
     }
+
+}
+
+
+
+
+// ==================================================
+// 利用者情報の復元
+//
+// 3か所から探す。
+// 見つからなければ null を返す。
+// ==================================================
+
+async function resolveTrainingParticipant() {
+
+    // ----- IwaseIdentity（localStorage/Cookie/IndexedDB）-----
+
+    try {
+
+        if (
+            window.IwaseIdentity &&
+            typeof window.IwaseIdentity.load === "function"
+        ) {
+
+            const user =
+                await window.IwaseIdentity.load();
+
+
+            if (user && user.id && user.name) {
+
+                return user;
+
+            }
+
+        }
+
+    }
+    catch (error) {
+
+        console.warn(
+            "利用者情報の復元に失敗:",
+            error
+        );
+
+    }
+
+
+    // ----- 従来のスタンプ情報 -----
+
+    try {
+
+        const saved =
+            localStorage.getItem(STORAGE_KEY);
+
+
+        if (saved) {
+
+            const participant =
+                JSON.parse(saved);
+
+
+            if (
+                participant &&
+                participant.id &&
+                participant.name
+            ) {
+
+                return participant;
+
+            }
+
+        }
+
+    }
+    catch (error) {
+
+        console.warn(
+            "スタンプ情報を読み取れません:",
+            error
+        );
+
+    }
+
+
+    return null;
+
+}
+
+
+// ==================================================
+// ログイン画面へ送る
+//
+// 戻り先を付けておき、
+// ログインが済んだらこの画面へ返す。
+// ==================================================
+
+function goToLoginForTraining() {
+
+    const next =
+        encodeURIComponent(
+            "../stamp/training.html" +
+            window.location.search
+        );
+
+
+    showResult(
+        "この端末では、まだご利用の登録が確認できません。\n\n" +
+        "お名前と暗証番号（4けた）を入力すると、\n" +
+        "この訓練の登録画面に戻ります。"
+    );
+
+
+    const addButton =
+        document.getElementById("add-training");
+
+
+    if (addButton) {
+
+        addButton.disabled = false;
+
+        addButton.textContent =
+            "ログインして登録する";
+
+    }
+
+
+    setTimeout(
+        function () {
+
+            window.location.href =
+                "../login/login.html?next=" + next;
+
+        },
+        1800
+    );
+
+}
+
+
+// ==================================================
+// スタンプカードへ進む
+//
+// 登録が終わったら、押した結果が
+// 見える場所まで連れて行く。
+//
+// stamp.js はURL直打ちを防ぐため
+// sessionStorage を見ているので、
+// ここで印を付けてから移動する。
+// ==================================================
+
+function goToStampCard() {
+
+    try {
+
+        sessionStorage.setItem(
+            "iwaseStampAccess",
+            "1"
+        );
+
+    }
+    catch (error) {
+
+        console.warn(
+            "sessionStorageに書き込めません:",
+            error
+        );
+
+    }
+
+
+    window.location.href = "stamp.html";
 
 }
 

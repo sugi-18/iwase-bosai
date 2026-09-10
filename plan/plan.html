@@ -82,16 +82,22 @@
 
 
     <!-- ==================================================
-         計画本文（画像）
+         計画本文（PDF）
+
+         表紙をタップするとPDFが開く。
+
+         一度開いた端末では、通信が無くても読める。
+         リンク先を開くのではなく、
+         ファイルとして取り込んでいるため。
     ================================================== -->
 
     <div class="tool-card">
 
         <h2>
-            計画の内容
+            計画を読む
         </h2>
 
-        <div id="planImages">
+        <div id="planPdf">
 
             <div class="tool-loading">
                 読み込み中...
@@ -153,17 +159,25 @@
 
 
 /* ==================================================
-   計画の画像
+   計画のPDF
 
    site_contents の content_type = 'district_plan' に
-   最大3枚まで登録できる。
-   管理者画面から差し替える。
+   表紙の画像とPDFを登録する。
+
+   PDFはSupabaseに置いたファイルを読み込む。
+   Service Workerがファイルを保存するため、
+   一度開けば通信が無くても読める。
 ================================================== */
 
-async function loadPlanImages() {
+let planPdfUrl = null;
+
+let planPdfName = "";
+
+
+async function loadPlanPdf() {
 
     const container =
-        document.getElementById("planImages");
+        document.getElementById("planPdf");
 
     if (!container) {
         return;
@@ -175,7 +189,9 @@ async function loadPlanImages() {
         const { data, error } =
             await supabaseClient
                 .from("site_contents")
-                .select("image1_url, image2_url, image3_url")
+                .select(
+                    "image1_url, pdf_url, pdf_name, pdf_updated_at"
+                )
                 .eq("content_type", "district_plan")
                 .maybeSingle();
 
@@ -185,16 +201,15 @@ async function loadPlanImages() {
         }
 
 
-        const urls = [
-            data?.image1_url,
-            data?.image2_url,
-            data?.image3_url
-        ].filter(
-            url => url && String(url).trim() !== ""
-        );
+        const escape = window.IwaseCommunity.escapeHtml;
 
 
-        if (urls.length === 0) {
+        planPdfUrl  = data?.pdf_url || null;
+
+        planPdfName = data?.pdf_name || "岩瀬地区防災計画.pdf";
+
+
+        if (!planPdfUrl) {
 
             container.innerHTML = `
                 <div class="tool-empty">
@@ -207,33 +222,72 @@ async function loadPlanImages() {
         }
 
 
-        container.innerHTML = "";
+        const cover = data?.image1_url;
 
 
-        urls.forEach(
-            (url, index) => {
+        container.innerHTML = `
 
-                const img = document.createElement("img");
-
-                img.className = "plan-image";
-
-                img.src = String(url).trim();
-
-                img.alt = "岩瀬地区防災計画 " + (index + 1);
-
-                img.loading = "lazy";
-
-                img.addEventListener(
-                    "error",
-                    () => {
-                        img.style.display = "none";
-                    }
-                );
-
-                container.appendChild(img);
-
+            ${
+                cover
+                    ? `<img
+                           id="planCover"
+                           class="plan-cover"
+                           src="${escape(cover)}"
+                           alt="岩瀬地区防災計画の表紙"
+                       >`
+                    : `<div id="planCover" class="plan-cover-alt">
+                           📄<br>岩瀬地区防災計画
+                       </div>`
             }
-        );
+
+            <button
+                type="button"
+                id="planOpenButton"
+                class="tool-button"
+            >
+                計画を開く
+            </button>
+
+            <p id="planPdfNote" class="plan-note">
+                ${
+                    data?.pdf_updated_at
+                        ? "更新日：" +
+                          escape(
+                              window.IwaseCommunity.formatDateTime(
+                                  data.pdf_updated_at
+                              )
+                          ) + "<br>"
+                        : ""
+                }
+                一度開いておくと、通信が無いときでも読めます。
+            </p>
+        `;
+
+
+        document
+            .getElementById("planOpenButton")
+            .addEventListener("click", openPlanPdf);
+
+
+        const coverElement =
+            document.getElementById("planCover");
+
+        if (coverElement) {
+
+            coverElement.addEventListener("click", openPlanPdf);
+
+        }
+
+
+        /*
+         * 画面を開いた時点で取り込んでおく。
+         *
+         * 「災害のときに開こうとしたら通信が無い」
+         * という事態を避けたいので、
+         * 平常時のうちに端末へ入れておく。
+         */
+
+        preloadPlanPdf();
 
 
     }
@@ -247,6 +301,144 @@ async function loadPlanImages() {
                 しばらく時間をおいて再度お試しください。
             </div>
         `;
+
+    }
+
+}
+
+
+/* ==================================================
+   先に取り込んでおく
+================================================== */
+
+async function preloadPlanPdf() {
+
+    if (!planPdfUrl) {
+        return;
+    }
+
+
+    try {
+
+        await fetch(planPdfUrl, { mode: "cors" });
+
+        console.log("地区防災計画のPDFを取り込みました。");
+
+    }
+    catch (error) {
+
+        console.warn(
+            "PDFを取り込めませんでした:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ==================================================
+   PDFを開く
+
+   直接リンクを開くと、通信が無いときに
+   何も表示されない。
+   （別のサイトへの移動になるため、
+     アプリが保存したファイルを使えない）
+
+   そこで、いったんファイルとして読み込んでから開く。
+================================================== */
+
+async function openPlanPdf() {
+
+    if (!planPdfUrl) {
+        return;
+    }
+
+
+    const note =
+        document.getElementById("planPdfNote");
+
+
+    if (note) {
+
+        note.textContent = "計画を開いています...";
+
+    }
+
+
+    try {
+
+        const response = await fetch(planPdfUrl);
+
+
+        if (!response.ok) {
+
+            throw new Error("状態コード " + response.status);
+
+        }
+
+
+        const blob = await response.blob();
+
+
+        const objectUrl =
+            URL.createObjectURL(
+                new Blob(
+                    [blob],
+                    { type: "application/pdf" }
+                )
+            );
+
+
+        const opened =
+            window.open(objectUrl, "_blank");
+
+
+        if (!opened) {
+
+            /* 新しい画面を開けない設定のとき */
+
+            location.href = objectUrl;
+
+        }
+
+
+        if (note) {
+
+            note.innerHTML =
+                "別の画面で開きました。<br>" +
+                "戻るときは、この画面に切り替えてください。";
+
+        }
+
+
+        /*
+         * すぐに開放すると表示できない端末があるため、
+         * 少し待ってから片づける。
+         */
+
+        setTimeout(
+            () => {
+                URL.revokeObjectURL(objectUrl);
+            },
+            60000
+        );
+
+
+    }
+    catch (error) {
+
+        console.error("PDFを開けませんでした:", error);
+
+
+        if (note) {
+
+            note.innerHTML =
+                "計画を開けませんでした。<br>" +
+                "通信ができる場所で一度開いておくと、" +
+                "次からは通信が無くても読めます。";
+
+        }
 
     }
 
@@ -362,7 +554,7 @@ document.addEventListener(
         }
 
 
-        loadPlanImages();
+        loadPlanPdf();
 
         loadPlanDocuments();
 
@@ -373,6 +565,8 @@ document.addEventListener(
 
 
 <script src="../common/pwa.js"></script>
+
+<script src="../common/tracking.js"></script>
 
 </body>
 

@@ -134,14 +134,46 @@
        描画
     ================================================== */
 
+    /*
+     * 警報の有無を、他の画面へ知らせる。
+     *
+     * トップページは、これを受けて
+     * 災害時の入口を出し分けている。
+     */
+
+    function announce(rows) {
+
+        try {
+
+            document.dispatchEvent(
+                new CustomEvent(
+                    "iwase:alerts",
+                    { detail: rows || [] }
+                )
+            );
+
+        }
+        catch (error) {
+
+            console.warn("[Alerts] 通知に失敗:", error);
+
+        }
+
+    }
+
+
     function renderNone() {
 
         getContainer().innerHTML = "";
+
+        announce([]);
 
     }
 
 
     function render(rows) {
+
+        announce(rows);
 
         if (!rows || rows.length === 0) {
 

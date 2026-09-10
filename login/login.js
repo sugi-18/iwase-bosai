@@ -81,7 +81,7 @@ async function checkLogin() {
             );
 
             location.href =
-                "../index.html";
+                nextDestination();
 
             return;
 
@@ -96,7 +96,7 @@ async function checkLogin() {
             );
 
             location.href =
-                "../index.html";
+                nextDestination();
 
             return;
 
@@ -146,9 +146,65 @@ async function checkLogin() {
         if (fallback) {
 
             location.href =
-                "../index.html";
+                nextDestination();
 
         }
+
+    }
+
+}
+
+
+// ==================================================
+// ログイン後の移動先
+//
+// QRコードから来た場合など、
+// 元いた画面へ戻したいことがある。
+//
+//   login.html?next=../stamp/training.html?...
+//
+// 外部サイトへ飛ばされないよう、
+// 同じサイトの中だけを許可する。
+// ==================================================
+
+function nextDestination() {
+
+    const fallback = "../index.html";
+
+
+    try {
+
+        const next =
+            new URLSearchParams(location.search).get("next");
+
+
+        if (!next) {
+
+            return fallback;
+
+        }
+
+
+        /* 別のサイトへの誘導を防ぐ */
+
+        if (
+            next.indexOf("//") === 0 ||
+            next.indexOf("://") !== -1
+        ) {
+
+            return fallback;
+
+        }
+
+
+        return next;
+
+    }
+    catch (error) {
+
+        console.warn("移動先の判定に失敗:", error);
+
+        return fallback;
 
     }
 
@@ -461,7 +517,7 @@ async function login(forceNew) {
 
 
         location.href =
-            "../index.html";
+            nextDestination();
 
 
     }
@@ -679,7 +735,7 @@ async function restoreById() {
 
 
         location.href =
-            "../index.html";
+            nextDestination();
 
 
     }

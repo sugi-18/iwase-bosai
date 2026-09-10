@@ -291,7 +291,6 @@
     href="style.css"
 >
 
-
 <!-- ==================================================
      文字の大きさ
 
@@ -368,337 +367,176 @@
 
 <!-- ==================================================
      ヘッダー
+
+     以前はキャラクターとタイトルで画面の3分の1を
+     使っていた。
+     最初の画面に機能が入らなくなっていたため、
+     横並びの小さいヘッダーにしている。
 ================================================== -->
 
-<header class="title-area">
+<header class="home-header">
 
+    <img
+        src="./images/bosai-iwapon.png"
+        class="home-character"
+        alt="防災キャラクター"
+    >
 
-    <div class="title-main">
+    <div class="home-header-text">
 
+        <h1>岩瀬自治会 防災アプリ</h1>
 
-        <img
-            src="./images/bosai-iwapon.png"
-            class="character"
-            alt="防災キャラクター"
-        >
-
-
-        <h1>
-
-            岩瀬自治会<br>
-            防災アプリ
-
-        </h1>
-
+        <p>岩瀬自治会の防災活動を支援するWebアプリ</p>
 
     </div>
 
-
-    <p>
-
-        岩瀬自治会の防災活動を支援するためのWebアプリ
-
-    </p>
-
-
 </header>
 
-
-<!-- ==================================================
-     メイン
-================================================== -->
 
 <main>
 
 
     <!-- ==================================================
-         マイタイムライン作成
+         災害時パネル
 
-         水害と地震で入口を分けていたが、
-         「どちらから作ればよいか分からない」
-         という声があったため1つにまとめ、
-         この先で水害・地震を選ぶ形にした。
+         警報が出ている間だけ表示する。
+
+         いざというときに、必要なものを探して
+         画面をたどらせないための入口。
+         平常時は表示しない。
     ================================================== -->
 
-    <div class="card">
-
+    <section
+        id="emergencyPanel"
+        class="emergency-panel"
+        style="display:none;"
+    >
 
         <h2>
-            📝 マイタイムライン作成
+            ⚠ いま確認すること
         </h2>
 
+        <div class="emergency-tiles">
 
-        <p>
+            <a
+                class="emergency-tile"
+                href="https://www.google.com/maps/d/u/0/viewer?mid=1LzzFPXh2YT1kgTya6REbD_YAigNAh4A&ll=35.784507977461494%2C139.90686938816555&z=15"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <span class="tile-icon">🗺</span>
+                <span class="tile-label">避難場所を見る</span>
+            </a>
 
-            水害・地震それぞれの<br>
-            マイタイムラインを作成
+            <a class="emergency-tile" href="./timeline/">
+                <span class="tile-icon">📝</span>
+                <span class="tile-label">自分の行動を確認</span>
+            </a>
 
-        </p>
+            <a
+                class="emergency-tile member-only"
+                id="emergencyBoardTile"
+                href="./tools/board.html"
+            >
+                <span class="tile-icon">💬</span>
+                <span class="tile-label">被害を知らせる</span>
+            </a>
 
+        </div>
 
-        <a href="./timeline/">
-
-            開始する
-
-        </a>
-
-
-    </div>
+    </section>
 
 
     <!-- ==================================================
-         防災チェックリスト
+         メニュー
+
+         1画面で全部見えることを優先し、
+         2列のタイルにしている。
     ================================================== -->
 
-    <div class="card">
+    <nav class="tile-grid">
 
 
-        <h2>
-            ✅ 防災力診断
-        </h2>
+        <a class="tile" href="./prepare/prepare.html">
 
+            <span class="tile-icon">🧰</span>
 
-        <p>
+            <span class="tile-label">そなえる</span>
 
-            災害への備えを確認し、<br>
-            防災力を診断します
-
-        </p>
-
-
-        <a href="./checklist/">
-
-            診断する
+            <span class="tile-sub">マイタイムライン・防災力診断</span>
 
         </a>
-
-
-    </div>
-
-
-    <!-- ==================================================
-         岩瀬防災マップ
-    ================================================== -->
-
-    <div class="card">
-
-
-        <h2>
-            🗺 岩瀬防災マップ
-        </h2>
-
-
-        <p>
-
-            地域の避難場所や危険箇所、防災関連設備を確認
-
-        </p>
 
 
         <a
+            class="tile"
             href="https://www.google.com/maps/d/u/0/viewer?mid=1LzzFPXh2YT1kgTya6REbD_YAigNAh4A&ll=35.784507977461494%2C139.90686938816555&z=15"
             target="_blank"
             rel="noopener noreferrer"
         >
 
-            地図を見る
+            <span class="tile-icon">🗺</span>
+
+            <span class="tile-label">岩瀬防災マップ</span>
+
+            <span class="tile-sub">避難場所や防災関係設備を確認</span>
 
         </a>
 
 
-    </div>
+        <a
+            class="tile member-only"
+            id="planTile"
+            href="./plan/plan.html"
+        >
 
+            <span class="tile-icon">📘</span>
 
-    <!-- ==================================================
-         岩瀬地区防災計画
+            <span class="tile-label">地区防災計画</span>
 
-         会員向けの機能。
-         会員以外でログインしている場合は隠す。
-    ================================================== -->
-
-    <div class="card member-only" id="planCard">
-
-
-        <h2>
-            📘 岩瀬地区防災計画
-        </h2>
-
-
-        <p>
-
-            岩瀬自治会が作成した防災計画を確認
-
-        </p>
-
-
-        <a href="./plan/plan.html">
-
-            計画を見る
+            <span class="tile-sub">岩瀬自治会の防災計画</span>
 
         </a>
 
 
-    </div>
+        <a class="tile" href="./training/training.html">
 
+            <span class="tile-icon">🚒</span>
 
-    <!-- ==================================================
-         岩瀬自治会ツール
+            <span class="tile-label">訓練・スタンプ</span>
 
-         アンケートと掲示板の入口。
-         こちらも会員向けの機能。
-    ================================================== -->
-
-    <div class="card member-only" id="toolsCard">
-
-
-        <h2>
-            🧰 岩瀬自治会ツール
-        </h2>
-
-
-        <p>
-
-            アンケートへの回答と、<br>
-            自治会掲示板が使えます
-
-        </p>
-
-
-        <a href="./tools/tools.html">
-
-            ツールを開く
+            <span class="tile-sub">次回訓練・年間予定・活動実績</span>
 
         </a>
 
 
-    </div>
+        <a
+            class="tile member-only"
+            id="toolsTile"
+            href="./tools/tools.html"
+        >
 
+            <span class="tile-icon">🧑‍🤝‍🧑</span>
 
-    <!-- ==================================================
-         リンク集
-    ================================================== -->
+            <span class="tile-label">自治会ツール</span>
 
-    <div class="card">
-
-
-        <h2>
-            💻 リンク集
-        </h2>
-
-
-        <p>
-
-            行政情報・岩瀬自治会関連ページ
-
-        </p>
-
-
-        <a href="./links.html">
-
-            リンク集を見る
+            <span class="tile-sub">アンケート・掲示板</span>
 
         </a>
 
 
-    </div>
+        <a class="tile" href="./links.html">
+
+            <span class="tile-icon">💻</span>
+
+            <span class="tile-label">リンク集</span>
+
+            <span class="tile-sub">市の情報・気象情報</span>
+
+        </a>
 
 
-    <!-- ==================================================
-         防災訓練
-    ================================================== -->
-
-    <section class="training-section">
-
-
-        <h2>
-            🚒 岩瀬防災訓練
-        </h2>
-
-
-        <div class="training-menu">
-
-
-            <!-- 次回訓練 -->
-
-            <a
-                href="./next-training/next-training.html"
-                class="training-card"
-            >
-
-                <h3>
-                    📅 次回訓練
-                </h3>
-
-
-                <p>
-                    次回防災訓練のお知らせ
-                </p>
-
-            </a>
-
-
-            <!-- 年間計画 -->
-
-            <a
-                href="./annual_schedule/annual_schedule.html"
-                class="training-card"
-            >
-
-                <h3>
-                    🗓 年間計画
-                </h3>
-
-
-                <p>
-                    年間の防災活動予定
-                </p>
-
-            </a>
-
-
-            <!-- 活動実績 -->
-
-            <a
-                href="./record/record.html"
-                class="training-card"
-            >
-
-                <h3>
-                    📷 活動実績
-                </h3>
-
-
-                <p>
-                    過去の訓練内容や写真を確認
-                </p>
-
-            </a>
-
-
-            <!-- 防災マイスター -->
-
-            <a
-                href="./stamp/stamp.html"
-                class="training-card"
-                onclick="sessionStorage.setItem('iwaseStampAccess', '1');"
-            >
-
-                <h3>
-                    ⭐ いわぽん防災マイスター
-                </h3>
-
-
-                <p>
-                    スタンプを集めて防災マイスターを目指しましょう！
-                </p>
-
-            </a>
-
-
-        </div>
-
-
-    </section>
+    </nav>
 
 
     <!-- ==================================================
@@ -714,27 +552,17 @@
         style="display:none;"
     >
 
-
         <h2>
             ℹ 会員向けの機能について
         </h2>
 
-
         <p>
-
-            岩瀬地区防災計画と岩瀬自治会ツールは、<br>
-            岩瀬自治会の会員の方向けの機能です。<br>
-            活動実績は文字のみの表示になります。
-
+            地区防災計画と自治会ツールは、岩瀬自治会の会員の方向けの機能です。活動実績は文字のみの表示になります。
         </p>
 
-
         <a href="./settings/settings.html">
-
             設定を開く
-
         </a>
-
 
     </div>
 
@@ -742,38 +570,18 @@
     <!-- ==================================================
          設定
 
-         通知設定・文字の大きさ・ログアウトは
-         設定ページにまとめた。
-
-         トップページに通知設定を直接置いていたが、
-         項目が増えて縦に長くなったため、
-         一番下の入口から開く形にしている。
+         タイルから外していたが、
+         行き先が分からなくなっていたため
+         ここに横長のボタンとして置く。
     ================================================== -->
 
-    <div class="card settings-card">
+    <a class="settings-bar" href="./settings/settings.html">
 
+        <span class="tile-icon">⚙</span>
 
-        <h2>
-            ⚙ 設定
-        </h2>
+        <span>設定（通知・文字の大きさ・ログアウト）</span>
 
-
-        <p>
-
-            通知設定・文字の大きさ・<br>
-            ログアウト
-
-        </p>
-
-
-        <a href="./settings/settings.html">
-
-            設定を開く
-
-        </a>
-
-
-    </div>
+    </a>
 
 
     <!-- ==================================================
@@ -782,13 +590,11 @@
 
     <section class="logo-area">
 
-
         <img
             src="./images/iwase-logo.png"
             class="logo"
             alt="岩瀬自治会ロゴ"
         >
-
 
     </section>
 
@@ -853,21 +659,13 @@
         }
 
 
-        [
-            "planCard",
-            "toolsCard"
-        ].forEach(function (id) {
+        document
+            .querySelectorAll(".member-only")
+            .forEach(function (element) {
 
-            const card =
-                document.getElementById(id);
+                element.style.display = "none";
 
-            if (card) {
-
-                card.style.display = "none";
-
-            }
-
-        });
+            });
 
 
         /*
@@ -909,10 +707,109 @@
 </script>
 
 
+<!-- ==================================================
+     災害時の表示
+
+     警報が出ている間だけ、
+     トップの一番上に入口を出す。
+
+     平常時は出さない。
+     常に出していると見慣れてしまい、
+     本当に必要なときに目に入らなくなる。
+================================================== -->
+
+<script>
+
+(function () {
+
+    "use strict";
+
+
+    document.addEventListener(
+        "iwase:alerts",
+        function (event) {
+
+            var rows = event.detail || [];
+
+            var panel =
+                document.getElementById("emergencyPanel");
+
+            if (!panel) {
+
+                return;
+
+            }
+
+
+            /*
+             * レベル2以上のときだけ出す。
+             * 注意報まで含めると、
+             * 1年の多くの日で表示されてしまう。
+             */
+
+            var serious =
+                rows.filter(function (row) {
+
+                    return Number(row.level || 0) >= 2;
+
+                });
+
+
+            panel.style.display =
+                serious.length > 0 ? "block" : "none";
+
+
+            /* 会員以外には掲示板を出さない */
+
+            if (serious.length > 0) {
+
+                var user = null;
+
+                try {
+
+                    user = window.IwaseIdentity.read();
+
+                }
+                catch (error) {
+
+                    console.warn("会員区分の判定に失敗:", error);
+
+                }
+
+
+                if (user && user.memberType === "guest") {
+
+                    var tile =
+                        document.getElementById(
+                            "emergencyBoardTile"
+                        );
+
+                    if (tile) {
+
+                        tile.style.display = "none";
+
+                    }
+
+                }
+
+            }
+
+        }
+    );
+
+})();
+
+</script>
+
+
 <script src="./common/pwa.js"></script>
 
 <script src="./common/alerts.js"></script>
 
+
+<script src="./common/community.js"></script>
+
+<script src="./common/tracking.js"></script>
 
 </body>
 

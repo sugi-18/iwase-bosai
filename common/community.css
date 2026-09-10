@@ -974,3 +974,82 @@
     margin-bottom: 0;
 
 }
+
+/* ==================================================
+   地区防災計画の表紙
+
+   押せることが分かるように、
+   枠と影を付けておく。
+================================================== */
+
+.plan-cover {
+
+    display: block;
+
+    width: 100%;
+
+    max-width: 380px;
+
+    height: auto;
+
+    margin: 0 auto 16px;
+
+    border: 1px solid #dddddd;
+
+    border-radius: 8px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+
+    cursor: pointer;
+
+}
+
+
+.plan-cover-alt {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 100%;
+
+    max-width: 380px;
+
+    min-height: 220px;
+
+    margin: 0 auto 16px;
+
+    font-size: 40px;
+
+    line-height: 1.6;
+
+    color: #1f4e79;
+
+    background: #f2f7fb;
+
+    border: 1px solid #dddddd;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+}
+
+
+.plan-note {
+
+    margin: 0;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+
+    color: #777777;
+
+    text-align: center;
+
+}

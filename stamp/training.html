@@ -6,6 +6,62 @@
 
 <meta charset="UTF-8">
 
+<script>
+/* ==================================================
+   置き場所のちがいへの対応
+
+   QRコードは管理者画面で作っている。
+   管理者画面と利用者向けアプリは
+   別のアドレスで公開しているため、
+   QRの行き先が管理者側になることがある。
+
+   その場合、ホーム画面に追加したアプリとは
+   別の場所として扱われ、利用者情報が
+   引き継がれないことがある。
+
+   管理者側で開かれたときは、
+   利用者向けのアドレスへ送り直す。
+   配布済みの古いQRコードもそのまま使える。
+
+   APP_BASE_URL … 利用者が使うアプリのアドレス
+   ADMIN_MARK    … 管理者側のアドレスに含まれる文字
+================================================== */
+
+(function () {
+
+    "use strict";
+
+    var APP_BASE_URL =
+        "https://sugi-18.github.io/iwase-bosai/";
+
+    var ADMIN_MARK = "iwase-bosai.adm";
+
+
+    try {
+
+        if (
+            APP_BASE_URL &&
+            location.href.indexOf(ADMIN_MARK) !== -1
+        ) {
+
+            location.replace(
+                APP_BASE_URL +
+                "stamp/training.html" +
+                location.search
+            );
+
+        }
+
+    }
+    catch (error) {
+
+        console.warn("転送に失敗:", error);
+
+    }
+
+})();
+</script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>
@@ -51,6 +107,26 @@
 </p>
 
 
+<p style="margin-top:18px;font-size:14px;line-height:1.8;color:#666;">
+うまく登録できないときは、お名前と暗証番号（4けた）を入力すると登録できます。<br>
+プライベートブラウズでお使いの場合は、通常の画面で開き直してください。
+</p>
+
+
+<p style="margin-top:12px;">
+<a href="stamp.html" onclick="sessionStorage.setItem('iwaseStampAccess','1');">
+スタンプカードを開く
+</a>
+</p>
+
+
+<p style="margin-top:12px;">
+<a href="../index.html">
+🏠 トップページへ戻る
+</a>
+</p>
+
+
 </section>
 
 </div>
@@ -65,13 +141,29 @@
 
 <script src="supabase.js"></script>
 
+<!-- ========================================
+     利用者情報
+
+     training.js より先に読み込む。
+     QRから来た方の情報を、
+     localStorage・Cookie・IndexedDBの
+     3か所から復元するため。
+======================================== -->
+
+<script src="../common/iwase-identity.js"></script>
+
+<script src="../common/community.js"></script>
+
+
 <!-- 現在の訓練参加登録処理 -->
 
-<script src="training.js?v=20260814"></script>
+<script src="training.js?v=20260909"></script>
 
 <script src="../common/appearance.js"></script>
 
 <script src="../common/pwa.js"></script>
+
+<script src="../common/tracking.js"></script>
 
 </body>
 

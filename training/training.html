@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    訓練・スタンプ | 岩瀬自治会 防災
+</title>
+
+<meta
+    name="description"
+    content="岩瀬自治会の防災訓練の予定・活動実績・スタンプカードを確認できます。"
+>
+
+<link rel="stylesheet" href="../style.css">
+
+<link rel="stylesheet" href="../common/community.css">
+
+<script src="../common/appearance.js"></script>
+
+</head>
+
+
+<body>
+
+
+<header class="home-header">
+
+    <img
+        src="../images/bosai-iwapon.png"
+        class="home-character"
+        alt="防災キャラクター"
+    >
+
+    <div class="home-header-text">
+
+        <h1>🚒 訓練・スタンプ</h1>
+
+        <p>岩瀬自治会の防災訓練に関する情報です</p>
+
+    </div>
+
+</header>
+
+
+<main>
+
+
+    <nav class="tile-grid">
+
+
+        <a class="tile" href="../stamp/scan.html">
+
+            <span class="tile-icon">📷</span>
+
+            <span class="tile-label">QR読み取り</span>
+
+            <span class="tile-sub">訓練の参加登録はこちら</span>
+
+        </a>
+
+
+        <a class="tile" href="../next-training/next-training.html">
+
+            <span class="tile-icon">📅</span>
+
+            <span class="tile-label">次回の訓練</span>
+
+            <span class="tile-sub">日時・場所・内容</span>
+
+        </a>
+
+
+        <a class="tile" href="../annual_schedule/annual_schedule.html">
+
+            <span class="tile-icon">🗓</span>
+
+            <span class="tile-label">年間予定</span>
+
+            <span class="tile-sub">1年間の活動予定</span>
+
+        </a>
+
+
+        <a class="tile" href="../record/record.html">
+
+            <span class="tile-icon">📷</span>
+
+            <span class="tile-label">活動実績</span>
+
+            <span class="tile-sub">これまでの訓練の記録</span>
+
+        </a>
+
+
+        <a
+            class="tile"
+            href="../stamp/stamp.html"
+            onclick="sessionStorage.setItem('iwaseStampAccess', '1');"
+        >
+
+            <span class="tile-icon">🏅</span>
+
+            <span class="tile-label">スタンプカード</span>
+
+            <span class="tile-sub">参加記録・防災マイスター</span>
+
+        </a>
+
+
+    </nav>
+
+
+    <div class="tool-card">
+
+        <h2>
+            防災マイスターについて
+        </h2>
+
+        <p>
+            訓練に5回参加すると防災マイスター、10回参加するといわぽんトップ防災マイスターに認定され、認定証を発行できます。<br>
+            参加の記録は、訓練当日にスタンプカードから登録してください。
+        </p>
+
+    </div>
+
+
+    <a
+        href="../index.html"
+        class="back-button"
+    >
+        🏠 トップページへ戻る
+    </a>
+
+
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="../stamp/supabase.js"></script>
+
+<script src="../common/iwase-identity.js"></script>
+
+<script src="../common/community.js"></script>
+
+<script src="../common/tracking.js"></script>
+
+<script src="../common/pwa.js"></script>
+
+</body>
+
+</html>
