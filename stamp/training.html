@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+
+<title>
+新しいアドレスへ移動しています
+</title>
+
+<script>
+/* ==================================================
+   配布済みQRコードの救済
+
+   訓練のQRコードには、旧アドレスの
+   /stamp/training.html?training_id=... が
+   入っている。
+
+   印刷済み・配布済みのQRコードが
+   使えなくならないよう、
+   ?以降をそのまま付けて新アドレスへ送る。
+
+   ★★ 引っ越し先のアドレスを、ここに書く ★★
+     ・必ず https:// から始める
+     ・必ず最後に / を付ける
+     ・半角でコピペする（全角は不可）
+================================================== */
+
+(function () {
+
+    "use strict";
+
+
+    var NEW_APP_URL = "https://iwase-bosai.vercel.app/";
+
+
+    /* ---------- 古いアプリの後片付け ---------- */
+
+    try {
+
+        if ("serviceWorker" in navigator) {
+
+            navigator.serviceWorker.getRegistrations()
+                .then(function (list) {
+
+                    list.forEach(function (registration) {
+                        registration.unregister();
+                    });
+
+                })
+                .catch(function () {});
+
+        }
+
+    }
+    catch (error) {
+        // 無視
+    }
+
+
+    /* ---------- 送り直し ---------- */
+
+    try {
+
+        location.replace(
+            NEW_APP_URL +
+            "stamp/training.html" +
+            location.search
+        );
+
+    }
+    catch (error) {
+
+        console.warn("転送に失敗:", error);
+
+    }
+
+})();
+</script>
+
+<style>
+
+    body {
+        margin: 0;
+        padding: 60px 20px;
+        background: #fbf1c0;
+        color: #1f4e79;
+        font-family: -apple-system, BlinkMacSystemFont,
+                     "Hiragino Sans", "Yu Gothic", sans-serif;
+        text-align: center;
+        line-height: 1.9;
+    }
+
+    a {
+        color: #1f4e79;
+        word-break: break-all;
+    }
+
+</style>
+
+</head>
+
+<body>
+
+<p>
+新しいアドレスへ移動しています…
+</p>
+
+<p>
+    自動で移動しない場合は、
+    <a href="https://iwase-bosai.vercel.app/">こちら</a>
+    を押してください。
+</p>
+
+</body>
+
+</html>
